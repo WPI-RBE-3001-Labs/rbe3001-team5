@@ -3,7 +3,7 @@ Lab1.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000000a0  00000000  00000000  00000054  2**1
+  0 .text         000000dc  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
 
 Disassembly of section .text:
@@ -48,22 +48,50 @@ Disassembly of section .text:
   82:	d0 e1       	ldi	r29, 0x10	; 16
   84:	de bf       	out	0x3e, r29	; 62
   86:	cd bf       	out	0x3d, r28	; 61
-  88:	0e 94 4a 00 	call	0x94	; 0x94 <main>
-  8c:	0c 94 4e 00 	jmp	0x9c	; 0x9c <_exit>
+  88:	0e 94 68 00 	call	0xd0	; 0xd0 <main>
+  8c:	0c 94 6c 00 	jmp	0xd8	; 0xd8 <_exit>
 
 00000090 <__bad_interrupt>:
   90:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-00000094 <main>:
-  94:	81 e0       	ldi	r24, 0x01	; 1
-  96:	90 e0       	ldi	r25, 0x00	; 0
-  98:	08 95       	ret
+00000094 <debugUSARTInit>:
+  94:	27 2f       	mov	r18, r23
+  96:	38 2f       	mov	r19, r24
+  98:	49 2f       	mov	r20, r25
+  9a:	55 27       	eor	r21, r21
+  9c:	20 93 cd 00 	sts	0x00CD, r18
+  a0:	60 93 cc 00 	sts	0x00CC, r22
+  a4:	88 e1       	ldi	r24, 0x18	; 24
+  a6:	80 93 c9 00 	sts	0x00C9, r24
+  aa:	8e e0       	ldi	r24, 0x0E	; 14
+  ac:	80 93 ca 00 	sts	0x00CA, r24
+  b0:	08 95       	ret
 
-0000009a <part1>:
-  9a:	08 95       	ret
+000000b2 <putCharDebug>:
+  b2:	98 2f       	mov	r25, r24
+  b4:	80 91 c8 00 	lds	r24, 0x00C8
+  b8:	85 ff       	sbrs	r24, 5
+  ba:	fc cf       	rjmp	.-8      	; 0xb4 <putCharDebug+0x2>
+  bc:	90 93 ce 00 	sts	0x00CE, r25
+  c0:	08 95       	ret
 
-0000009c <_exit>:
-  9c:	f8 94       	cli
+000000c2 <getCharDebug>:
+  c2:	80 91 c8 00 	lds	r24, 0x00C8
+  c6:	87 ff       	sbrs	r24, 7
+  c8:	fc cf       	rjmp	.-8      	; 0xc2 <getCharDebug>
+  ca:	80 91 ce 00 	lds	r24, 0x00CE
+  ce:	08 95       	ret
 
-0000009e <__stop_program>:
-  9e:	ff cf       	rjmp	.-2      	; 0x9e <__stop_program>
+000000d0 <main>:
+  d0:	81 e0       	ldi	r24, 0x01	; 1
+  d2:	90 e0       	ldi	r25, 0x00	; 0
+  d4:	08 95       	ret
+
+000000d6 <part1>:
+  d6:	08 95       	ret
+
+000000d8 <_exit>:
+  d8:	f8 94       	cli
+
+000000da <__stop_program>:
+  da:	ff cf       	rjmp	.-2      	; 0xda <__stop_program>

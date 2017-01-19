@@ -18,8 +18,9 @@ Linker script and memory map
 
 Address of section .data set to 0x800100
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm644p.o
+LOAD ./USARTDebug.o
 LOAD ./main.o
-LOAD C:\Users\Matt\git\rbelib\RBELib\Release\libRBELIb.a
+LOAD C:\Users\Matt\git\rbelib1\RBELib\Release\libRBELIb.a
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
@@ -114,7 +115,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000       0xa0
+.text           0x00000000       0xdc
  *(.vectors)
  .vectors       0x00000000       0x7c c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm644p.o
                 0x00000000                __vectors
@@ -197,20 +198,30 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x00000090                __vector_16
                 0x00000090                __vector_18
                 0x00000090                __vector_20
+ .text          0x00000094        0x0 ./USARTDebug.o
  .text          0x00000094        0x0 ./main.o
  .text          0x00000094        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
                 0x00000094                . = ALIGN (0x2)
  *(.text.*)
- .text.main     0x00000094        0x6 ./main.o
-                0x00000094                main
- .text.part1    0x0000009a        0x2 ./main.o
-                0x0000009a                part1
- .text.libgcc   0x0000009c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
-                0x0000009c                . = ALIGN (0x2)
+ .text.debugUSARTInit
+                0x00000094       0x1e ./USARTDebug.o
+                0x00000094                debugUSARTInit
+ .text.putCharDebug
+                0x000000b2       0x10 ./USARTDebug.o
+                0x000000b2                putCharDebug
+ .text.getCharDebug
+                0x000000c2        0xe ./USARTDebug.o
+                0x000000c2                getCharDebug
+ .text.main     0x000000d0        0x6 ./main.o
+                0x000000d0                main
+ .text.part1    0x000000d6        0x2 ./main.o
+                0x000000d6                part1
+ .text.libgcc   0x000000d8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x000000d8                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000009c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
-                0x0000009c                exit
-                0x0000009c                _exit
+ .fini9         0x000000d8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x000000d8                exit
+                0x000000d8                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -229,14 +240,15 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000009c        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .fini0         0x000000d8        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000000a0                _etext = .
+                0x000000dc                _etext = .
 
-.data           0x00800100        0x0 load address 0x000000a0
+.data           0x00800100        0x0 load address 0x000000dc
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm644p.o
+ .data          0x00800100        0x0 ./USARTDebug.o
  .data          0x00800100        0x0 ./main.o
  .data          0x00800100        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.data*)
@@ -251,13 +263,14 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x00800100                PROVIDE (__bss_start, .)
  *(.bss)
  .bss           0x00800100        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm644p.o
+ .bss           0x00800100        0x0 ./USARTDebug.o
  .bss           0x00800100        0x0 ./main.o
  .bss           0x00800100        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.bss*)
  *(COMMON)
                 0x00800100                PROVIDE (__bss_end, .)
-                0x000000a0                __data_load_start = LOADADDR (.data)
-                0x000000a0                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000000dc                __data_load_start = LOADADDR (.data)
+                0x000000dc                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800100        0x0
                 0x00800100                PROVIDE (__noinit_start, .)
