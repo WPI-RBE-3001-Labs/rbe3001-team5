@@ -18,3 +18,8 @@ int main(){
 void part1(){
 
 }
+
+//This does the second part of the lab
+void part2(){
+
+}
