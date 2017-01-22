@@ -15,8 +15,18 @@
  * (as appropriate).
  */
 void initTimer(int timer, int mode, unsigned int comp){
+	if(!timer){
+		//timer 0 - 8 bit
 
+	}else if(timer == 1){
+		//timer 1 - 16 bit
 
+	}else if(timer == 2){
+		//timer 2 - 8 bit
+
+	}else{
+		//error
+	}
 }
 
 /**

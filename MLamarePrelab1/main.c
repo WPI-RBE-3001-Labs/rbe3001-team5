@@ -48,10 +48,11 @@ void part6(){
 }
 
 //This does the third code part of the Pre-lab
-void part7(){
-	unsigned char state = 0;
-	DDRBbits._P4 = OUTPUT;
+unsigned char state = 0; //accessed in ISR so must be a global
 
+void part7(){
+	DDRBbits._P4 = OUTPUT;
+	initTimer(0, 0, 1024);
 	while(1){
 		switch(state){
 		case 0:
@@ -66,6 +67,14 @@ void part7(){
 	}
 }
 
+//My ISR for part 7:
+ISR (TIMER0_OVF_vect){
+	if(!state){
+		state = 1;
+	}else{
+		state = 0;
+	}
+}
 void WDT_off(){
 	__disable_interrupt();
 	__watchdog_reset();
