@@ -32,7 +32,17 @@ into Matlab (hint: csv file) – you will use this code again in later labs.
  *
  */
 void part1(){
+	//Setup ADC
 
+	//Setup Serial Transmission
+
+	unsigned int potValue;
+	while(1){
+		//Read ADC, store as potValue
+
+		//Send potValue over serial
+
+	}
 }
 
 //This does the second part of the lab
@@ -47,9 +57,55 @@ c. Prints the duty cycle, frequency, state, and pot value to the serial port
 port data for each frequency at 25% and 70% duty cycles. Be sure to save and label the collected data
 files.
  */
+unsigned char waveToggle;
+unsigned int numTicks;
 void part2(){
+	unsigned int switchHightoLow;
+	unsigned int switchLowtoHigh;
+	//setup timer to a fixed 100 Hz frequency:
 
+	//setup buttons:
+	unsigned char buttonState;
+
+	//setup ADC
+	unsigned int potVal;
+
+	while(1){
+		switch(waveToggle){
+		case 0:
+			//output High
+
+			break;
+		default:
+			//output Low
+
+			break;
+		}
+		//read buttons
+
+		//Update frequency
+
+		//read pot
+
+		//update high and low count to reflect period of high and low and frequency
+	}
 }
+
+//ISR for part 2, just toggles waveTogglfor whether high or low
+//first it will incrimate the number of ticks, then see if enough have passed to toggle
+/*ISR(find the correct vector){
+ *	numTicks++;
+ *	if(numTicks >= highcount && waveToggle){
+ *		//set to low
+ *		waveToggle == 0;
+ *	}
+ *	if(numTick >= lowCount && !waveToggle){
+ *		//set to high
+ *		waveToggle == 1;
+ *	}
+ *}
+ */
+
 
 /*
  * 5. Set up the signal generator at your lab workstation to output a 0‐5V waveform (be sure to have a
