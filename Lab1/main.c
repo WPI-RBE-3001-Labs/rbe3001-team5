@@ -91,9 +91,10 @@ void part2(){
 	}
 }
 
+//COMMENT THIS OUT WHEN DOING THE NEXT PART
 //ISR for part 2, just toggles waveTogglfor whether high or low
 //first it will incrimate the number of ticks, then see if enough have passed to toggle
-/*ISR(find the correct vector){
+/*ISR(find the correct vector then un-comment){
  *	numTicks++;
  *	if(numTicks >= highcount && waveToggle){
  *		//set to low
@@ -122,9 +123,37 @@ output on the oscilloscope for each waveform and collect serial data from the AV
 for each waveform.
  *
  */
+unsigned char shouldSample;
+unsigned char IsbuttonPressed;
+unsigned char sampleCount = 225;
 void part3(){
+	unsigned int ADCVal;
+	//setup ADC
 
+	//setup serial transmission
+
+	while(1){
+		if(shouldSample){
+			//read ADC
+
+			//output to Serial
+		}
+	}
 }
+
+//COMMENT THIS OUT WHEN DOING THE SECOND PART
+//ISR for part 3
+/*
+ * ISR(vector){
+ * 		if(IsButtonPressed && samplecount > 0 && samplecount < 226){
+ * 			shouldSample = 1;
+ * 			samplecount--;
+ * 		} else {
+ * 			shouldSample = 0;
+ * 			samplecount == 0;
+ * 		}
+ * }
+ */
 
 void WDT_off(){
 	__disable_interrupt();
