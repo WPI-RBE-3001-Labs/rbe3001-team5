@@ -34,8 +34,9 @@ void initADC(int channel){
  * calculation register and disconnect the input to the ADC if desired.
  */
 void clearADC(int channel){
-
-
+	//clear ADC register
+	ADCSRA &= 0x00;
+	//disconnect input
 }
 
 /**
@@ -51,7 +52,15 @@ void clearADC(int channel){
  * last calculation if you are using polling.
  */
 unsigned short getADC(int channel){
-	unsigned short ADCVal = ADCH;
+	unsigned short ADCVal = 0;
+	//start conversion
+	ADCSRB |= ADTS2;
+	//wait for conversion:
+	while(!ADCH){
+		__no_opperation();
+	}
+	//get it in there
+	ADCVal = ADCH;
 	return ADCVal;
 }
 
