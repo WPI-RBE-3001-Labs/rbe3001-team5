@@ -59,9 +59,9 @@ files.
  */
 unsigned char waveToggle;
 unsigned int numTicks;
+unsigned int switchHightoLow;
+unsigned int switchLowtoHigh;
 void part2(){
-	unsigned int switchHightoLow;
-	unsigned int switchLowtoHigh;
 	//setup timer to a fixed 100 Hz frequency:
 
 	//setup buttons:
@@ -94,18 +94,17 @@ void part2(){
 //COMMENT THIS OUT WHEN DOING THE NEXT PART
 //ISR for part 2, just toggles waveTogglfor whether high or low
 //first it will incrimate the number of ticks, then see if enough have passed to toggle
-/*ISR(find the correct vector then un-comment){
- *	numTicks++;
- *	if(numTicks >= highcount && waveToggle){
- *		//set to low
- *		waveToggle == 0;
- *	}
- *	if(numTick >= lowCount && !waveToggle){
- *		//set to high
- *		waveToggle == 1;
- *	}
- *}
- */
+ISR(TIMER0_OVF_vect){
+ 	numTicks++;
+	if(numTicks >= switchHightoLow && waveToggle){
+		//set to low
+		waveToggle = 0;
+	}
+	if(numTicks >= switchLowtoHigh && !waveToggle){
+		//set to high
+		waveToggle = 1;
+	}
+}
 
 
 /*
@@ -144,7 +143,7 @@ void part3(){
 //COMMENT THIS OUT WHEN DOING THE SECOND PART
 //ISR for part 3
 /*
- * ISR(vector){
+ * ISR(TIMER0_OVF_vect){
  * 		if(IsButtonPressed && samplecount > 0 && samplecount < 226){
  * 			shouldSample = 1;
  * 			samplecount--;
