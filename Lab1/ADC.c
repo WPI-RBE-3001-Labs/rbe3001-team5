@@ -18,7 +18,10 @@
  * using the channel parameter.
  */
 void initADC(int channel){
-
+	//set channel
+	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
+	//set ref voltage
+	ADMUX |= (1 << REFS0);
 
 }
 
@@ -48,7 +51,8 @@ void clearADC(int channel){
  * last calculation if you are using polling.
  */
 unsigned short getADC(int channel){
-	return 0;
+	unsigned short ADCVal = ADCH;
+	return ADCVal;
 }
 
 /**
