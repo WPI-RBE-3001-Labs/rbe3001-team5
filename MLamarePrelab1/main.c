@@ -53,17 +53,17 @@ void part6(){
 unsigned char state = 0; //accessed in ISR so must be a global
 
 void part7(){
-	DDRBbits._P4 = OUTPUT;
+	DDRBbits._P7 = OUTPUT;
 	initTimer(0, 0, 1024);
 	while(1){
 		switch(state){
 		case 0:
 			//the is the off case
-			PINBbits._P4 = 0;
+			PINBbits._P7 = 0;
 			break;
 		case 1:
 			//this is the on case
-			PINBbits._P4 = 1;
+			PINBbits._P7 = 1;
 			break;
 		}
 	}
