@@ -57,7 +57,7 @@ unsigned short getADC(int channel){
 	ADCSRB |= ADTS2;
 	//wait for conversion:
 	while(!ADCH){
-		__no_opperation();
+
 	}
 	//get it in there
 	ADCVal = ADCH;
