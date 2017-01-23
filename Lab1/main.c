@@ -1,8 +1,7 @@
 /*
  * main.c
- *
+ *	Group 5 Lab 1
  *  Created on: Jan 17, 2017
- *      Author: Matt
  */
 #include "RBELib/RBELib.h"
 
