@@ -17,13 +17,23 @@
 void initTimer(int timer, int mode, unsigned int comp){
 	if(!timer){
 		//timer 0 - 8 bit
-
+		/* Timer clock = I/O clock / 1024 */
+		TCCR0B = (1<<CS02)|(1<<CS00);
+		/* Clear overflow flag */
+		TIFR0 = 1<<TOV0;
+		/* Enable Overflow Interrupt */
+		TIMSK0 = 1<<TOIE0;
 	}else if(timer == 1){
 		//timer 1 - 16 bit
 
 	}else if(timer == 2){
 		//timer 2 - 8 bit
-
+		/* Timer clock = I/O clock / 1024 */
+		TCCR2B = (1<<CS02)|(1<<CS00);
+		/* Clear overflow flag */
+		TIFR2 = 1<<TOV2;
+		/* Enable Overflow Interrupt */
+		TIMSK2 = 1<<TOIE2;
 	}else{
 		//error
 	}
