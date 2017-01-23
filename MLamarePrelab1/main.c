@@ -14,9 +14,9 @@ void nukeWDT();
 int main(){
 	//Common setup code here:
 	nukeWDT(); //Disable watchdog timer
-
+	sei();
 	//Interchange the correct part of the Pre-lab
-	part5();
+	part6();
 	//should never get here but if it does: error
 	return 0;
 } /* End main */
@@ -54,16 +54,16 @@ unsigned char state = 0; //accessed in ISR so must be a global
 
 void part7(){
 	DDRBbits._P7 = OUTPUT;
-	initTimer(0, 0, 1024);
+	initTimer(0, 0, 1000);
 	while(1){
 		switch(state){
 		case 0:
 			//the is the off case
-			PINBbits._P7 = 0;
+			PINBbits._P7 = 1;
 			break;
 		case 1:
 			//this is the on case
-			PINBbits._P7 = 1;
+			PINBbits._P7 = 0;
 			break;
 		}
 	}
