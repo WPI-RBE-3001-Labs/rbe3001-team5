@@ -9,11 +9,11 @@
 void part5();
 void part6();
 void part7();
-void WDT_off();
+void nukeWDT();
 
 int main(){
 	//Common setup code here:
-	WDT_off(); //Disable watchdog timer
+	nukeWDT(); //Disable watchdog timer
 
 	//Interchange the correct part of the Pre-lab
 	part5();
@@ -75,9 +75,10 @@ ISR (TIMER0_OVF_vect){
 		state = 0;
 	}
 }
-void WDT_off(){
-	__disable_interrupt();
-	__watchdog_reset();
+
+//Note originally called for enabling and disabling interrupts within this function.
+//builder didn't like that so I got rid of it
+void nukeWDT(){
 	/* Clear WDRF in MCUSR */
 	MCUSR &= ~(1<<WDRF);
 	/* Write logical one to WDCE and WDE */
@@ -85,6 +86,5 @@ void WDT_off(){
 	WDTCSR |= (1<<WDCE) | (1<<WDE);
 	/*Turn off WDT */
 	WDTCSR = 0x00;
-	__enable_interrupt();
 }
 
