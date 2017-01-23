@@ -1,6 +1,6 @@
 /*
  * main.c
- *
+ * Matthew Lamare's Lab 1 Pre-Lab
  *  Created on: Jan 17, 2017
  *      Author: Matt
  */
