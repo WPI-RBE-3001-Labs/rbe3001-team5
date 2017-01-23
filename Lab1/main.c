@@ -8,11 +8,11 @@
 void part1();
 void part2();
 void part3();
-void WDT_off();
+void nukeWDT();
 
 int main(){
 	//Common setup here:
-	WDT_off();
+	nukeWDT();
 
 	//Interchange the correct part of the lab
 	part1();
@@ -153,9 +153,9 @@ void part3(){
  * }
  */
 
-void WDT_off(){
-	__disable_interrupt();
-	__watchdog_reset();
+//Note originally called for enabling and disabling interrupts within this function.
+//builder didn't like that so I got rid of it
+void nukeWDT(){
 	/* Clear WDRF in MCUSR */
 	MCUSR &= ~(1<<WDRF);
 	/* Write logical one to WDCE and WDE */
@@ -163,5 +163,4 @@ void WDT_off(){
 	WDTCSR |= (1<<WDCE) | (1<<WDE);
 	/*Turn off WDT */
 	WDTCSR = 0x00;
-	__enable_interrupt();
 }
