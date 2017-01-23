@@ -24,8 +24,8 @@ int main(){
 //This does the first code part of the Pre-lab
 void part5(){
 	volatile unsigned char buttonstate;
-	DDRB |= 0xFF; //configure port A as output for LED's
-	DDRA &= 0x00; //configure port B as input
+	DDRB |= 0xFF; //configure port B as output for LED's
+	DDRD &= 0x00; //configure port D as input for switches
 
 	while(1){
 		buttonstate = PORTA; //reads buttons
