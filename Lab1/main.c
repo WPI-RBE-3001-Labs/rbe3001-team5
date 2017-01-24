@@ -5,6 +5,7 @@
  */
 //test for commit
 #include "main.h"//File containing all the includes
+#include <avr/io.h>
 
 void part1();
 void part2();
