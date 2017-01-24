@@ -78,6 +78,7 @@ files.
  */
 unsigned char waveToggle;
 unsigned int numTicks;
+unsigned int freqNum = 0;
 unsigned int switchHightoLow;
 unsigned int switchLowtoHigh;
 void part2(){
@@ -89,7 +90,8 @@ void part2(){
 
 	//setup buttons:
 	unsigned char buttonState;
-
+	PORTD |= 0x00;
+	DDRD &= 0x00; //configure port D as input for switches
 
 	//setup ADC
 	unsigned int potVal;
@@ -106,12 +108,21 @@ void part2(){
 			break;
 		}
 		//read buttons
-
+		buttonState = PIND; //reads buttons
 		//Update frequency
-
+		if(buttonState){
+			freqNum = 1;
+		} else if ((buttonState >> 1)){
+			freqNum = 5;
+		} else if ((buttonState >> 2)){
+			freqNum = 100;
+		} else {
+			freqNum = 0;
+		}
 		//read pot
 
 		//update high and low count to reflect period of high and low and frequency
+
 	}
 }
 
@@ -120,11 +131,11 @@ void part2(){
 //first it will incrimate the number of ticks, then see if enough have passed to toggle
 ISR(TIMER0_OVF_vect){
  	numTicks++;
-	if(numTicks >= switchHightoLow && waveToggle){
+	if(numTicks * freqNum >= switchHightoLow && waveToggle){
 		//set to low
 		waveToggle = 0;
 	}
-	if(numTicks >= switchLowtoHigh && !waveToggle){
+	if(numTicks * freqNum >= switchLowtoHigh && !waveToggle){
 		//set to high
 		waveToggle = 1;
 	}
