@@ -4,7 +4,8 @@
  *  Created on: Jan 17, 2017
  */
 //test for commit
-#include "main.h"//File containing all the includes
+//#include "main.h"//File containing all the includes
+#include "RBELib/RBELib.h"
 #include <avr/io.h>
 
 void part1();
@@ -82,8 +83,13 @@ unsigned int switchLowtoHigh;
 void part2(){
 	//setup timer to a fixed 100 Hz frequency:
 
+
+	//setup a pin to output
+	DDRBbits._P7 = OUTPUT;
+
 	//setup buttons:
 	unsigned char buttonState;
+
 
 	//setup ADC
 	unsigned int potVal;
@@ -92,11 +98,11 @@ void part2(){
 		switch(waveToggle){
 		case 0:
 			//output High
-
+			PINBbits._P7 = HIGH;
 			break;
 		default:
 			//output Low
-
+			PINBbits._P7 = LOW;
 			break;
 		}
 		//read buttons
