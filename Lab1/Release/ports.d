@@ -1,4 +1,4 @@
-main.d main.o: ../main.c ../main.h \
+ports.d ports.o: ../ports.c ../main.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/RBELib.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/ADC.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/DAC.h \

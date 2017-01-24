@@ -19,9 +19,11 @@
  */
 void initADC(int channel){
 	//set channel
-	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
-	//set ref voltage
-	ADMUX |= (1 << REFS0);
+	ADCSRA |= (1 << ADEN); //(1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0) |
+	ADCSRA &= 0b11111000;
+	//set ref voltage and multiplexer port 7
+	ADMUX |= (1 << REFS0)| (1 << MUX0) | (1 << MUX1) | (1 << MUX2);
+	ADCSRB &= 0b11111000;
 
 }
 
@@ -54,7 +56,7 @@ void clearADC(int channel){
 unsigned short getADC(int channel){
 	unsigned short ADCVal = 0;
 	//start conversion
-	ADCSRB |= ADTS2;
+	ADCSRA = (1 << ADSC);
 	//wait for conversion:
 	while(!ADCH){
 

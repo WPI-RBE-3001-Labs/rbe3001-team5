@@ -20,7 +20,7 @@ int main(){
 initializations();
 sei();
 while(1){
-part7();
+part6();
 }
 return 0;
 }
@@ -36,17 +36,29 @@ else{
 }
 
 void part6(){
+	char package[10];
+	package[0] = 'a';
+	package [1] = 'b';
+	package [2] = 'c';
+	package [3] = 'd';
+	package [4] = '0';
+	package [5] = 'n';
+	package [6] = '/';
 	//Structure borrowed from MLamare
-	debugUSARTInit(DEFAULT_BAUD); //112500
-	unsigned char package = 0;
+	debugUSARTInit(DEFAULT_BAUD); //115200
 
 	while(1){
-		package = getCharDebug(); //recieve a character
+		//package = getCharDebug(); //recieve a character
 		//only transmit when the chip has something to transmit
-		if(package){
-			putCharDebug(package);
-		}
+		for (int i = 0; i < 7; i++){
+		//if(package[i]){
+			putCharDebug(package[i]);
+			if (i >=7)
+				i = 0;
+
+		//}
 	}
+}
 }
 
 void part7(){

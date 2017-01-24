@@ -3,7 +3,7 @@
  *	Group 5 Lab 1
  *  Created on: Jan 17, 2017
  */
-#include "RBELib/RBELib.h"
+#include "main.h"//File containing all the includes
 
 void part1();
 void part2();
@@ -16,6 +16,7 @@ int main(){
 
 	//Interchange the correct part of the lab
 	part1();
+
 	return 1;
 } /* End main */
 
@@ -32,14 +33,30 @@ into Matlab (hint: csv file) – you will use this code again in later labs.
  */
 void part1(){
 	//Setup ADC
+	DDRA &= 0x00;//Sets Port A Pin 7 for Input
+	//PORTA &= (0<<PA7);//Turn Pull-up resistor off
+	initADC(7);
 
 	//Setup Serial Transmission
+	debugUSARTInit(115200);
+
+	//Setup LED Port
+	initPB();
 
 	unsigned int potValue;
 	while(1){
 		//Read ADC, store as potValue
-
+		potValue = getADC(7);
+		if(potValue > 100){
+			PORTB = 0x00;
+		}
+		else{
+			PORTB = 0xFF;
+		}
 		//Send potValue over serial
+		putCharDebug((char)potValue);
+		putCharDebug('\n');
+
 
 	}
 }
@@ -49,7 +66,7 @@ void part1(){
 3. Write a program that:
 a. Outputs a square wave using a timer interrupt to establish accurate frequency. Use the
 pushbuttons to select a frequency (1Hz, 20Hz, and 100Hz).
-b. Adjusts the duty cycle from 0% ‐ 100% based upon the potentiometer position.
+b. Adjusts the duty cycle from 0%100% based upon the potentiometer position.
 c. Prints the duty cycle, frequency, state, and pot value to the serial port
 
 4. Connect the digital output to the oscilloscope and run the above program. Save screenshots and serial
@@ -107,7 +124,7 @@ ISR(TIMER0_OVF_vect){
 
 
 /*
- * 5. Set up the signal generator at your lab workstation to output a 0‐5V waveform (be sure to have a
+ * 5. Set up the signal generator at your lab workstation to output a 5V waveform (be sure to have a
 member of the lab staff verify your settings – incorrect settings WILL damage your ADC). Confirm
 operation by connecting it to the oscilloscope.
 6. Configure the program you wrote in Step 2 above to use a timer interrupt to sample at 225Hz for 1
