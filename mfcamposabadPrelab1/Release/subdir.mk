@@ -5,15 +5,27 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../debug.c \
-../main.c 
+../firstblink.c \
+../globals.c \
+../main.c \
+../ports.c \
+../timers.c 
 
 OBJS += \
 ./debug.o \
-./main.o 
+./firstblink.o \
+./globals.o \
+./main.o \
+./ports.o \
+./timers.o 
 
 C_DEPS += \
 ./debug.d \
-./main.d 
+./firstblink.d \
+./globals.d \
+./main.d \
+./ports.d \
+./timers.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

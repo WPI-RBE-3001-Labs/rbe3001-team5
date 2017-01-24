@@ -1,4 +1,4 @@
-main.d main.o: ../main.c ../main.h \
+timers.d timers.o: ../timers.c \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/RBELib.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/ADC.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/DAC.h \
@@ -13,10 +13,7 @@ main.d main.o: ../main.c ../main.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/ports.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SPI.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SetServo.h \
-  C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SlaveSelects.h \
-  ../ports.h ../globals.h ../timers.h
-
-../main.h:
+  C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SlaveSelects.h
 
 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/RBELib.h:
 
@@ -47,9 +44,3 @@ C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SPI.h:
 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SetServo.h:
 
 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SlaveSelects.h:
-
-../ports.h:
-
-../globals.h:
-
-../timers.h:

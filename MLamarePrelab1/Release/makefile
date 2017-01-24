@@ -49,7 +49,7 @@ all: MLamarePrelab1.elf secondary-outputs
 MLamarePrelab1.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,MLamarePrelab1.map -WI,-u,vfprintf-lprintf_flt-lm -L"C:\Users\Matt\git\rbelib1\RBELib\Release" -mmcu=atmega644p -o "MLamarePrelab1.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,MLamarePrelab1.map -WI,-u,vfprintf-lprintf_flt-lm -L"C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release" -mmcu=atmega644p -o "MLamarePrelab1.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
