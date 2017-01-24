@@ -20,9 +20,11 @@ void initTimer(int timer, int mode, unsigned int comp){
 		/* Timer clock = I/O clock / 1024 */
 		TCCR0B = (1<<CS02)|(1<<CS00);
 		/* Clear overflow flag */
-		TIFR0 = 1<<TOV0;
+		TIFR0 |= 1<<TOV0;
 		/* Enable Overflow Interrupt */
-		TIMSK0 = 1<<TOIE0;
+		TIMSK0 |= 1<<TOIE0;
+		/*Clear Counter  */
+		TCNT0 = 0;
 	}else if(timer == 1){
 		//timer 1 - 16 bit
 
