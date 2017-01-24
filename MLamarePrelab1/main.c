@@ -5,6 +5,7 @@
  *      Author: Matt
  */
 #include "RBELib/RBELib.h"
+#include <avr/io.h>
 
 void part5();
 void part6();
