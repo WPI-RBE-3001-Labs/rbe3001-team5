@@ -36,22 +36,23 @@ else{
 }
 
 void part6(){
-	char package[10];
-	package[0] = 'a';
-	package [1] = 'b';
-	package [2] = 'c';
-	package [3] = 'd';
-	package [4] = '0';
-	package [5] = '\n';
+	char package;
+	//package[0] = 'a';
+	//package [1] = 'b';
+	//package [2] = 'c';
+	//package [3] = 'd';
+	//package [4] = '0';
+	//package [5] = '\n';
 	//Structure borrowed from MLamare
 	debugUSARTInit(DEFAULT_BAUD); //115200
 
 	while(1){
-		package[5] = getCharDebug(); //recieve a character
+		package = getCharDebug(); //recieve a character
 		//only transmit when the chip has something to transmit
 		//for (int i = 0; i < 7; i++){
 		if(package){
 			putCharDebug(package);
+			//printf("hello world");
 			//if (i >=7)
 				//i = 0;
 

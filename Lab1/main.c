@@ -57,12 +57,16 @@ void part1(){
 		else{
 			PORTB = 0xFF;
 		}
+		//char temp = getCharDebug();
 		//Send potValue over serial
-		putCharDebug((char)potValue);
-		putCharDebug('\n');
-		putCharDebug('\r');
-		//printf("%d", potValue);
+		//if(temp){
+		//putCharDebug(potValue);
+		//putCharDebug('\n');
+		//putCharDebug('\r');
+		printf("%d \n\r", potValue);
+		printf("hello world");
 		//printf("\n\r");
+		//}
 
 
 	}
