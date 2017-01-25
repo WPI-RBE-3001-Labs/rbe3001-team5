@@ -14,7 +14,7 @@ ports.d ports.o: ../ports.c ../main.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SPI.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SetServo.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SlaveSelects.h \
-  ../ports.h
+  ../ports.h ../adc.h
 
 ../main.h:
 
@@ -49,3 +49,5 @@ C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SetServo.h:
 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SlaveSelects.h:
 
 ../ports.h:
+
+../adc.h:

@@ -6,6 +6,7 @@
  */
 
 #include "RBELib/RBELib.h"
+#include "main.h"
 
 /**
  * @brief Initializes the ADC and make one channel active.
@@ -18,12 +19,14 @@
  * using the channel parameter.
  */
 void initADC(int channel){
-	//set channel
-	ADCSRA |= (1 << ADEN); //(1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0) |
-	ADCSRA &= 0b11111000;
+	//Power Reduction Register
+	PRR0 = 0x00;
+	//Enable ADC
+	ADCSRA |= (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
 	//set ref voltage and multiplexer port 7
-	ADMUX |= (1 << REFS0)| (1 << MUX0) | (1 << MUX1) | (1 << MUX2);
-	ADCSRB &= 0b11111000;
+	ADMUX = (1 << REFS0)|(1 << MUX0) | (1 << MUX2);
+	//ADC in Free Running mode
+	//ADCSRB &= 0b11111000;
 
 }
 
@@ -37,7 +40,7 @@ void initADC(int channel){
  */
 void clearADC(int channel){
 	//clear ADC register
-	ADCSRA &= 0x00;
+	ADCSRA = 0x00;
 	//disconnect input
 }
 
@@ -56,13 +59,14 @@ void clearADC(int channel){
 unsigned short getADC(int channel){
 	unsigned short ADCVal = 0;
 	//start conversion
-	ADCSRA = (1 << ADSC);
+	ADCSRA |= (1 << ADSC);
 	//wait for conversion:
-	while(!ADCH){
+	while(ADCSRA & (1<<ADSC)){
 
 	}
 	//get it in there
-	ADCVal = ADCH;
+	ADCVal = ADCL;
+	ADCVal += (ADCH<<8);
 	return ADCVal;
 }
 

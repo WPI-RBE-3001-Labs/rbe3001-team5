@@ -42,19 +42,18 @@ void part6(){
 	package [2] = 'c';
 	package [3] = 'd';
 	package [4] = '0';
-	package [5] = 'n';
-	package [6] = '/';
+	package [5] = '\n';
 	//Structure borrowed from MLamare
 	debugUSARTInit(DEFAULT_BAUD); //115200
 
 	while(1){
-		//package = getCharDebug(); //recieve a character
+		package[5] = getCharDebug(); //recieve a character
 		//only transmit when the chip has something to transmit
-		for (int i = 0; i < 7; i++){
-		//if(package[i]){
-			putCharDebug(package[i]);
-			if (i >=7)
-				i = 0;
+		//for (int i = 0; i < 7; i++){
+		if(package){
+			putCharDebug(package);
+			//if (i >=7)
+				//i = 0;
 
 		//}
 	}

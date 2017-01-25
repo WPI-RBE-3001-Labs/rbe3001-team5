@@ -10,6 +10,7 @@
 
 #include "RBELib/RBELib.h" //RBELib
 #include "ports.h"
+#include "adc.h"
 //#include "globals.h"
 //#include "timers.h"
 

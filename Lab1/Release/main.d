@@ -1,4 +1,4 @@
-main.d main.o: ../main.c ../main.h \
+main.d main.o: ../main.c \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/RBELib.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/ADC.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/DAC.h \
@@ -14,9 +14,7 @@ main.d main.o: ../main.c ../main.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SPI.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SetServo.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SlaveSelects.h \
-  ../ports.h
-
-../main.h:
+  ../main.h ../ports.h ../adc.h
 
 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/RBELib.h:
 
@@ -48,4 +46,8 @@ C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SetServo.h:
 
 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SlaveSelects.h:
 
+../main.h:
+
 ../ports.h:
+
+../adc.h:

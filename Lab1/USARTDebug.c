@@ -6,6 +6,9 @@
  */
 
 #include "RBELib/RBELib.h" //This was the Goldfarb's's idea
+#include "main.h"
+
+#define FREQ_OSC 18432000
 
 /**
  * @brief Initializes USART1 as a print terminal to the PC. This function
@@ -18,12 +21,13 @@
 void debugUSARTInit(unsigned long baudrate){
 	//Borrowed Example from data sheet:
 	/*Set baud rate */
-	UBRR1H = (unsigned char)(baudrate>>8);
-	UBRR1L = (unsigned char)baudrate;
+	int value = ((FREQ_OSC/(16*baudrate))-1);
+	UBRR1H = (((unsigned char)(value>>8))& 0x0F);
+	UBRR1L = (((unsigned char)value) & 0xFF);
 	/* Enable receiver and transmitter */
 	UCSR1B = (1<<RXEN1)|(1<<TXEN1);
 	/* Set frame format: 8data, 2stop bit */
-	UCSR1C = (1<<USBS1)|(3<<UCSZ00);
+	UCSR1C = (1<<UCSZ11)|(1<<UCSZ10);
 }
 
 /**

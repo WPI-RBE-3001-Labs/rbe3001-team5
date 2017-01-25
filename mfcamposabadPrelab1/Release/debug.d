@@ -13,7 +13,8 @@ debug.d debug.o: ../debug.c \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/ports.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SPI.h \
   C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SetServo.h \
-  C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SlaveSelects.h
+  C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SlaveSelects.h \
+  ../main.h ../ports.h ../globals.h ../timers.h
 
 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/RBELib.h:
 
@@ -44,3 +45,11 @@ C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SPI.h:
 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SetServo.h:
 
 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\include/RBELib/SlaveSelects.h:
+
+../main.h:
+
+../ports.h:
+
+../globals.h:
+
+../timers.h:

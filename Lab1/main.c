@@ -7,6 +7,7 @@
 //#include "main.h"//File containing all the includes
 #include "RBELib/RBELib.h"
 #include <avr/io.h>
+#include "main.h"
 
 void part1();
 void part2();
@@ -16,7 +17,7 @@ void nukeWDT();
 int main(){
 	//Common setup here:
 	nukeWDT();
-
+	sei();
 	//Interchange the correct part of the lab
 	part1();
 
@@ -36,9 +37,9 @@ into Matlab (hint: csv file) – you will use this code again in later labs.
  */
 void part1(){
 	//Setup ADC
-	DDRA &= 0x00;//Sets Port A Pin 7 for Input
-	//PORTA &= (0<<PA7);//Turn Pull-up resistor off
-	initADC(7);
+	DDRA = 0x00;//Sets Port A Pin 7 for Input
+	PORTA |= (1<<PA5);//Turn Pull-up resistor off
+	initADC(5);
 
 	//Setup Serial Transmission
 	debugUSARTInit(115200);
@@ -46,7 +47,7 @@ void part1(){
 	//Setup LED Port
 	initPB();
 
-	unsigned int potValue;
+	unsigned short potValue;
 	while(1){
 		//Read ADC, store as potValue
 		potValue = getADC(7);
@@ -59,6 +60,9 @@ void part1(){
 		//Send potValue over serial
 		putCharDebug((char)potValue);
 		putCharDebug('\n');
+		putCharDebug('\r');
+		//printf("%d", potValue);
+		//printf("\n\r");
 
 
 	}
@@ -94,7 +98,7 @@ void part2(){
 	DDRD &= 0x00; //configure port D as input for switches
 
 	//setup ADC
-	unsigned int potVal;
+	//unsigned int potVal;
 
 	while(1){
 		switch(waveToggle){
@@ -125,11 +129,13 @@ void part2(){
 
 	}
 }
-
+unsigned char try = 0;
+unsigned char cnt = 0;
 //COMMENT THIS OUT WHEN DOING THE NEXT PART
 //ISR for part 2, just toggles waveTogglfor whether high or low
-//first it will incrimate the number of ticks, then see if enough have passed to toggle
+//first it will incremate the number of ticks, then see if enough have passed to toggle
 ISR(TIMER0_OVF_vect){
+	//TIFR0 = (0<<TOV0);
  	numTicks++;
 	if(numTicks * freqNum >= switchHightoLow && waveToggle){
 		//set to low
@@ -139,6 +145,15 @@ ISR(TIMER0_OVF_vect){
 		//set to high
 		waveToggle = 1;
 	}
+	//if(cnt>512) {
+		//PINBbits._P7 = 0;
+		//cnt=0;
+	//} else {
+		//cnt++;
+		//PINBbits._P7 = 1;
+	//}
+	TIFR0 = (1<<TOV0);
+	//try=!try;
 }
 
 
@@ -161,7 +176,7 @@ unsigned char shouldSample;
 unsigned char IsbuttonPressed;
 unsigned char sampleCount = 225;
 void part3(){
-	unsigned int ADCVal;
+	//unsigned int ADCVal;
 	//setup ADC
 
 	//setup serial transmission
