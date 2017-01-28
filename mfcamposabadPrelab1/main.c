@@ -13,6 +13,7 @@ void initializations(){
 initPB();
 initPA();
 initGlobals();
+initRBELib();
 initTimer(0, 0, 1000);
 }
 

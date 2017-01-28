@@ -2542,7 +2542,7 @@ Disassembly of section .text:
 00001512 <main>:
     1512:	0e 94 7a 0a 	call	0x14f4	; 0x14f4 <initializations>
     1516:	78 94       	sei
-    1518:	0e 94 5b 0a 	call	0x14b6	; 0x14b6 <part6>
+    1518:	0e 94 39 0a 	call	0x1472	; 0x1472 <part7>
     151c:	fd cf       	rjmp	.-6      	; 0x1518 <main+0x6>
 
 0000151e <initPB>:

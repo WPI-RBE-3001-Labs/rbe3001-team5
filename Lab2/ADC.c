@@ -22,10 +22,7 @@ void initADC(int channel){
 	//Power Reduction Register
 	PRR0 = 0x00;
 	//Enable ADC
-	ADCSRA |= (1 << ADEN) |
-			(1 << ADPS2) |
-			(1 << ADPS1) |
-			(1 << ADPS0);
+	ADCSRA |= (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
 	//set ref voltage and multiplexer port 7
 	ADMUX = (1 << REFS0)|(1 << MUX0) | (1 << MUX2);
 	//ADC in Free Running mode

@@ -19,15 +19,26 @@
  * @param baudrate The desired baudrate to set for USART1.
  */
 void debugUSARTInit(unsigned long baudrate){
+//	//Borrowed Example from data sheet:
+//	/*Set baud rate */
+////	int value = ((FREQ_OSC/(16*baudrate))-1);
+////	UBRR1H = (((unsigned char)(value>>8))& 0x0F);
+////	UBRR1L = (((unsigned char)value) & 0xFF);
+//	UBRR1 = 0x09;
+//	/* Enable receiver and transmitter */
+//	UCSR1B = (1<<RXEN1)|(1<<TXEN1);
+//	/* Set frame format: 8data, 2stop bit */
+//	UCSR1C = (1<<UCSZ11)|(1<<UCSZ10);
+
 	//Borrowed Example from data sheet:
 	/*Set baud rate */
 	int value = ((FREQ_OSC/(16*baudrate))-1);
-	UBRR1H = (((unsigned char)(value>>8))& 0x0F);
-	UBRR1L = (((unsigned char)value) & 0xFF);
+	UBRR1H = (unsigned char)(value>>8);
+	UBRR1L = (unsigned char)value;
 	/* Enable receiver and transmitter */
 	UCSR1B = (1<<RXEN1)|(1<<TXEN1);
 	/* Set frame format: 8data, 2stop bit */
-	UCSR1C = (1<<UCSZ11)|(1<<UCSZ10);
+	UCSR1C = (1<<UCSZ01)|(3<<UCSZ00);
 }
 
 /**

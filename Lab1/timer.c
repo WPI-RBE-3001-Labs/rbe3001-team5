@@ -17,15 +17,17 @@
  */
 void initTimer(int timer, int mode, unsigned int comp){
 	if(!timer){
+		/*Clear Counter  */
+		//TCNT0 = 0x00;
 		//timer 0 - 8 bit
 		/* Timer clock = I/O clock / 1024 */
-		TCCR0B |= (1<<CS02)|(1<<CS00);
+		TCCR0B = 0b00000000;//(1<<CS02)|(1<<CS00);
+		TCCR0A = 0b00000010;//(0<<WGM01)|(0<<WGM00);
 		/* Clear overflow flag */
 		TIFR0 |= (1<<TOV0);
 		/* Enable Overflow Interrupt */
-		TIMSK0 |= (1<<TOIE0);
-		/*Clear Counter  */
-		TCNT0 = 0;
+		TIMSK0 = 0b00000001;//(1<<TOIE0);
+
 	}
 }
 	//}else if(timer == 1){
@@ -43,16 +45,7 @@ void initTimer(int timer, int mode, unsigned int comp){
 		//error
 	//}
 //}
-	//if(!timer){
-		//	TCNT0 = 0;
-			//timer 0 - 8 bit
-			/* Timer clock = I/O clock / 1024 */
-			//TCCR0B = 0x02;
-			/* Clear overflow flag */
-			//TIFR0 |= (1<<TOV0);
-			/* Enable Overflow Interrupt */
-			//TIMSK0 = 0x01;
-		//}
+
 //}
 /**
  * @brief Only used when the specified timer is in CTC mode. Changes

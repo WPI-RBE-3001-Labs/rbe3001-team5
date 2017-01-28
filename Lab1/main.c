@@ -18,11 +18,16 @@ int main(){
 	//Common setup here:
 	nukeWDT();
 	sei();
+	//Enable printf() and setServo()
+	initRBELib();
 	//Interchange the correct part of the lab
-	part1();
+	part2();
 
 	return 1;
 } /* End main */
+
+
+
 
 //This does the first part of the lab
 /*
@@ -37,8 +42,8 @@ into Matlab (hint: csv file) – you will use this code again in later labs.
  */
 void part1(){
 	//Setup ADC
-	DDRA = 0x00;//Sets Port A Pin 7 for Input
-	PORTA |= (1<<PA5);//Turn Pull-up resistor off
+	//DDRA = 0x00;//Sets Port A Pin 7 for Input
+	//PORTA |= (1<<PA5);//Turn Pull-up resistor on
 	initADC(5);
 
 	//Setup Serial Transmission
@@ -48,6 +53,7 @@ void part1(){
 	initPB();
 
 	unsigned short potValue;
+	printf("hello world");
 	while(1){
 		//Read ADC, store as potValue
 		potValue = getADC(7);
@@ -57,16 +63,7 @@ void part1(){
 		else{
 			PORTB = 0xFF;
 		}
-		//char temp = getCharDebug();
-		//Send potValue over serial
-		//if(temp){
-		//putCharDebug(potValue);
-		//putCharDebug('\n');
-		//putCharDebug('\r');
-		printf("%d \n\r", potValue);
-		printf("hello world");
-		//printf("\n\r");
-		//}
+		printf("PotValue: %d \n\r", (int) potValue);
 
 
 	}
@@ -85,7 +82,7 @@ port data for each frequency at 25% and 70% duty cycles. Be sure to save and lab
 files.
  */
 unsigned char waveToggle;
-unsigned int numTicks;
+unsigned int numTicks=0;
 unsigned int freqNum = 0;
 unsigned int switchHightoLow;
 unsigned int switchLowtoHigh;
@@ -140,23 +137,23 @@ unsigned char cnt = 0;
 //first it will incremate the number of ticks, then see if enough have passed to toggle
 ISR(TIMER0_OVF_vect){
 	//TIFR0 = (0<<TOV0);
- 	numTicks++;
-	if(numTicks * freqNum >= switchHightoLow && waveToggle){
-		//set to low
-		waveToggle = 0;
-	}
+ 	//numTicks++;
+//	if(numTicks * freqNum >= switchHightoLow && waveToggle){
+//		//set to low
+//		waveToggle = 0;
+//	}
 	if(numTicks * freqNum >= switchLowtoHigh && !waveToggle){
 		//set to high
 		waveToggle = 1;
 	}
-	//if(cnt>512) {
-		//PINBbits._P7 = 0;
-		//cnt=0;
-	//} else {
-		//cnt++;
-		//PINBbits._P7 = 1;
-	//}
-	TIFR0 = (1<<TOV0);
+	if(numTicks<500) {
+		PINBbits._P7 = 0;
+		numTicks++;
+	} else {
+		PINBbits._P7 = 1;
+		numTicks=0;
+	}
+	TIFR0 = (0<<TOV0);//Turn flag low
 	//try=!try;
 }
 
