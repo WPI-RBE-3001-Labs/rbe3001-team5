@@ -15,7 +15,7 @@
  *
  * @param channel The ADC channel to initialize.
  *
- * @todo Create the corresponding function to initialize the ADC
+ * Create the corresponding function to initialize the ADC
  * using the channel parameter.
  */
 void initADC(int channel){
@@ -59,7 +59,7 @@ void initADC(int channel){
  *
  * @param channel  The ADC channel to disable.
  *
- * @todo Create the corresponding function to clear the last ADC
+ * Create the corresponding function to clear the last ADC
  * calculation register and disconnect the input to the ADC if desired.
  */
 void clearADC(int channel){
@@ -99,10 +99,11 @@ unsigned short getADC(int channel){
  *
  * @param channel  The ADC channel to switch to.
  *
- * @todo Create a way to switch ADC channels if you are using interrupts.
+ * Create a way to switch ADC channels if you are using interrupts.
  */
 void changeADC(int channel){
-
-
+	if(channel <= 7 && channel >= 0)
+		// select ADC channel, overwrites MUX0, MUX2, MUX1 if valid channel selection
+		ADMUX |= channel;
 }
 
