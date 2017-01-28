@@ -9,8 +9,9 @@
 #define MAIN_H_
 
 #include "RBELib/RBELib.h" //RBELib
-#include "ports.h"
+#include "function_prototypes.h"
 #include "adc.h"
+#include "avr/io.h"
 //#include "globals.h"
 //#include "timers.h"
 

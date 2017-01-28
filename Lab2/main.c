@@ -1,25 +1,18 @@
 /*
  * main.c
- *	Group 5 Lab 1
- *  Created on: Jan 17, 2017
+ *	Group 5 LAB 2
+ *  Created on: FEB 1st, 2017
  */
-//test for commit
-//#include "main.h"//File containing all the includes
-#include "RBELib/RBELib.h"
-#include <avr/io.h>
-#include "main.h"
 
-void part1();
-void part2();
-void part3();
-void nukeWDT();
+#include "main.h"//File containing all the includes
+#include "RBELib/RBELib.h"
 
 int main(){
 	//Common setup here:
-	nukeWDT();
-	sei();
-	//Enable printf() and setServo()
-	initRBELib();
+	nukeWDT(); //Disable Watchdog Timer
+	sei(); // Enable Global Interrupts
+	initRBELib();//Enable printf() and setServo()
+
 	//Interchange the correct part of the lab
 	part2();
 
