@@ -15,4 +15,10 @@
 //#include "globals.h"
 //#include "timers.h"
 
+void calibratePot();
+void logPot();
+void sawtoothWave();
+void readCurrentSense();
+void PIDarmControl();
+
 #endif /* MAIN_H_ */
