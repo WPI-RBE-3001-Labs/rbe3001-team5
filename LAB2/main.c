@@ -23,16 +23,20 @@ int main(){
 //This does the first part of the lab
 //It outputs the analog values of the arm pot
 //it will be set at 0 and 90 degrees
+
+#define Arm0ADCPort 2
+#define Arm1ADCPort 3
+
 void logPot(){
 	//initialize ADC to correct channel
-	initADC(0); //TODO find pot channel for arm link
+	initADC(Arm0ADCPort); //TODO find pot channel for arm link
 
 	//initialize USART 1 for transmission to Putty
 	debugUSARTInit(115200);
 
 	while(1){
 		//read pot value
-		upperJoint.ADCVal = getADC(0);
+		upperJoint.ADCVal = getADC(Arm0ADCPort);
 		//print pot values
 		//LSB:
 		putCharDebug(upperJoint.ADCVal);
