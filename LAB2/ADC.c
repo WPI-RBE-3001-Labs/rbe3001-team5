@@ -50,7 +50,7 @@ void initADC(int channel){
 	if(channel <= 7 && channel >= 0) // select ADC channel, overwrites MUX, MUX2, MUX1 if valid channel selection
 		ADMUX |= channel;
 	//ADC in Free Mode
-	//ADCSRB &= 0b11111000;
+	//ADCSRB &= 0b11111000
 
 }
 
