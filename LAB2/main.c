@@ -53,7 +53,8 @@ void logPot(){
 
 
 void sawtoothWave(){
-
+	//setup the SPI buss
+	initSPI();
 }
 
 void readCurrentSense(){
