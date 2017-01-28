@@ -53,8 +53,15 @@ void logPot(){
 
 
 void sawtoothWave(){
-	//setup the SPI buss
+	//setup the SPI bus
 	initSPI();
+	//will output waves between channels 0 and 1
+
+	//setup Timer ISR
+
+	while(1){
+
+	}
 }
 
 void readCurrentSense(){
