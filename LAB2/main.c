@@ -20,16 +20,24 @@ int main(){
 	return 1;
 } /* End main */
 
+//This does the first part of the lab
+//It outputs the analog values of the arm pot
+//it will be set at 0 and 90 degrees
 void logPot(){
 	//initialize ADC to correct channel
+	initADC(0); //TODO find pot channel for arm link
 
 	//initialize USART 1 for transmission to Putty
+	debugUSARTInit(115200);
 
 	while(1){
 		//read pot value
-
+		upperJoint.ADCVal = getADC(0);
 		//print pot values
-
+		//LSB:
+		putCharDebug(upperJoint.ADCVal);
+		//MSB:
+		putCharDebug(upperJoint.ADCVal >> 8);
 	} //End while(1)
 
 }//end calibratePot()
@@ -38,7 +46,7 @@ struct Potentiometer{
 	int ADCVal; //the value from 0-1023
 	float voltage; //the analog voltage from 0 to 5V
 	float angle; //the angle of the potentiometer form 0-270 degrees
-};
+} upperJoint;
 
 void sawtoothWave(){
 
