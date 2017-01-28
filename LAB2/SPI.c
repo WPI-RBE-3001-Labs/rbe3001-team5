@@ -23,9 +23,9 @@ void initSPI(){
 			(1 << MSTR)| //This is the Master device
 			(0 << CPOL)| //set SCK idle to low
 			(0 << CPHA)| //sample at rising edge
-			//TODO check the frequency with the DAC chip
 			(0 << SPR1)| //set frequency to fosc/4
 			(0 << SPR0); //set frequency to fosc/4
+			//Note, the DAC can take up to 50MHz so this is OK
 
 	//SPI Status Register 0
 	SPSR = (0 << SPIF)| //Don't want to set interrupts
@@ -43,7 +43,7 @@ void initSPI(){
  * @param data The byte to send down the SPI bus.
  * @return value The byte shifted in during transmit
  *
- * @todo Make a function that will send a byte of data through the SPI
+ * Make a function that will send a byte of data through the SPI
  * and return whatever was sent back.
  */
 unsigned char spiTransceive(BYTE data){
@@ -52,6 +52,7 @@ unsigned char spiTransceive(BYTE data){
 	//wait for transmission to finish
 	while(!(SPSR & (1<<SPIF)));
 
+	//TODO see if the incoming is in the same register
 	return SPDR;
 }
 
