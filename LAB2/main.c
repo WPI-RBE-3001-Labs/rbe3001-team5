@@ -44,7 +44,7 @@ void logPot(){
 		putCharDebug(upperJoint.ADCVal >> 8);
 	} //End while(1)
 
-}//end calibratePot()
+}//end LogPot()
 
 struct Potentiometer{
 	int ADCVal; //the value from 0-1023
