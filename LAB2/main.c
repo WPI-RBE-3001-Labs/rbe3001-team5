@@ -7,6 +7,11 @@
 #include "main.h"//File containing all the includes
 #include "RBELib/RBELib.h"
 
+struct Potentiometer{
+	int ADCVal; //the value from 0-1023
+	float voltage; //the analog voltage from 0 to 5V
+	float angle; //the angle of the potentiometer form 0-270 degrees
+} upperJoint;
 
 int main(){
 	//Common setup here:
@@ -46,11 +51,6 @@ void logPot(){
 
 }//end LogPot()
 
-struct Potentiometer{
-	int ADCVal; //the value from 0-1023
-	float voltage; //the analog voltage from 0 to 5V
-	float angle; //the angle of the potentiometer form 0-270 degrees
-} upperJoint;
 
 void sawtoothWave(){
 
