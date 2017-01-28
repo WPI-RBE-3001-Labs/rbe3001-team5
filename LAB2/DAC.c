@@ -15,15 +15,29 @@
  *
  * Make the function that is able to set the DAC to a given value
  * from 0 - 4095.
+ *
+ * http://cds.linear.com/docs/en/datasheet/2634fc.pdf
  */
 void setDAC(int DACn, int SPIVal){
-	//TODO set enable pin for DAC
+	//Set enable pin for DAC
+	DDRDbits._P4 = OUTPUT; //Set D4 GPIO as output
+	PINDbits._P4 = 0; //pull to 0 to enable chip transmission
 
-	//TODO make sure that I am send data to the correct registe
-	//SPI Data Register 0
-	//SPDR
+	//load in 32 bits of Data:
+	//4 bit command - write to input register n
+	char MSBDAC = 0x0;
+	//4 bit DAC address - just use DACn as the LS bits
+	//send first byte through SPI to DAC:
+	spiTransceive((4 << MSBDAC) | DACn);
 
+	//Transmit:
+	//we want 12 data bits:
+	spiTransceive((char)(SPIVal >> 4)); //top 8 of 12 bits
+	spiTransceive((char)(8 << SPIVal));
+	//second half of this byte is ignored by chip
 
+	//Turn off DAC Transmission:
+	PINDbits._P4 = 1;
 }
 
 
