@@ -49,7 +49,7 @@ void initADC(int channel){
 				(0 << MUX0);  // Table 25-4
 	if(channel <= 7 && channel >= 0) // select ADC channel, overwrites MUX, MUX2, MUX1 if valid channel selection
 		ADMUX |= channel;
-	//ADC in Free Running mode
+	//ADC in Free Mode
 	//ADCSRB &= 0b11111000;
 
 }
