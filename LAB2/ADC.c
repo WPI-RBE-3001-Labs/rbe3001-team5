@@ -21,10 +21,34 @@
 void initADC(int channel){
 	//Power Reduction Register
 	PRR0 = 0x00;
-	//Enable
-	ADCSRA |= (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
+
+
+	//Enable ADC
+	// ADCSRA |= (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
+
+	ADCSRA =     (1 << ADEN) |
+				 (0 << ADSC) |
+				 (0 << ADATE)|
+				 (0 << ADIF) |
+				 (0 << ADIE) |
+				 (1 << ADPS2)|
+				 (1 << ADPS1)|
+				 (1 << ADPS0);
 	//set ref voltage and multiplexer port 7
-	ADMUX = (1 << REFS0)|(1 << MUX0) | (1 << MUX2);
+
+
+
+	//Info can be found on page 319 of ATmega644P data sheet
+	ADMUX =     (0 << REFS1)| // Table 25-3
+				(1 << REFS0)| // Table 25-3
+				(1 << ADLAR)| // 1 to left Adjust data, 0 to right Adjust data
+				(0 << MUX4) | // Table 25-4
+				(0 << MUX3) | // Table 25-4
+				(0 << MUX2) | // Table 25-4
+				(0 << MUX1) | // Table 25-4
+				(0 << MUX0);  // Table 25-4
+	if(channel <= 7 && channel >= 0) // select ADC channel, overwrites MUX, MUX2, MUX1 if valid channel selection
+		ADMUX |= channel;
 	//ADC in Free Running mode
 	//ADCSRB &= 0b11111000;
 
