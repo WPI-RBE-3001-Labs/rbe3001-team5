@@ -24,17 +24,31 @@ void setDAC(int DACn, int SPIVal){
 			(1 << MSTR)| //This is the Master device
 			(0 << CPOL)| //set SCK idle to low
 			(0 << CPHA)| //sample at rising edge
+			//TODO check the frequency with the DAC chip
 			(0 << SPR1)| //set frequency to fosc/4
 			(0 << SPR0); //set frequency to fosc/4
 
 	//SPI Status Register 0
-	//SPSR0
+	SPSR = (0 << SPIF)| //Don't want to set interrupts
+		   (0 << WCOL)|	//don't need write collision flag
+		   (0 << SPI2X); //don't need double speed
 
+	//TODO set enable pin for DAC
+
+	//TODO make sure that I am send data to the correct registe
 	//SPI Data Register 0
-	//SPDR0
+	//SPDR
 
+	//TODO check if it was MSB or LSB first
+	//Start Transmission
+	//MSB first
+	SPDR = (SPIVal >> 8);
+	//wait for transmission to finish
+	while(!(SPSR & (1<<SPIF)));
 
-
+	//LSB transmit
+	SPDR = (SPIVal & 8);
+	while(!(SPSR & (1<<SPIF)));
 }
 
 
