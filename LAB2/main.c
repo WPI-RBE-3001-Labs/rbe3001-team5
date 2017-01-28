@@ -20,12 +20,15 @@ int main(){
 	return 1;
 } /* End main */
 
-void calibratePot(){
+void logPot(){
 	//initialize ADC to correct channel
 
 	//initialize USART 1 for transmission to Putty
 
 	while(1){
+		//read pot value
+
+		//print pot values
 
 	} //End while(1)
 
@@ -36,10 +39,6 @@ struct Potentiometer{
 	float voltage; //the analog voltage from 0 to 5V
 	float angle; //the angle of the potentiometer form 0-270 degrees
 };
-
-void logPot(){
-
-}
 
 void sawtoothWave(){
 

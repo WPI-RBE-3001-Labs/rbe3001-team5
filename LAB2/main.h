@@ -15,7 +15,6 @@
 //#include "globals.h"
 //#include "timers.h"
 
-void calibratePot();
 void logPot();
 void sawtoothWave();
 void readCurrentSense();
