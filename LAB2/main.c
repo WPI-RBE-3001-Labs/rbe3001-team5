@@ -7,11 +7,7 @@
 #include "main.h"//File containing all the includes
 #include "RBELib/RBELib.h"
 
-struct Potentiometer{
-	int ADCVal; //the value from 0-1023
-	float voltage; //the analog voltage from 0 to 5V
-	float angle; //the angle of the potentiometer form 0-270 degrees
-} upperJoint;
+struct Potentiometer upperJoint = {0,0,0};
 
 int main(){
 	//Common setup here:

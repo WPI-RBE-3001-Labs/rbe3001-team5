@@ -20,4 +20,10 @@ void sawtoothWave();
 void readCurrentSense();
 void PIDarmControl();
 
+typedef struct Potentiometer{
+	int ADCVal; //the value from 0-1023
+	float voltage; //the analog voltage from 0 to 5V
+	float angle; //the angle of the potentiometer form 0-270 degrees
+};
+
 #endif /* MAIN_H_ */
