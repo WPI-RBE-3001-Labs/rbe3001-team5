@@ -32,17 +32,6 @@ void initADC(int channel){
 				 (1 << ADPS2)|
 				 (1 << ADPS1)|
 				 (1 << ADPS0);
-	
-    //Info can be found on page 322 of ATmega644P data sheet
-	ADCSRA =     (1 << ADEN) | // Enable the ADC
-				 (0 << ADSC) | // Starts conversion, set to 0 initially
-				 (0 << ADATE)| // AutoTriggering Disabled
-				 (0 << ADIF) | // Interrupt flag not used s disabled
-				 (0 << ADIE) | // Interrupts disabled
-				 (1 << ADPS2)| // Table 25-5 Division factor: 111 -> 128
-				 (1 << ADPS1)| // Table 25-5 ""
-				 (1 << ADPS0); // Table 25-5 ""
-
 
 	//Info can be found on page 319 of ATmega644P data sheet
 	ADMUX =     (0 << REFS1)| // Table 25-3 Select reference voltage
