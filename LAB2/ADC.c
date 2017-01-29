@@ -19,35 +19,31 @@
  *
  */
 void initADC(int channel){
-	//Power Reduction Register
-	//PRR0 = 0x00;
+	//Bits 7 - 6: Coupling capacitor at AREF
+	//Bit 5: No left adjustment
+	//Bits 4 - 0: Channel selection (0 - 7 for single ended)
+	ADMUX = (0x40) | channel;
 
+	//Bit 7: Enable ADC
+	//Bit 6: Starts conversions
+	//Bit 5: Auto trigger enable
+	//Bit 4: Interrupt flag telling conversions are complete
+	//Bit 3: Interrupt enable
+	//Bits 2 - 0: Prescaler of 128 (18432000 / 128 = 144kHz)
+	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); // Set ADC prescalar to 128 - 125KHz sample rate @ 16MHz
 
+	ADCSRA |= (1 << ADEN);  // Enable ADC
+	ADCSRA |= (1 << ADSC);  // Start A2D Conversions
+	//ADCSRA = 0xFF;
 
+	//Bit 7: Reserved
+	//Bit 6: Analog Comparator Multiplexer Enable (ACME) - leave at 1
+	//Bit 5 - 3: Reserved
+	//Bit 2 - 0: Free running mode
+	ADCSRB = 0x40;
 
-	//Info can be found on page 322 of the ATmega644P data sheet
-	ADCSRA =     (1 << ADEN) |
-				 (0 << ADSC) |
-				 (0 << ADATE)|
-				 (0 << ADIF) |
-				 (0 << ADIE) |
-				 (1 << ADPS2)|
-				 (1 << ADPS1)|
-				 (1 << ADPS0);
-
-	//Info can be found on page 319 of the ATmega644P data sheet
-	ADMUX =     (0 << REFS1)| // Table 25-3 Select reference voltage
-				(1 << REFS0)| // Table 25-3 ""
-				(1 << ADLAR)| // 1 to left Adjust data, 0 to right Adjust data
-				(0 << MUX4) | // Table 25-4 Select ADC mode
-				(0 << MUX3) | // Table 25-4 ""
-				(0 << MUX2) | // Table 25-4 Select ADC Channel
-				(0 << MUX1) | // Table 25-4 ""
-				(1 << MUX0);  // Table 25-4 ""
-
-	if(channel <= 7 && channel >= 0) // select ADC channel, overwrites MUX2, MUX1, and MUX0 if valid channel selection
-		ADMUX &= 0b11111000 + channel;
-
+	//Testing with port 7
+	DDRA = 0x00;
 }
 
 /**
@@ -59,9 +55,8 @@ void initADC(int channel){
  * calculation register and disconnect the input to the ADC if desired.
  */
 void clearADC(int channel){
-	//clear ADC register
-	ADCSRA = 0x00;
-	//disconnect input
+	//untested, BAsically never needed
+	ADMUX = (0x40) & channel;
 }
 
 /**
@@ -77,17 +72,23 @@ void clearADC(int channel){
  * last calculation if you are using polling.
  */
 unsigned short getADC(int channel){
-	unsigned short ADCVal = 0;
-	//start conversion
-	ADCSRA |= (1 << ADSC);
-	//wait for conversion:
-	while(ADCSRA & (1<<ADSC)){
+	// select the corresponding channel 0~7
+	// ANDing with '7' will always keep the value
+	// of 'channel' between 0 and 7
+	channel &= 0b00000111;  // AND operation with 7
+	ADMUX = (ADMUX & 0xF8)|channel;     // clears the bottom 3 bits before ORing
 
-	}
-	//get it in there
-	ADCVal = ADCL;
-	ADCVal += (ADCH<<8);
-	return ADCVal;
+	// start single conversion
+	// write '1' to ADSC
+	ADCSRA |= (1<<ADSC);
+
+	// wait for conversion to complete
+	// till then, run loop continuously
+	while(!(ADCSRA & (1<<ADIF)));
+	//Clear ADIF by writing one to it
+	ADCSRA|=(1<<ADIF);
+
+	return (ADC);
 }
 
 /**
@@ -98,8 +99,7 @@ unsigned short getADC(int channel){
  * Create a way to switch ADC channels if you are using interrupts.
  */
 void changeADC(int channel){
-	if(channel <= 7 && channel >= 0)
-		// select ADC channel, overwrites MUX0, MUX2, MUX1 if valid channel selection
-		ADMUX |= channel;
+	//Change the channel using the same setting from initADC()
+	ADMUX = (0x40) | channel;
 }
 
