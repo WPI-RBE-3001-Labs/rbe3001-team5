@@ -25,12 +25,14 @@ void initTimer(int timer, int mode, unsigned int comp){
 		/* Timer clock = I/O clock / 1024 */
 		//TCCR0B = 0b00000000;//(1<<CS02)|(1<<CS00);
 
-		TCCR0A =	(1 << COM0A1)|
-					(1 << COM0A0)|
-					(1 << COM0B1)|
-					(1 << COM0B0)|
+
+		// Configure Timer 0
+		TCCR0A =	(0 << COM0A1)| // Normal Timer operation
+					(0 << COM0A0)| // ""
+					(0 << COM0B1)| // ""
+					(0 << COM0B0)| // ""
 					(1 << WGM01) |
-					(1 << WGM00);
+					(0 << WGM00);
 
 		//TCCR0A = 0b00000010;    //(0<<WGM01)|(0<<WGM00);
 		/* Clear overflow flag */
