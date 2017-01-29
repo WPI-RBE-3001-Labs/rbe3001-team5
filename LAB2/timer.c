@@ -15,14 +15,24 @@
  * @todo Create a function that initializes the desired timer in a given mode and set the compare value
  * (as appropriate).
  */
+
+
 void initTimer(int timer, int mode, unsigned int comp){
 	if(!timer){
 		/*Clear Counter  */
 		//TCNT0 = 0x00;
 		//timer 0 - 8 bit
 		/* Timer clock = I/O clock / 1024 */
-		TCCR0B = 0b00000000;//(1<<CS02)|(1<<CS00);
-		TCCR0A = 0b00000010;//(0<<WGM01)|(0<<WGM00);
+		//TCCR0B = 0b00000000;//(1<<CS02)|(1<<CS00);
+
+		TCCR0A =	(1 << COM0A1)|
+					(1 << COM0A0)|
+					(1 << COM0B1)|
+					(1 << COM0B0)|
+					(1 << WGM01) |
+					(1 << WGM00);
+
+		//TCCR0A = 0b00000010;    //(0<<WGM01)|(0<<WGM00);
 		/* Clear overflow flag */
 		TIFR0 |= (1<<TOV0);
 		/* Enable Overflow Interrupt */

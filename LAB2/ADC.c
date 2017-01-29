@@ -23,7 +23,9 @@ void initADC(int channel){
 	//PRR0 = 0x00;
 
 
-	//Info can be found on page 322
+
+
+	//Info can be found on page 322 of the ATmega644P data sheet
 	ADCSRA =     (1 << ADEN) |
 				 (0 << ADSC) |
 				 (0 << ADATE)|
@@ -33,7 +35,7 @@ void initADC(int channel){
 				 (1 << ADPS1)|
 				 (1 << ADPS0);
 
-	//Info can be found on page 319 of ATmega644P data sheet
+	//Info can be found on page 319 of the ATmega644P data sheet
 	ADMUX =     (0 << REFS1)| // Table 25-3 Select reference voltage
 				(1 << REFS0)| // Table 25-3 ""
 				(1 << ADLAR)| // 1 to left Adjust data, 0 to right Adjust data
