@@ -10,7 +10,6 @@
 
 #include "RBELib/RBELib.h" //RBELib
 #include "function_prototypes.h"
-#include "adc.h"
 #include "avr/io.h"
 //#include "globals.h"
 //#include "timers.h"
