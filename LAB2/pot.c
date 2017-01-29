@@ -15,6 +15,10 @@
  *
  * @todo Calculate the angle using the ADC reading.
  */
+#define TICKS_TO_VOLTS 200 //todo get the actual value
+#define VOLTS_TO_ANGLE 0.25 //todo get actual value
+#define TICKS_TO_ANGLE (VOLTS_TO_ANGLE * TICKS_TO_VOLTS 200)
+
 int potAngle(int pot){
 	return 0;
 }
@@ -26,6 +30,8 @@ int potAngle(int pot){
  *
  * @todo Convert the ADC value into a voltage in mV (so no floats needed).
  */
+
+
 int potVolts(int pot){
 	return 0;
 }
