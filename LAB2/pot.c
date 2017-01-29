@@ -8,6 +8,9 @@
 #include "RBELib/RBELib.h"
 #include "main.h"
 
+#define TICKS_TO_VOLTS 200 //todo get the actual value
+#define VOLTS_TO_ANGLE 0.25 //todo get actual value
+
 /**
  * @brief Find the angle of the given potentiometer.
  * @param  pot The pot to check.
@@ -15,12 +18,8 @@
  *
  * @todo Calculate the angle using the ADC reading.
  */
-#define TICKS_TO_VOLTS 200 //todo get the actual value
-#define VOLTS_TO_ANGLE 0.25 //todo get actual value
-#define TICKS_TO_ANGLE (VOLTS_TO_ANGLE * TICKS_TO_VOLTS 200)
-
 int potAngle(int pot){
-	return 0;
+	return pot * TICKS_TO_VOLTS * VOLTS_TO_ANGLE;
 }
 
 /**
@@ -33,5 +32,5 @@ int potAngle(int pot){
 
 
 int potVolts(int pot){
-	return 0;
+	return pot * TICKS_TO_VOLTS;
 }
