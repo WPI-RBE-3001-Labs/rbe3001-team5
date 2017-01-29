@@ -16,7 +16,7 @@ int main(){
 	initRBELib();//Enable printf() and setServo()
 
 	//Interchange the correct part of the lab
-
+	logPot();
 
 	return 1;
 } /* End main */
@@ -40,9 +40,10 @@ void logPot(){
 		upperJoint.ADCVal = getADC(Arm0ADCPort);
 		//print pot values
 		//LSB:
-		putCharDebug(upperJoint.ADCVal);
+		//putCharDebug(upperJoint.ADCVal);
 		//MSB:
-		putCharDebug(upperJoint.ADCVal >> 8);
+		//putCharDebug(upperJoint.ADCVal >> 8);
+		printf("PotValue: %d \n\r", (int) upperJoint.ADCVal);
 	} //End while(1)
 
 }//end LogPot()
