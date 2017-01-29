@@ -15,8 +15,8 @@
  *
  * @param channel The ADC channel to initialize.
  *
- * Create the corresponding function to initialize the ADC
- * using the channel parameter.
+ * Initializes the ADC using the channel parameter.
+ *
  */
 void initADC(int channel){
 	//Power Reduction Register
