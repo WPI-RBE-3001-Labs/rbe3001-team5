@@ -31,10 +31,10 @@ int main(){
 
 #define Arm0ADCPort 2
 #define Arm1ADCPort 3
-
+//TODO test this shit
 void logPot(){
 	//initialize ADC to correct channel
-	initADC(Arm0ADCPort); //TODO find pot channel for arm link
+	initADC(Arm0ADCPort);
 
 	//initialize USART 1 for transmission to Putty
 	debugUSARTInit(115200);
@@ -51,7 +51,7 @@ void logPot(){
 
 }//end LogPot()
 
-
+//TODO decide how we will implement this
 void sawtoothWave(){
 	//setup the SPI bus
 	initSPI();
@@ -63,11 +63,11 @@ void sawtoothWave(){
 
 	}
 }
-
+//TODO readCurrentSense() funciton
 void readCurrentSense(){
 
 }
-
+//TODO button arm control thing
 void PIDarmControl(){
 
 }
