@@ -77,7 +77,7 @@ void clearADC(int channel){
  * conversion.  The precision depends on your settings and
  * how much accuracy you desire.
  *
- * @todo Create the corresponding function to obtain the value of the
+ * Create the corresponding function to obtain the value of the
  * last calculation if you are using polling.
  */
 unsigned short getADC(int channel){
