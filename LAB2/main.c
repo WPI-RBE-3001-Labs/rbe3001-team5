@@ -71,8 +71,10 @@ void logPot2(){
 }//end LogPot()
 
 //globals for this
-register int counter0 = 0;
-register int counter1 = 4095;
+int counter0 = 0;
+char counter0Dir = 0;
+int counter1 = 4095;
+char counter1Dir = 1;
 void sawtoothWave(){
 	//setup the SPI bus
 	initSPI();
@@ -86,7 +88,23 @@ void sawtoothWave(){
 }
 //ISR for timer
 ISR(TIMER0_COMPA){
+	if (counter0 < 4095){
+		if(!counter0Dir){
+			counter0++;
+		}else{
+			counter0--;
+		}
+	} else{
+		counter0 = 0;
+	}
 
+	if (counter1 < 4095){
+		if(!counter0Dir){
+					counter0++;
+				}else{
+					counter0--;
+				}
+	}
 }
 
 //TODO readCurrentSense() funciton
