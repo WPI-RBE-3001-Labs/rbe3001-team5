@@ -48,6 +48,26 @@ void logPot(){
 
 }//end LogPot()
 
+void logPot2(){
+	//initialize ADC to correct channel
+	initADC(Arm0ADCPort);
+
+	//initialize USART 1 for transmission to Putty
+	debugUSARTInit(115200);
+
+	while(1){
+		//read pot value
+		upperJoint.ADCVal = getADC(Arm0ADCPort);
+		//print pot values
+		//LSB:
+		//putCharDebug(upperJoint.ADCVal);
+		//MSB:
+		//putCharDebug(upperJoint.ADCVal >> 8);
+		printf("PotValue: %d \n\r", (int) upperJoint.ADCVal);
+	} //End while(1)
+
+}//end LogPot()
+
 //TODO decide how we will implement this
 void sawtoothWave(){
 	//setup the SPI bus

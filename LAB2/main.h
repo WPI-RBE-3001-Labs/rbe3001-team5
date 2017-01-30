@@ -15,6 +15,7 @@
 //#include "timers.h"
 
 void logPot();
+void logPot2();
 void sawtoothWave();
 void readCurrentSense();
 void PIDarmControl();
