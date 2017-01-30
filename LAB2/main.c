@@ -14,12 +14,13 @@ int main(){
 	nukeWDT(); //Disable Watchdog Timer
 	sei(); // Enable Global Interrupts
 	initRBELib();//Enable printf() and setServo()
-
+	//initialize USART 1 for transmission to Putty
+	debugUSARTInit(115200);
 	//dissable DAC for doing potentiometer stuff
 	DAC_SS = 1;
 
-	//Interchange the correct part of the lab
-	logPot2();
+	//TODO Interchange the correct part of the lab
+	sawtoothWave();
 
 	return 1;
 } /* End main */
@@ -35,9 +36,6 @@ void logPot(){
 	//initialize ADC to correct channel
 	initADC(Arm0ADCPort);
 
-	//initialize USART 1 for transmission to Putty
-	debugUSARTInit(115200);
-
 	while(1){
 		//read pot value
 		upperJoint.ADCVal = getADC(Arm0ADCPort);
@@ -50,9 +48,6 @@ void logPot(){
 void logPot2(){
 	//initialize ADC to correct channel
 	initADC(Arm0ADCPort);
-
-	//initialize USART 1 for transmission to Putty
-	debugUSARTInit(115200);
 
 	while(1){
 		//read pot value
@@ -73,8 +68,9 @@ void logPot2(){
 //globals for this
 int counter0 = 0;
 char counter0Dir = 0;
-int counter1 = 4095;
+int counter1 = 0;
 char counter1Dir = 1;
+
 void sawtoothWave(){
 	//setup the SPI bus
 	initSPI();
@@ -83,13 +79,14 @@ void sawtoothWave(){
 	initTimer(0,0,0);
 
 	while(1){
-
+		printf("PotAngle: %d \n\r", (int) counter0);
+		printf("PotAngle: %d \n\r", (int) counter1);
 	}
 }
 //ISR for timer
-ISR(TIMER0_COMPA){
-	if (counter0 < 4095){
-		if(!counter0Dir){
+ISR(TIMER0_OVF_vect){
+	if (counter0 < 4095){ //make sure is doesn't overflow
+		if(!counter0Dir){ //first it goes forwards
 			counter0++;
 		}else{
 			counter0--;
@@ -98,13 +95,17 @@ ISR(TIMER0_COMPA){
 		counter0 = 0;
 	}
 
-	if (counter1 < 4095){
-		if(!counter0Dir){
-					counter0++;
-				}else{
-					counter0--;
-				}
+	if (counter1 < 4095){ //make sure is doesn't overflow
+		if(counter1Dir){ //first this one goes backwards
+			counter1++;
+		}else{
+			counter1--;
+		}
+	} else {
+		counter1 = 0;
 	}
+	//setDAC(0, counter0);
+	//setDAC(1, counter1);
 }
 
 //TODO readCurrentSense() funciton
