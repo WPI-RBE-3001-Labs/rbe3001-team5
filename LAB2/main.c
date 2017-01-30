@@ -15,8 +15,11 @@ int main(){
 	sei(); // Enable Global Interrupts
 	initRBELib();//Enable printf() and setServo()
 
+	//dissable DAC for doing potentiometer stuff
+	DAC_SS = 1;
+
 	//Interchange the correct part of the lab
-	logPot();
+	logPot2();
 
 	return 1;
 } /* End main */
@@ -27,7 +30,7 @@ int main(){
 
 #define Arm0ADCPort 2
 #define Arm1ADCPort 3
-//TODO test this shit
+
 void logPot(){
 	//initialize ADC to correct channel
 	initADC(Arm0ADCPort);
@@ -56,28 +59,36 @@ void logPot2(){
 		upperJoint.ADCVal = getADC(Arm0ADCPort);
 
 		//Calculate other Values
-		upperJoint.voltage = potVoltage(upperJoint.ADCVal);
-		upperJoint.angle = potVoltage(upperJoint.ADCVal);
-
+		upperJoint.voltage = potVolts(upperJoint.ADCVal);
+		upperJoint.angle = potAngle(upperJoint.ADCVal);
+		//TODO fix output formatting to be exported as CSV
 		printf("PotValue: %d \n\r", (int) upperJoint.ADCVal);
 		printf("PotVoltage: %d \n\r", (int) upperJoint.voltage);
 		printf("PotAngle: %d \n\r", (int) upperJoint.angle);
+
 	} //End while(1)
 
 }//end LogPot()
 
-//TODO decide how we will implement this
+//globals for this
+register int counter0 = 0;
+register int counter1 = 4095;
 void sawtoothWave(){
 	//setup the SPI bus
 	initSPI();
 	//will output waves between channels 0 and 1
-
-	//setup Timer ISR
+	//setup Timer
+	initTimer(0,0,0);
 
 	while(1){
 
 	}
 }
+//ISR for timer
+ISR(TIMER0_COMPA){
+
+}
+
 //TODO readCurrentSense() funciton
 void readCurrentSense(){
 
