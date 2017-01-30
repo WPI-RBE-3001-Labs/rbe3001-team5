@@ -16,8 +16,9 @@ int main(){
 	initRBELib();//Enable printf() and setServo()
 	//initialize USART 1 for transmission to Putty
 	debugUSARTInit(115200);
+	//TODO Make sure that the DAC is ON/OFF properly
 	//dissable DAC for doing potentiometer stuff
-	DAC_SS = 1;
+	//DAC_SS = 1;
 
 	//TODO Interchange the correct part of the lab
 	sawtoothWave();
@@ -39,7 +40,7 @@ void logPot(){
 	while(1){
 		//read pot value
 		upperJoint.ADCVal = getADC(Arm0ADCPort);
-
+		//Log Pot Value
 		printf("PotValue: %d \n\r", (int) upperJoint.ADCVal);
 	} //End while(1)
 
@@ -77,15 +78,19 @@ void sawtoothWave(){
 	//will output waves between channels 0 and 1
 	//setup Timer
 	initTimer(0,0,0);
+	setCompValue(0, 20);
 
 	while(1){
-		printf("PotAngle: %d \n\r", (int) counter0);
-		printf("PotAngle: %d \n\r", (int) counter1);
+		//printf("PotAngle: %d \n\r", (int) counter0);
+		//printf("PotAngle: %d \n\r", (int) counter1);
+		setDAC(0, counter0);
+		setDAC(1, counter1);
 	}
 }
 //ISR for timer
 ISR(TIMER0_OVF_vect){
-	if (counter0 < 4095){ //make sure is doesn't overflow
+	//Counter 0
+	if (counter0 <= 4095){ //make sure is doesn't overflow
 		if(!counter0Dir){ //first it goes forwards
 			counter0++;
 		}else{
@@ -93,9 +98,14 @@ ISR(TIMER0_OVF_vect){
 		}
 	} else{
 		counter0 = 0;
+		if(!counter0Dir){ //first it goes forwards
+			counter0Dir = 1;
+		}else{
+			counter0Dir = 0;
+		}
 	}
-
-	if (counter1 < 4095){ //make sure is doesn't overflow
+	//Counter 1
+	if (counter1 <= 4095){ //make sure is doesn't overflow
 		if(counter1Dir){ //first this one goes backwards
 			counter1++;
 		}else{
@@ -103,9 +113,12 @@ ISR(TIMER0_OVF_vect){
 		}
 	} else {
 		counter1 = 0;
+		if(!counter1Dir){ //first it goes forwards
+			counter1Dir = 1;
+		}else{
+			counter1Dir = 0;
+		}
 	}
-	//setDAC(0, counter0);
-	//setDAC(1, counter1);
 }
 
 //TODO readCurrentSense() funciton
