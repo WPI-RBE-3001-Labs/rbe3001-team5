@@ -8,8 +8,8 @@
 #include "RBELib/RBELib.h"
 #include "main.h"
 
-#define TICKS_TO_VOLTS 200 //todo get the actual value
-#define TICKS_TO_DEGREE 4.41 //todo get actual value
+#define TICKS_TO_MILLIVOLTS 2.169 //todo get the actual value
+#define TICKS_TO_DEGREE 4.411 //todo get actual value
 
 /**
  * @brief Find the angle of the given potentiometer.
@@ -32,5 +32,5 @@ int potAngle(int pot){
 
 
 int potVolts(int pot){
-	return (int)(pot * TICKS_TO_VOLTS);
+	return (int)(pot * TICKS_TO_MILLIVOLTS);
 }
