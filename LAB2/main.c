@@ -38,11 +38,7 @@ void logPot(){
 	while(1){
 		//read pot value
 		upperJoint.ADCVal = getADC(Arm0ADCPort);
-		//print pot values
-		//LSB:
-		//putCharDebug(upperJoint.ADCVal);
-		//MSB:
-		//putCharDebug(upperJoint.ADCVal >> 8);
+
 		printf("PotValue: %d \n\r", (int) upperJoint.ADCVal);
 	} //End while(1)
 
@@ -58,12 +54,14 @@ void logPot2(){
 	while(1){
 		//read pot value
 		upperJoint.ADCVal = getADC(Arm0ADCPort);
-		//print pot values
-		//LSB:
-		//putCharDebug(upperJoint.ADCVal);
-		//MSB:
-		//putCharDebug(upperJoint.ADCVal >> 8);
+
+		//Calculate other Values
+		upperJoint.voltage = potVoltage(upperJoint.ADCVal);
+		upperJoint.angle = potVoltage(upperJoint.ADCVal);
+
 		printf("PotValue: %d \n\r", (int) upperJoint.ADCVal);
+		printf("PotVoltage: %d \n\r", (int) upperJoint.voltage);
+		printf("PotAngle: %d \n\r", (int) upperJoint.angle);
 	} //End while(1)
 
 }//end LogPot()
