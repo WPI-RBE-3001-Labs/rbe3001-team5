@@ -18,8 +18,9 @@
  *
  * Calculate the angle using the ADC reading.
  */
+#define ANGLE_OFFSET 243
 int potAngle(int pot){
-	return (int)(pot * TICKS_TO_DEGREE);
+	return (int)((pot - ANGLE_OFFSET) / TICKS_TO_DEGREE);
 }
 
 /**
@@ -30,7 +31,7 @@ int potAngle(int pot){
  *Convert the ADC value into a voltage in mV (so no floats needed).
  */
 
-
+#define MILLIVOLT_OFFSET 113
 int potVolts(int pot){
-	return (int)(pot * TICKS_TO_MILLIVOLTS);
+	return (int)(pot * TICKS_TO_MILLIVOLTS + MILLIVOLT_OFFSET);
 }
