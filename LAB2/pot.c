@@ -18,7 +18,7 @@
  *
  * @todo Calculate the angle using the ADC reading.
  */
-int potAngle(int pot){
+float potAngle(int pot){
 	return pot * TICKS_TO_VOLTS * VOLTS_TO_ANGLE;
 }
 
@@ -31,6 +31,6 @@ int potAngle(int pot){
  */
 
 
-int potVolts(int pot){
+float potVolts(int pot){
 	return pot * TICKS_TO_VOLTS;
 }
