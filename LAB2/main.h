@@ -17,6 +17,7 @@
 void logPot();
 void logPot2();
 void sawtoothWave();
+void driveMotors();
 void readCurrentSense();
 void PIDarmControl();
 

@@ -121,6 +121,11 @@ ISR(TIMER0_OVF_vect){
 	}
 }
 
+//TODO
+void driveMotors(){
+
+}
+
 //TODO readCurrentSense() funciton
 void readCurrentSense(){
 
