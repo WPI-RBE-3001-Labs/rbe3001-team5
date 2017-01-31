@@ -14,8 +14,8 @@ typedef struct pid{
 	float P_FACTOR;
 	float I_FACTOR;
 	float D_FACTOR;
-	float MAX_ERROR;
-	float MAX_SUM_ERROR;
+	int MAX_ERROR;
+	int MAX_SUM_ERROR;
 };
 /**
  * @brief Sets the Kp, Ki, and Kd values for 1 link.
@@ -41,6 +41,6 @@ void setConst(char link, float Kp, float Ki, float Kd){
  * @todo Make a function to calculate the PID value for a link.
  */
 signed int calcPID(char link, int setPoint, int actPos){
-
+	return 0;
 }
 
