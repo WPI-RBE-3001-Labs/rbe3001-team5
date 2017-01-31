@@ -8,6 +8,15 @@
 #include "main.h"//File containing all the includes
 #include "RBELib/RBELib.h"
 
+typedef struct pid{
+	int LAST_PROCESS_VALUE;
+	int SUM_ERROR;
+	float P_FACTOR;
+	float I_FACTOR;
+	float D_FACTOR;
+	float MAX_ERROR;
+	float MAX_SUM_ERROR;
+};
 /**
  * @brief Sets the Kp, Ki, and Kd values for 1 link.
  * @details to set the values, use the following style
