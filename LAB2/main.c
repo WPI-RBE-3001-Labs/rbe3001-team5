@@ -14,6 +14,8 @@ int main(){
 	nukeWDT(); //Disable Watchdog Timer
 	sei(); // Enable Global Interrupts
 	initRBELib();//Enable printf() and setServo()
+	//DDRBbits._P0 = OUTPUT;
+	//PINBbits._P0 = 1;
 	//initialize USART 1 for transmission to Putty
 	debugUSARTInit(115200);
 	//TODO Make sure that the DAC is ON/OFF properly
@@ -67,59 +69,59 @@ void logPot2(){
 }//end LogPot()
 
 //globals for this
-int counter0 = 0;
-char counter0Dir = 0;
-int counter1 = 0;
+int counter0 = 100;
+char counter0Dir = 1;
+int counter1 = 100;
 char counter1Dir = 1;
+//BOOL flag = 1;
 
 void sawtoothWave(){
 	//setup the SPI bus
 	initSPI();
 	//will output waves between channels 0 and 1
 	//setup Timer
-	initTimer(0,0,0);
-	setCompValue(0, 20);
+	//initTimer(0,0,0);
+//	setCompValue(0, 128);
 
 	while(1){
-		//printf("PotAngle: %d \n\r", (int) counter0);
-		//printf("PotAngle: %d \n\r", (int) counter1);
+		//if(flag){
+		//printf("DAC Val: %d \n\r", counter0);
+		//printf("DAC Val: %d \n\r", counter1);
+
+		//Counter 0
+		if (counter0 > 4095 || counter0 < 0 ){ //If it is out of bounds
+			counter0Dir *= -1; //change direction
+		}
+		counter0 += counter0Dir;
+
+		//Counter 1
+		if (counter1 > 4095 || counter1 < 0 ){ //If it is out of bounds
+			counter1Dir *= -1; //change direction
+		}
+		counter1 += counter1Dir;
+
 		setDAC(0, counter0);
 		setDAC(1, counter1);
+		//flag = 0;
+		//}
 	}
 }
 //ISR for timer
-ISR(TIMER0_OVF_vect){
-	//Counter 0
-	if (counter0 <= 4095){ //make sure is doesn't overflow
-		if(!counter0Dir){ //first it goes forwards
-			counter0++;
-		}else{
-			counter0--;
-		}
-	} else{
-		counter0 = 0;
-		if(!counter0Dir){ //first it goes forwards
-			counter0Dir = 1;
-		}else{
-			counter0Dir = 0;
-		}
-	}
-	//Counter 1
-	if (counter1 <= 4095){ //make sure is doesn't overflow
-		if(counter1Dir){ //first this one goes backwards
-			counter1++;
-		}else{
-			counter1--;
-		}
-	} else {
-		counter1 = 0;
-		if(!counter1Dir){ //first it goes forwards
-			counter1Dir = 1;
-		}else{
-			counter1Dir = 0;
-		}
-	}
-}
+//ISR(TIMER0_OVF_vect){
+//	//Counter 0
+//	if (counter0 > 4095 || counter0 < 0 ){ //If it is out of bounds
+//		counter0Dir *= -1; //change direction
+//	}
+//	counter0 += counter0Dir;
+//
+//	//Counter 1
+//	if (counter1 > 4095 || counter1 < 0 ){ //If it is out of bounds
+//		counter1Dir *= -1; //change direction
+//	}
+//	counter1 += counter1Dir;
+//	//printf("DAC Val: %d \n\r", flag);
+//	flag = 1;
+//}
 
 //TODO
 void driveMotors(){
