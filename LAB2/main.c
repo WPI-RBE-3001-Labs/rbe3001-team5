@@ -87,6 +87,8 @@ void sawtoothWave(){
 
 	while(1){
 		if(flag){
+			DDRAbits._P0 = OUTPUT;
+			PINBbits._P0 = 1;
 			//printf("DAC Val: %d \n\r", counter0);
 			//printf("DAC Val: %d \n\r", counter1);
 			setDAC(0, counter0);
