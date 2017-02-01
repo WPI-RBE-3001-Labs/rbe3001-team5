@@ -76,6 +76,7 @@ signed char counter1Dir = 1;
 BOOL flag = 1;
 
 void sawtoothWave(){
+	DDRAbits._P0 = OUTPUT;
 	//disable IO port B
 	DDRB = 0;
 	//setup the SPI bus
@@ -87,7 +88,6 @@ void sawtoothWave(){
 
 	while(1){
 		if(flag){
-			DDRAbits._P0 = OUTPUT;
 			PINBbits._P0 = 1;
 			//printf("DAC Val: %d \n\r", counter0);
 			//printf("DAC Val: %d \n\r", counter1);
@@ -95,6 +95,7 @@ void sawtoothWave(){
 			setDAC(1, counter1);
 			flag = 0;
 		}
+		PINBbits._P0 = 0;
 	}
 }
 //ISR for timer
