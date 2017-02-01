@@ -74,9 +74,10 @@ signed char counter0Dir = 1;
 int counter1 = 100;
 signed char counter1Dir = 1;
 BOOL flag = 1;
+char LEDON = 0;
 
 void sawtoothWave(){
-	DDRAbits._P0 = OUTPUT;
+	DDRAbits._P7 = OUTPUT;
 	//disable IO port B
 	DDRB = 0;
 	//setup the SPI bus
@@ -88,14 +89,15 @@ void sawtoothWave(){
 
 	while(1){
 		if(flag){
-			PINBbits._P0 = 1;
+			PINAbits._P7 = LEDON;
 			//printf("DAC Val: %d \n\r", counter0);
 			//printf("DAC Val: %d \n\r", counter1);
 			setDAC(0, counter0);
 			setDAC(1, counter1);
 			flag = 0;
 		}
-		PINBbits._P0 = 0;
+			//PINAbits._P7 = 0;
+
 	}
 }
 //ISR for timer
@@ -113,8 +115,9 @@ ISR(TIMER0_OVF_vect){
 	counter1 += counter1Dir;
 	//printf("DAC Val: %d \n\r", flag);
 	flag = 1;
+	LEDON = 1 - LEDON;
 	TIFR0 = (1 << TOV0);
-	sei();
+	//sei();
 }
 
 //TODO
