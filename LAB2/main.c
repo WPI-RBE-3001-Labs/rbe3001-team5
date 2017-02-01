@@ -70,58 +70,49 @@ void logPot2(){
 
 //globals for this
 int counter0 = 100;
-char counter0Dir = 1;
+signed char counter0Dir = 1;
 int counter1 = 100;
-char counter1Dir = 1;
-//BOOL flag = 1;
+signed char counter1Dir = 1;
+BOOL flag = 1;
 
 void sawtoothWave(){
+	//disable IO port B
+	DDRB = 0;
 	//setup the SPI bus
 	initSPI();
 	//will output waves between channels 0 and 1
 	//setup Timer
-	//initTimer(0,0,0);
-//	setCompValue(0, 128);
+	initTimer(0,0,0);
+	//setCompValue(0, 16);
 
 	while(1){
-		//if(flag){
-		//printf("DAC Val: %d \n\r", counter0);
-		//printf("DAC Val: %d \n\r", counter1);
-
-		//Counter 0
-		if (counter0 > 4095 || counter0 < 0 ){ //If it is out of bounds
-			counter0Dir *= -1; //change direction
+		if(flag){
+			//printf("DAC Val: %d \n\r", counter0);
+			//printf("DAC Val: %d \n\r", counter1);
+			setDAC(0, counter0);
+			setDAC(1, counter1);
+			flag = 0;
 		}
-		counter0 += counter0Dir;
-
-		//Counter 1
-		if (counter1 > 4095 || counter1 < 0 ){ //If it is out of bounds
-			counter1Dir *= -1; //change direction
-		}
-		counter1 += counter1Dir;
-
-		setDAC(0, counter0);
-		setDAC(1, counter1);
-		//flag = 0;
-		//}
 	}
 }
 //ISR for timer
-//ISR(TIMER0_OVF_vect){
-//	//Counter 0
-//	if (counter0 > 4095 || counter0 < 0 ){ //If it is out of bounds
-//		counter0Dir *= -1; //change direction
-//	}
-//	counter0 += counter0Dir;
-//
-//	//Counter 1
-//	if (counter1 > 4095 || counter1 < 0 ){ //If it is out of bounds
-//		counter1Dir *= -1; //change direction
-//	}
-//	counter1 += counter1Dir;
-//	//printf("DAC Val: %d \n\r", flag);
-//	flag = 1;
-//}
+ISR(TIMER0_OVF_vect){
+	//Counter 0
+	if (counter0 > 4095 || counter0 < 0 ){ //If it is out of bounds
+		counter0Dir *= -1; //change direction
+	}
+	counter0 += counter0Dir;
+
+	//Counter 1
+	if (counter1 > 4095 || counter1 < 0 ){ //If it is out of bounds
+		counter1Dir *= -1; //change direction
+	}
+	counter1 += counter1Dir;
+	//printf("DAC Val: %d \n\r", flag);
+	flag = 1;
+	TIFR0 = (1 << TOV0);
+	sei();
+}
 
 //TODO
 void driveMotors(){
