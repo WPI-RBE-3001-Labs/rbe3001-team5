@@ -135,10 +135,19 @@ void driveMotors(){
 
 }
 
+#define CurrentSense0Port 0
+#define CurrentSense1Port 1
 //TODO readCurrentSense() funciton
 void readCurrentSense(){
-
+	//Initialize ADC first
+	initADC(CurrentSense0Port);
+	struct Current current0 = {0,0,0};
+	while(1){
+		current0.ADCVal = getADC(CurrentSense0Port);
+		printf("Current Sensor %d ", (int) current0.ADCVal); printf(",");
+	}
 }
+
 //TODO button arm control thing
 void PIDarmControl(){
 
