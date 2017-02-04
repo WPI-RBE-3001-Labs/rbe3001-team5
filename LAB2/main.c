@@ -77,7 +77,7 @@ void logPot2(){
 
 }//end LogPot()
 
-//globals for this
+//globals for t
 int counter0 = 100;
 signed char counter0Dir = 1;
 int counter1 = 100;

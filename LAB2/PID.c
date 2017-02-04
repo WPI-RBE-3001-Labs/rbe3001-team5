@@ -17,6 +17,7 @@ typedef struct pid{
 	int MAX_ERROR;
 	int MAX_SUM_ERROR;
 };
+	struct pid link1;
 /**
  * @brief Sets the Kp, Ki, and Kd values for 1 link.
  * @details to set the values, use the following style
@@ -30,6 +31,10 @@ typedef struct pid{
  */
 void setConst(char link, float Kp, float Ki, float Kd){
 
+
+	link1.P_FACTOR = Kp;
+	link1.I_FACTOR = Ki;
+	link1.D_FACTOR = Kd;
 }
 
 /**
@@ -41,6 +46,16 @@ void setConst(char link, float Kp, float Ki, float Kd){
  * @todo Make a function to calculate the PID value for a link.
  */
 signed int calcPID(char link, int setPoint, int actPos){
-	return 0;
+
+	int velocity = actPos - link1.LAST_PROCESS_VALUE;
+	link1.LAST_PROCESS_VALUE = actPos;
+
+	int proportion = setPoint - actPos;
+	if(proportion < link1.MAX_ERROR && (proportion + link1.SUM_ERROR) < link1.MAX_SUM_ERROR)
+		link1.SUM_ERROR += proportion;
+
+	return (proportion * link1.P_FACTOR) + (velocity * link1.D_FACTOR) + (link1.SUM_ERROR * link1.I_FACTOR);
+
+
 }
 
