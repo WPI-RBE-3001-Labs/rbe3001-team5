@@ -8,22 +8,29 @@
 #include "RBELib/RBELib.h"
 
 struct Potentiometer upperJoint = {0,0,0};
+struct Potentiometer lowerJoint = {0,0,0};
 
 int main(){
 	//Common setup here:
 	nukeWDT(); //Disable Watchdog Timer
+
 	sei(); // Enable Global Interrupts
+
 	initRBELib();//Enable printf() and setServo()
-	//DDRBbits._P0 = OUTPUT;
-	//PINBbits._P0 = 1;
+
 	//initialize USART 1 for transmission to Putty
 	debugUSARTInit(115200);
+
+	initTimer(0,0,0);
+
 	//TODO Make sure that the DAC is ON/OFF properly
-	//dissable DAC for doing potentiometer stuff
+	//disable DAC for doing potentiometer stuff
 	//DAC_SS = 1;
 
 	//TODO Interchange the correct part of the lab
-	sawtoothWave();
+	logPot2();
+
+
 
 	return 1;
 } /* End main */
@@ -35,34 +42,36 @@ int main(){
 #define Arm0ADCPort 2
 #define Arm1ADCPort 3
 
-void logPot(){
-	//initialize ADC to correct channel
-	initADC(Arm0ADCPort);
-
-	while(1){
-		//read pot value
-		upperJoint.ADCVal = getADC(Arm0ADCPort);
-		//Log Pot Value
-		printf("PotValue: %d \n\r", (int) upperJoint.ADCVal);
-	} //End while(1)
-
-}//end LogPot()
-
 void logPot2(){
 	//initialize ADC to correct channel
+	initADC(Arm1ADCPort);
 	initADC(Arm0ADCPort);
 
 	while(1){
-		//read pot value
+		//read pot value for upper and lower joints
 		upperJoint.ADCVal = getADC(Arm0ADCPort);
+		lowerJoint.ADCVal = getADC(Arm1ADCPort);
 
-		//Calculate other Values
+		//Calculate Angle and Voltage Upper Joint
 		upperJoint.voltage = potVolts(upperJoint.ADCVal);
 		upperJoint.angle = potAngle(upperJoint.ADCVal);
-		//TODO fix output formatting to be exported as CSV
-		printf("PotValue: %d \n\r", (int) upperJoint.ADCVal);
-		printf("PotVoltage: %d \n\r", (int) upperJoint.voltage);
-		printf("PotAngle: %d \n\r", (int) upperJoint.angle);
+
+		//Calculate Angle and Voltage Lower Joint
+		lowerJoint.voltage = potVolts(lowerJoint.ADCVal);
+		lowerJoint.angle = potAngle(lowerJoint.ADCVal);
+
+		//Printing in CSV format Use Excel Filters to separate UJ from LJ
+		// Printing Values in Columns ADCValue[counts], Voltage[mV], Angle[deg]
+		printf(" Upper Joint:  "); printf(",");
+		printf(" %d ", (int) upperJoint.ADCVal); printf(",");
+		printf(" %d ", (int) upperJoint.voltage); printf(",");
+		printf(" %d ", (int) upperJoint.angle); printf(",");
+		//printf("\n\r");
+		printf(" Lower Joint:  "); printf(",");
+	    printf(" %d ", (int) lowerJoint.ADCVal); printf(",");
+		printf(" %d ", (int) lowerJoint.voltage); printf(",");
+		printf(" %d ", (int) lowerJoint.angle); printf(",");
+		printf("\n\r");
 
 	} //End while(1)
 
@@ -77,7 +86,7 @@ BOOL flag = 1;
 char LEDON = 0;
 
 void sawtoothWave(){
-	DDRAbits._P7 = OUTPUT;
+	DDRA = (1 << DDA5);
 	//disable IO port B
 	DDRB = 0;
 	//setup the SPI bus
@@ -89,7 +98,7 @@ void sawtoothWave(){
 
 	while(1){
 		if(flag){
-			PINAbits._P7 = LEDON;
+			PORTAbits._P5 = LEDON;
 			//printf("DAC Val: %d \n\r", counter0);
 			//printf("DAC Val: %d \n\r", counter1);
 			setDAC(0, counter0);
@@ -119,6 +128,7 @@ ISR(TIMER0_OVF_vect){
 	TIFR0 = (1 << TOV0);
 	//sei();
 }
+
 
 //TODO
 void driveMotors(){

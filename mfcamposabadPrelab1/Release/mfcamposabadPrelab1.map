@@ -2,10 +2,10 @@ Archive member included because of file (symbol)
 
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libprintf_flt.a(vfprintf_flt.o)
                               (vfprintf)
-C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(Debug.o)
+C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(Debug.o)
                               ./firstblink.o (initRBELib)
-C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(SetServo.o)
-                              C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(Debug.o) (initAltCom)
+C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(SetServo.o)
+                              C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(Debug.o) (initAltCom)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
                               ./debug.o (__udivmodsi4)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
@@ -17,7 +17,7 @@ c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
                               ./firstblink.o (__do_copy_data)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
-                              ./globals.o (__do_clear_bss)
+                              ./globa_variables.o (__do_clear_bss)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
                               ./ports.o (__fixunssfsi)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
@@ -49,18 +49,18 @@ c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strn
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(fputc.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libprintf_flt.a(vfprintf_flt.o) (fputc)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(iob.o)
-                              C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(Debug.o) (__iob)
+                              C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(Debug.o) (__iob)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(printf.o)
                               ./firstblink.o (printf)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(sprintf.o)
-                              C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(SetServo.o) (sprintf)
+                              C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(SetServo.o) (sprintf)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libprintf_flt.a(vfprintf_flt.o) (__ultoa_invert)
 
 Allocating common symbols
 Common symbol       size              file
 
-globals             0x9               ./globals.o
+globals             0x9               ./globa_variables.o
 __iob               0x6               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(iob.o)
 
 Memory Configuration
@@ -82,11 +82,12 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libpri
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a
 LOAD ./debug.o
 LOAD ./firstblink.o
+LOAD ./globa_variables.o
 LOAD ./globals.o
 LOAD ./main.o
 LOAD ./ports.o
 LOAD ./timers.o
-LOAD C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a
+LOAD C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
@@ -181,7 +182,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x1b86
+.text           0x00000000     0x1b8c
  *(.vectors)
  .vectors       0x00000000       0x7c c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm644p.o
                 0x00000000                __vectors
@@ -272,12 +273,13 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  .text          0x000001bc        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libprintf_flt.a(vfprintf_flt.o)
  .text          0x000001bc        0x0 ./debug.o
  .text          0x000001bc        0x0 ./firstblink.o
+ .text          0x000001bc        0x0 ./globa_variables.o
  .text          0x000001bc        0x0 ./globals.o
  .text          0x000001bc        0x0 ./main.o
  .text          0x000001bc        0x0 ./ports.o
  .text          0x000001bc        0x0 ./timers.o
- .text          0x000001bc        0x0 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(Debug.o)
- .text          0x000001bc        0x0 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(SetServo.o)
+ .text          0x000001bc        0x0 C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(Debug.o)
+ .text          0x000001bc        0x0 C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(SetServo.o)
  .text          0x000001bc        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
  .text          0x000001bc        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
  .text          0x000001bc        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
@@ -332,91 +334,93 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x000013de       0x5e ./firstblink.o
                 0x000013de                firstblink
  .text.initGlobals
-                0x0000143c       0x36 ./globals.o
+                0x0000143c        0x2 ./globa_variables.o
                 0x0000143c                initGlobals
- .text.part7    0x00001472       0x18 ./main.o
-                0x00001472                part7
+ .text.initGlobals
+                0x0000143e       0x36 ./globals.o
+ .text.part7    0x00001474       0x18 ./main.o
+                0x00001474                part7
  .text.__vector_18
-                0x0000148a       0x2c ./main.o
-                0x0000148a                __vector_18
- .text.part6    0x000014b6       0x1a ./main.o
-                0x000014b6                part6
- .text.part5    0x000014d0       0x24 ./main.o
-                0x000014d0                part5
+                0x0000148c       0x2c ./main.o
+                0x0000148c                __vector_18
+ .text.part6    0x000014b8       0x1a ./main.o
+                0x000014b8                part6
+ .text.part5    0x000014d2       0x24 ./main.o
+                0x000014d2                part5
  .text.initializations
-                0x000014f4       0x1e ./main.o
-                0x000014f4                initializations
- .text.main     0x00001512        0xc ./main.o
-                0x00001512                main
- .text.initPB   0x0000151e        0x6 ./ports.o
-                0x0000151e                initPB
- .text.initPA   0x00001524        0x8 ./ports.o
-                0x00001524                initPA
+                0x000014f6       0x22 ./main.o
+                0x000014f6                initializations
+ .text.main     0x00001518        0xc ./main.o
+                0x00001518                main
+ .text.initPB   0x00001524        0x6 ./ports.o
+                0x00001524                initPB
+ .text.initPA   0x0000152a        0x8 ./ports.o
+                0x0000152a                initPA
  .text.blinkAll
-                0x0000152c      0x10c ./ports.o
-                0x0000152c                blinkAll
+                0x00001532      0x10c ./ports.o
+                0x00001532                blinkAll
  .text.button_state
-                0x00001638       0x12 ./ports.o
-                0x00001638                button_state
+                0x0000163e       0x12 ./ports.o
+                0x0000163e                button_state
  .text.initTimer
-                0x0000164a       0x18 ./timers.o
-                0x0000164a                initTimer
+                0x00001650       0x18 ./timers.o
+                0x00001650                initTimer
  .text.setCompValue
-                0x00001662        0x2 ./timers.o
-                0x00001662                setCompValue
+                0x00001668        0x2 ./timers.o
+                0x00001668                setCompValue
  .text.initRBELib
-                0x00001664       0x1a C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(Debug.o)
-                0x00001664                initRBELib
+                0x0000166a       0x1a C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(Debug.o)
+                0x0000166a                initRBELib
  .text.printfRBE
-                0x0000167e        0xa C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(Debug.o)
-                0x0000167e                printfRBE
+                0x00001684        0xa C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(Debug.o)
+                0x00001684                printfRBE
  .text.initAltCom
-                0x00001688       0x38 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(SetServo.o)
-                0x00001688                initAltCom
+                0x0000168e       0x38 C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(SetServo.o)
+                0x0000168e                initAltCom
  .text.setCharDebug
-                0x000016c0       0x10 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(SetServo.o)
-                0x000016c0                setCharDebug
+                0x000016c6       0x10 C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(SetServo.o)
+                0x000016c6                setCharDebug
  .text.coPrintf
-                0x000016d0       0x1a C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(SetServo.o)
-                0x000016d0                coPrintf
+                0x000016d6       0x1a C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(SetServo.o)
+                0x000016d6                coPrintf
  .text.setServo
-                0x000016ea       0x84 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(SetServo.o)
-                0x000016ea                setServo
- .text.libgcc   0x0000176e       0x44 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
-                0x0000176e                __udivmodsi4
- .text.libgcc   0x000017b2       0x38 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
-                0x000017b2                __prologue_saves__
- .text.libgcc   0x000017ea       0x36 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
-                0x000017ea                __epilogue_restores__
- .text.libgcc   0x00001820        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x00001820        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x00001820        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                0x000016f0       0x84 C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(SetServo.o)
+                0x000016f0                setServo
+ .text.libgcc   0x00001774       0x44 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+                0x00001774                __udivmodsi4
+ .text.libgcc   0x000017b8       0x38 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+                0x000017b8                __prologue_saves__
+ .text.libgcc   0x000017f0       0x36 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+                0x000017f0                __epilogue_restores__
+ .text.libgcc   0x00001826        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00001826        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00001826        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
  .text.avr-libc
-                0x00001820      0x1b0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ftoa_engine.o)
-                0x00001820                __ftoa_engine
+                0x00001826      0x1b0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ftoa_engine.o)
+                0x00001826                __ftoa_engine
  .text.avr-libc
-                0x000019d0       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
-                0x000019d0                strnlen_P
+                0x000019d6       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
+                0x000019d6                strnlen_P
  .text.avr-libc
-                0x000019e6       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen.o)
-                0x000019e6                strnlen
+                0x000019ec       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen.o)
+                0x000019ec                strnlen
  .text.avr-libc
-                0x000019fc       0x58 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(fputc.o)
-                0x000019fc                fputc
+                0x00001a02       0x58 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(fputc.o)
+                0x00001a02                fputc
  .text.avr-libc
-                0x00001a54       0x2a c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(printf.o)
-                0x00001a54                printf
+                0x00001a5a       0x2a c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(printf.o)
+                0x00001a5a                printf
  .text.avr-libc
-                0x00001a7e       0x48 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(sprintf.o)
-                0x00001a7e                sprintf
+                0x00001a84       0x48 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(sprintf.o)
+                0x00001a84                sprintf
  .text.avr-libc
-                0x00001ac6       0xbc c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
-                0x00001ac6                __ultoa_invert
-                0x00001b82                . = ALIGN (0x2)
+                0x00001acc       0xbc c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
+                0x00001acc                __ultoa_invert
+                0x00001b88                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00001b82        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
-                0x00001b82                exit
-                0x00001b82                _exit
+ .fini9         0x00001b88        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00001b88                exit
+                0x00001b88                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -435,23 +439,24 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00001b82        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .fini0         0x00001b88        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00001b86                _etext = .
+                0x00001b8c                _etext = .
 
-.data           0x00800100       0x32 load address 0x00001b86
+.data           0x00800100       0x32 load address 0x00001b8c
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm644p.o
  .data          0x00800100        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libprintf_flt.a(vfprintf_flt.o)
  .data          0x00800100        0x0 ./debug.o
  .data          0x00800100        0x8 ./firstblink.o
+ .data          0x00800108        0x0 ./globa_variables.o
  .data          0x00800108        0x0 ./globals.o
  .data          0x00800108        0x0 ./main.o
  .data          0x00800108        0x0 ./ports.o
  .data          0x00800108        0x0 ./timers.o
- .data          0x00800108        0x0 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(Debug.o)
- .data          0x00800108       0x14 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(SetServo.o)
+ .data          0x00800108        0x0 C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(Debug.o)
+ .data          0x00800108       0x14 C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(SetServo.o)
  .data          0x0080011c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
  .data          0x0080011c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
  .data          0x0080011c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
@@ -479,7 +484,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  .data          0x00800124        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(sprintf.o)
  .data          0x00800124        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
  *(.data*)
- .data.RBEOut   0x00800124        0xe C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(Debug.o)
+ .data.RBEOut   0x00800124        0xe C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(Debug.o)
  *(.rodata)
  *(.rodata*)
  *(.gnu.linkonce.d*)
@@ -494,12 +499,13 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  .bss           0x00800132        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libprintf_flt.a(vfprintf_flt.o)
  .bss           0x00800132        0x0 ./debug.o
  .bss           0x00800132        0x0 ./firstblink.o
+ .bss           0x00800132        0x0 ./globa_variables.o
  .bss           0x00800132        0x0 ./globals.o
  .bss           0x00800132        0x0 ./main.o
  .bss           0x00800132        0x0 ./ports.o
  .bss           0x00800132        0x0 ./timers.o
- .bss           0x00800132        0x0 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(Debug.o)
- .bss           0x00800132        0x0 C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release\libRBELib.a(SetServo.o)
+ .bss           0x00800132        0x0 C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(Debug.o)
+ .bss           0x00800132        0x0 C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release\libRBELib.a(SetServo.o)
  .bss           0x00800132        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
  .bss           0x00800132        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
  .bss           0x00800132        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
@@ -527,13 +533,13 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  .bss           0x00800132        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
  *(.bss*)
  *(COMMON)
- COMMON         0x00800132        0x9 ./globals.o
+ COMMON         0x00800132        0x9 ./globa_variables.o
                 0x00800132                globals
  COMMON         0x0080013b        0x6 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(iob.o)
                 0x0080013b                __iob
                 0x00800141                PROVIDE (__bss_end, .)
-                0x00001b86                __data_load_start = LOADADDR (.data)
-                0x00001bb8                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00001b8c                __data_load_start = LOADADDR (.data)
+                0x00001bbe                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800141        0x0
                 0x00800141                PROVIDE (__noinit_start, .)

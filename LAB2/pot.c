@@ -8,8 +8,8 @@
 #include "RBELib/RBELib.h"
 #include "main.h"
 
-#define TICKS_TO_MILLIVOLTS 2.169 //todo get the actual value
-#define TICKS_TO_DEGREE 4.411 //todo get actual value
+#define TICKS_TO_MILLIVOLTS 2.169 //
+#define TICKS_TO_DEGREE 4.411 //
 
 /**
  * @brief Find the angle of the given potentiometer.
