@@ -23,8 +23,14 @@ void PIDarmControl();
 
 extern struct Potentiometer{
 	int ADCVal; //the value from 0-1023
-	float voltage; //the analog voltage from 0 to 5V
-	float angle; //the angle of the potentiometer form 0-270 degrees
+	int voltage; //the analog voltage from 0 to 5V
+	int angle; //the angle of the potentiometer form 0-270 degrees
+};
+
+extern struct Current{
+	int ADCVal;
+	float voltage;
+	float current;
 };
 
 #endif /* MAIN_H_ */
