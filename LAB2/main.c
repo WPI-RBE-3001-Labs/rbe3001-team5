@@ -137,7 +137,7 @@ void driveMotors(){
 
 #define CurrentSense0Port 0
 #define CurrentSense1Port 1
-//TODO readCurrentSense() funciton
+//readCurrentSense() funciton
 void readCurrentSense(){
 	//Initialize ADC first
 	initADC(CurrentSense0Port);

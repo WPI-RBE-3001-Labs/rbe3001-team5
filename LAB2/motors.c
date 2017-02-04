@@ -5,6 +5,11 @@
  *      Author: Matt
  */
 
+typedef struct coord{
+	float x;
+	float y;
+} endEffector;
+
 /**
  * @brief Helper function to stop the motors on the arm.
  *
@@ -22,8 +27,20 @@ void stopMotors(){
  *
  * @todo Make a way to drive the links to a desired angle.
  */
-void gotoAngles(int lowerTheta, int upperTheta){
+#define l0 6
+#define l1 6
+#define l2 6
 
+void gotoAngles(int lowerTheta, int upperTheta){
+	struct coord ret = {0,0};
+	float c1 = cos(lowerTheta);
+	float c2 = cos(upperTheta);
+	float s1 = sin(lowerTheta);
+	float s2 = sin(upperTheta);
+	ret.x = (-1) * l1 * (c1*s2 - s1*c2) + l2 * s2;
+	ret.y = l1 * (c1*c2 - s1*s2) + l2*c2 + l0;
+
+	//TODO drive motor to positions
 }
 
 /**
