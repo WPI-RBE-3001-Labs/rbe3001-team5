@@ -28,7 +28,7 @@ int main(){
 	//DAC_SS = 1;
 
 	//TODO Interchange the correct part of the lab
-	logPot2();
+	readCurrentSense();
 
 
 
