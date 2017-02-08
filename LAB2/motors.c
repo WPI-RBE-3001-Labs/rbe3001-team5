@@ -10,6 +10,8 @@ typedef struct coord{
 	float y;
 } endEffector;
 
+struct coord forwardKinematics(int lowerTheta, int upperTheta);
+
 /**
  * @brief Helper function to stop the motors on the arm.
  *
@@ -41,6 +43,17 @@ void gotoAngles(int lowerTheta, int upperTheta){
 	ret.y = l1 * (c1*c2 - s1*s2) + l2*c2 + l0;
 
 	//TODO drive motor to positions
+}
+
+struct coord forwardKinematics(int lowerTheta, int upperTheta){
+	struct coord ret = {0,0};
+	float c1 = cos(lowerTheta);
+	float c2 = cos(upperTheta);
+	float s1 = sin(lowerTheta);
+	float s2 = sin(upperTheta);
+	ret.x = (-1) * l1 * (c1*s2 - s1*c2) + l2 * s2;
+	ret.y = l1 * (c1*c2 - s1*s2) + l2*c2 + l0;
+	return ret;
 }
 
 /**

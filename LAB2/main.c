@@ -6,6 +6,7 @@
 
 #include "main.h"//File containing all the includes
 #include "RBELib/RBELib.h"
+#include "motors.c"
 
 struct Potentiometer upperJoint = {0,0,0};
 struct Potentiometer lowerJoint = {0,0,0};
@@ -28,7 +29,7 @@ int main(){
 	DAC_SS = 1;
 
 	//TODO Interchange the correct part of the lab
-	sawtoothWave();
+	logPot2();
 
 	return 1;
 } /* End main */
@@ -44,6 +45,8 @@ void logPot2(){
 	//initialize ADC to correct channel
 	initADC(Arm1ADCPort);
 	initADC(Arm0ADCPort);
+
+	struct coord coord1 = {0,0};
 
 	while(1){
 		//read pot value for upper and lower joints
@@ -61,15 +64,19 @@ void logPot2(){
 		//Printing in CSV format Use Excel Filters to separate UJ from LJ
 		// Printing Values in Columns ADCValue[counts], Voltage[mV], Angle[deg]
 		printf(" Upper Joint:  "); printf(",");
-		printf(" %d ", (int) upperJoint.ADCVal); printf(",");
-		printf(" %d ", (int) upperJoint.voltage); printf(",");
+		printf("X Position %d ", (int) coord1.x); printf(",");
+		printf("Y Position %d ", (int) coord1.y); printf(",");
+//		printf(" %d ", (int) upperJoint.ADCVal); printf(",");
+//		printf(" %d ", (int) upperJoint.voltage); printf(",");
 		printf(" %d ", (int) upperJoint.angle); printf(",");
 		//printf("\n\r");
 		printf(" Lower Joint:  "); printf(",");
-	    printf(" %d ", (int) lowerJoint.ADCVal); printf(",");
-		printf(" %d ", (int) lowerJoint.voltage); printf(",");
+//	    printf(" %d ", (int) lowerJoint.ADCVal); printf(",");
+//		printf(" %d ", (int) lowerJoint.voltage); printf(",");
 		printf(" %d ", (int) lowerJoint.angle); printf(",");
 		printf("\n\r");
+
+		coord1 = forwardKinematics(upperJoint.angle, lowerJoint.angle);
 
 	} //End while(1)
 
@@ -120,6 +127,12 @@ void sawtoothWave(){
 
 		printf("DAC0 %d ", (int) counter0); printf(", \n\r");
 		printf("DAC1 %d ", (int) counter1); printf(", \n\r");
+
+		//trying to slow it down
+		float j;
+		for (volatile unsigned int i = 0; i <= 60000; i++){
+			j = 3.1462 / 6.356;
+		}
 	}
 }
 //ISR for timer
