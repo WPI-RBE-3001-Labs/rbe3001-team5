@@ -18,6 +18,7 @@ typedef struct pid{
 	int MAX_SUM_ERROR;
 };
 	struct pid link1;
+	struct pid link0;
 /**
  * @brief Sets the Kp, Ki, and Kd values for 1 link.
  * @details to set the values, use the following style
@@ -30,11 +31,18 @@ typedef struct pid{
  * @todo Create a function to the the PID constants for a given link.
  */
 void setConst(char link, float Kp, float Ki, float Kd){
+	if (link == 0){
+		link0.P_FACTOR = Kp;
+		link0.I_FACTOR = Ki;
+		link0.D_FACTOR = Kd;
+	}else if(link == 1){
+		link1.P_FACTOR = Kp;
+		link1.I_FACTOR = Ki;
+		link1.D_FACTOR = Kd;
+	}else{
+		//eh
+	}
 
-
-	link1.P_FACTOR = Kp;
-	link1.I_FACTOR = Ki;
-	link1.D_FACTOR = Kd;
 }
 
 /**
@@ -46,16 +54,20 @@ void setConst(char link, float Kp, float Ki, float Kd){
  * @todo Make a function to calculate the PID value for a link.
  */
 signed int calcPID(char link, int setPoint, int actPos){
-
-	int velocity = actPos - link1.LAST_PROCESS_VALUE;
-	link1.LAST_PROCESS_VALUE = actPos;
+	struct pid l;
+	if(link == 0){
+		l = link0;
+	}else if (link == 1){
+		l = link1;
+	}
+	int velocity = actPos - l.LAST_PROCESS_VALUE;
+	l.LAST_PROCESS_VALUE = actPos;
 
 	int proportion = setPoint - actPos;
-	if(proportion < link1.MAX_ERROR && (proportion + link1.SUM_ERROR) < link1.MAX_SUM_ERROR)
-		link1.SUM_ERROR += proportion;
+	if(proportion < l.MAX_ERROR && (proportion + l.SUM_ERROR) < l.MAX_SUM_ERROR)
+		l.SUM_ERROR += proportion;
 
-	return (proportion * link1.P_FACTOR) + (velocity * link1.D_FACTOR) + (link1.SUM_ERROR * link1.I_FACTOR);
-
+	return (proportion * l.P_FACTOR) + (velocity * l.D_FACTOR) + (l.SUM_ERROR * l.I_FACTOR);
 
 }
 
