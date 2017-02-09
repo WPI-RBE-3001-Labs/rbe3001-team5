@@ -4,13 +4,9 @@
  *  Created on: Jan 28, 2017
  *      Author: Matt
  */
-
-typedef struct coord{
-	float x;
-	float y;
-} endEffector;
-
-struct coord forwardKinematics(int lowerTheta, int upperTheta);
+#include "main.h"
+#include <math.h>
+#include "RBELib/motors.h"
 
 /**
  * @brief Helper function to stop the motors on the arm.
@@ -34,26 +30,15 @@ void stopMotors(){
 #define l2 6
 
 void gotoAngles(int lowerTheta, int upperTheta){
-	struct coord ret = {0,0};
-	float c1 = cos(lowerTheta);
-	float c2 = cos(upperTheta);
-	float s1 = sin(lowerTheta);
-	float s2 = sin(upperTheta);
-	ret.x = (-1) * l1 * (c1*s2 - s1*c2) + l2 * s2;
-	ret.y = l1 * (c1*c2 - s1*s2) + l2*c2 + l0;
+//	struct coord ret = {0,0};
+//	float c1 = cos(lowerTheta);
+//	float c2 = cos(upperTheta);
+//	float s1 = sin(lowerTheta);
+//	float s2 = sin(upperTheta);
+//	ret.x = (-1) * l1 * (c1*s2 - s1*c2) + l2 * s2;
+//	ret.y = l1 * (c1*c2 - s1*s2) + l2*c2 + l0;
 
 	//TODO drive motor to positions
-}
-
-struct coord forwardKinematics(int lowerTheta, int upperTheta){
-	struct coord ret = {0,0};
-	float c1 = cos(lowerTheta);
-	float c2 = cos(upperTheta);
-	float s1 = sin(lowerTheta);
-	float s2 = sin(upperTheta);
-	ret.x = (-1) * l1 * (c1*s2 - s1*c2) + l2 * s2;
-	ret.y = l1 * (c1*c2 - s1*s2) + l2*c2 + l0;
-	return ret;
 }
 
 /**
@@ -77,6 +62,32 @@ void gotoXY(int x, int y){
  * @todo Create a way to drive either link in any direction.
  */
 void driveLink(int link, int dir){
+	//first determine link
+	if(!link){
+		//link 0
+		//second determine the polarity
+		if (dir >= 0){
+			//power A, B to zero
+			setDAC(1, 0);
+			setDAC(0, dir);
+		}else{
+			//power B, A to zero
+			setDAC(0, 0);
+			setDAC(1, dir * -1);
+		}
+	}else{
+		//link 1
+		//second determine the polarity
+		if (dir >= 0){
+			//power A, B to zero
+			setDAC(3, 0);
+			setDAC(2, dir);
+		}else{
+			//power B, A to zero
+			setDAC(2, 0);
+			setDAC(3, dir);
+		}
+	}
 
 }
 
