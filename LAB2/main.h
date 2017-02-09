@@ -11,6 +11,7 @@
 #include "RBELib/RBELib.h" //RBELib
 #include "function_prototypes.h"
 #include "avr/io.h"
+#include <math.h>
 //#include "globals.h"
 //#include "timers.h"
 
@@ -31,6 +32,11 @@ extern struct Current{
 	int ADCVal;
 	float voltage;
 	float current;
+};
+
+extern struct coord{
+	float x;
+	float y;
 };
 
 #endif /* MAIN_H_ */
