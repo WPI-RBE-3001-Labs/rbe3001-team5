@@ -6,14 +6,13 @@
 
 #include "main.h"//File containing all the includes
 #include "RBELib/RBELib.h"
-#include "motors.c"
 
 struct Potentiometer upperJoint = {0,0,0};
 struct Potentiometer lowerJoint = {0,0,0};
 
 int main(){
 	//Common setup here:
-	nukeWDT(); //Disable Watchdog Timer
+//	nukeWDT(); //Disable Watchdog Timer
 
 	sei(); // Enable Global Interrupts
 
@@ -29,7 +28,7 @@ int main(){
 	DAC_SS = 1;
 
 	//TODO Interchange the correct part of the lab
-	logPot2();
+	PIDarmControl();
 
 	return 1;
 } /* End main */
@@ -46,7 +45,7 @@ void logPot2(){
 	initADC(Arm1ADCPort);
 	initADC(Arm0ADCPort);
 
-	struct coord coord1 = {0,0};
+	//struct coord coord1 = {0,0};
 
 	while(1){
 		//read pot value for upper and lower joints
@@ -64,8 +63,8 @@ void logPot2(){
 		//Printing in CSV format Use Excel Filters to separate UJ from LJ
 		// Printing Values in Columns ADCValue[counts], Voltage[mV], Angle[deg]
 		printf(" Upper Joint:  "); printf(",");
-		printf("X Position %d ", (int) coord1.x); printf(",");
-		printf("Y Position %d ", (int) coord1.y); printf(",");
+		//printf("X Position %d ", (int) coord1.x); printf(",");
+		//printf("Y Position %d ", (int) coord1.y); printf(",");
 //		printf(" %d ", (int) upperJoint.ADCVal); printf(",");
 //		printf(" %d ", (int) upperJoint.voltage); printf(",");
 		printf(" %d ", (int) upperJoint.angle); printf(",");
@@ -76,11 +75,22 @@ void logPot2(){
 		printf(" %d ", (int) lowerJoint.angle); printf(",");
 		printf("\n\r");
 
-		coord1 = forwardKinematics(upperJoint.angle, lowerJoint.angle);
+		//coord1 = forwardKinematics(upperJoint.angle, lowerJoint.angle);
 
 	} //End while(1)
 
 }//end LogPot()
+
+//struct coord forwardKinematics(int lowerTheta, int upperTheta){
+//	struct coord ret = {0,0};
+//	float c1 = cos(lowerTheta);
+//	float c2 = cos(upperTheta);
+//	float s1 = sin(lowerTheta);
+//	float s2 = sin(upperTheta);
+//	ret.x = (-1) * l1 * (c1*s2 - s1*c2) + l2 * s2;
+//	ret.y = l1 * (c1*c2 - s1*s2) + l2*c2 + l0;
+//	return ret;
+//}
 
 //globals for t
 int counter0 = 0;
@@ -179,8 +189,21 @@ void readCurrentSense(){
 }
 
 //TODO button arm control thing
+#define testAngle 60
 void PIDarmControl(){
+	//Setup PID
+	setConst(1, 1.0, 0, 0);
 
+	//Setup SPI
+	initSPI();
+
+	while(1){
+		upperJoint.ADCVal = getADC(Arm0ADCPort);
+		upperJoint.angle = potAngle(upperJoint.ADCVal);
+
+		signed int motorVal = calcPID(0, testAngle, upperJoint.angle);
+		driveLink(0, motorVal);
+	}
 }
 
 //Note originally called for enabling and disabling interrupts within this function.
