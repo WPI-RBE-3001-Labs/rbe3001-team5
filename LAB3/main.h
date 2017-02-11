@@ -15,12 +15,8 @@
 //#include "globals.h"
 //#include "timers.h"
 
-void logPot();
-void logPot2();
-void sawtoothWave();
-void driveMotors();
-void readCurrentSense();
-void PIDarmControl();
+void readEncoders();
+void readAccelerometer();
 
 extern struct Potentiometer{
 	int ADCVal; //the value from 0-1023
@@ -38,5 +34,17 @@ extern struct coord{
 	float x;
 	float y;
 };
+
+typedef union accAxis{
+	int ticks;
+	float acc;
+}xAxis, yAxis, zAxis;
+
+typedef struct acceleration{
+	union xAxis;
+	union yAxis;
+	union zAxis;
+}acc;
+
 
 #endif /* MAIN_H_ */

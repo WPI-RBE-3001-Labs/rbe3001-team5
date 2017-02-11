@@ -49,7 +49,7 @@ all: mfcamposabadPrelab1.elf secondary-outputs
 mfcamposabadPrelab1.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,mfcamposabadPrelab1.map -Wl,-u,vfprintf -lprintf_flt -lm -L"C:\Users\Matias\RBE3001workspace\rbelib\RBELib\Release" -mmcu=atmega644p -o "mfcamposabadPrelab1.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,mfcamposabadPrelab1.map -Wl,-u,vfprintf -lprintf_flt -lm -L"C:\Users\Matias\Documents\Worcester Polytechnic Institute\3Junior Year\C-Term\RBE3001\rbe3001-team5\RBELib\Release" -mmcu=atmega644p -o "mfcamposabadPrelab1.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

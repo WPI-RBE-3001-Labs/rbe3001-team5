@@ -22,5 +22,6 @@ void nukeWDT();
 void part5();
 void part6();
 void part7();
+//struct coord forwardKinematics(int lowerTheta, int upperTheta);
 
 #endif /* PORTB_H_ */
