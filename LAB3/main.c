@@ -1,6 +1,6 @@
 /*
  * main.c
- *	Group 5 LAB 2
+ *	Group 5 LAB 3
  *  Created on: FEB 1st, 2017
  */
 
@@ -28,7 +28,7 @@ int main(){
 	DAC_SS = 1;
 
 	//TODO Interchange the correct part of the lab
-	PIDarmControl();
+	logPot2();
 
 	return 1;
 } /* End main */
