@@ -35,15 +35,14 @@ extern struct coord{
 	float y;
 };
 
-typedef union accAxis{
-	int ticks;
-	float acc;
-}xAxis, yAxis, zAxis;
 
-typedef struct acceleration{
-	union xAxis;
-	union yAxis;
-	union zAxis;
+extern struct acceleration{
+	int xTicks;
+	int yTicks;
+	int zTicks;
+	float xAcc;
+	float yAcc;
+	float zAcc;
 }acc;
 
 

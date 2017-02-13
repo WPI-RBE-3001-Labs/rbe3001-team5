@@ -7,6 +7,8 @@
 #include "main.h"//File containing all the includes
 #include "RBELib/RBELib.h"
 
+float ticksToG(int ticks);
+
 struct Potentiometer upperJoint = {0,0,0};
 struct Potentiometer lowerJoint = {0,0,0};
 
@@ -30,7 +32,7 @@ int main(){
 	DAC_SS = 1;
 
 	//TODO Interchange the correct part of the lab
-	readEncoders();
+	readAccelerometer();
 
 	return 1;
 } /* End main */
@@ -49,25 +51,26 @@ void readAccelerometer(){
 	//Need to sample at 1000Hz, so 1ms timer
 	//Timer 0, standard config, 1 ms time
 	initTimer(0,0,1);
+	struct acceleration acc = {0,0,0,0,0,0};
 	while(1){
 		if(sample){
 			//Get the data
-			acc.xAxis.ticks = spiTranceive(0);
-			acc.yAxis.ticks = spiTranceive(0);
-			acc.zAxis.ticks = spiTranceive(0);
+			acc.xTicks = spiTransceive(0);
+			acc.yTicks = spiTransceive(0);
+			acc.zTicks = spiTransceive(0);
 
 			//convert it
-			acc.xAxis.acc = ticksToG(acc.xAxis.ticks);
-			acc.yAxis.acc = ticksToG(acc.yAxis.ticks);
-			acc.zAxis.acc = ticksToG(acc.zAxis.ticks);
+			acc.xAcc = ticksToG(acc.xTicks);
+			acc.yAcc = ticksToG(acc.yTicks);
+			acc.zAcc = ticksToG(acc.zTicks);
 
 			//print it
 			printf(" Acceleration:  "); printf(",");
-			printf(" X: %d ", (int) acc.xAxis.acc);
+			printf(" X: %d ", (int) acc.xAcc);
 			printf(",");
-			printf(" Y: %d ", (int) acc.yAxis.acc);
+			printf(" Y: %d ", (int) acc.yAcc);
 			printf(",");
-			printf(" Z: %d ", (int) acc.zAxis.acc);
+			printf(" Z: %d ", (int) acc.zAcc);
 			printf(",");
 
 
@@ -80,6 +83,6 @@ void readAccelerometer(){
 }//end readAccerlometer()
 
 float ticksToG(int ticks){
-	return (ticks / 4095) * (3.3/0.3663);
+	return ((ticks * 1.0) / 4095) * (3.3/0.3663);
 }//end ticksToG()
 
