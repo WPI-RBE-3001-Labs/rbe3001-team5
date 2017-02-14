@@ -12,6 +12,7 @@
 #include "function_prototypes.h"
 #include "avr/io.h"
 #include <math.h>
+#include "Encoder.h"
 //#include "globals.h"
 //#include "timers.h"
 

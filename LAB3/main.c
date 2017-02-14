@@ -21,14 +21,22 @@ int main(){
 	//initialize USART 1 for transmission to Putty
 	debugUSARTInit(115200);
 
+	ENCODER_SS_0_ddr = 1;
+	ENCODER_SS_0 = 1;
 	//initTimer(0,0,0);
+	printf("TEST \n\r");
+	//TODO Make sure that the SS is ON/OFF properly
+	//disable SS for doing potentiometer stuff
 
-	//TODO Make sure that the DAC is ON/OFF properly
-	//disable DAC for doing potentiometer stuff
-	DAC_SS = 1;
-
+	initSPI();
 	//TODO Interchange the correct part of the lab
-	logPot2();
+
+	int cnt = 0;
+	while(1) {
+		_delay_ms(20);
+		cnt = EncoderCounts(0);
+		printf("A %d \n\r", cnt);
+	}
 
 	return 1;
 } /* End main */
@@ -146,27 +154,27 @@ void sawtoothWave(){
 	}
 }
 //ISR for timer
-//ISR(TIMER0_OVF_vect){
-//	//Counter 0
-//	if (counter0 > 4095 || counter0 < 0 ){ //If it is out of bounds
-//		counter0Dir *= -1; //change direction
-//	}
-//	counter0 += counter0Dir;
-//
-//	//Counter 1
-//	if (counter1 > 4095 || counter1 < 0 ){ //If it is out of bounds
-//		counter1Dir *= -1; //change direction
-//	}
-//	counter1 += counter1Dir;
-//	//printf("DAC Val: %d \n\r", flag);
-//	flag = 1;
-//	LEDON = 1 - LEDON;
-//	TIFR0 = (1 << TOV0);
-//	//sei();
-//}
+ISR(TIMER0_OVF_vect){
+	//Counter 0
+	if (counter0 > 4095 || counter0 < 0 ){ //If it is out of bounds
+		counter0Dir *= -1; //change direction
+	}
+	counter0 += counter0Dir;
+
+	//Counter 1
+	if (counter1 > 4095 || counter1 < 0 ){ //If it is out of bounds
+		counter1Dir *= -1; //change direction
+	}
+	counter1 += counter1Dir;
+	//printf("DAC Val: %d \n\r", flag);
+	flag = 1;
+	LEDON = 1 - LEDON;
+	TIFR0 = (1 << TOV0);
+	//sei();
+}
 
 
-//TODO
+
 void driveMotors(){
 
 }

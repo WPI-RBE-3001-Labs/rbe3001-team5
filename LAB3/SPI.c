@@ -17,7 +17,7 @@
  */
 void initSPI(){
 	//SPI Control Register 0
-	SPCR = (0 << SPIE)| //Disable SPI interrupt
+	SPCR = (0 << SPIE)| // Enable SPI interrupt
 			(1 << SPE)| //enable SPI 0
 			(0 << DORD)| //MSB is transmitted first
 			(1 << MSTR)| //This is the Master device
