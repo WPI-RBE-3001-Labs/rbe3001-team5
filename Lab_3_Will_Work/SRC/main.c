@@ -10,7 +10,9 @@
 #include <stdlib.h>
 
 
-//character for receiving serial data
+
+int testPID();
+int testSPI();
 char inchar;
 unsigned long lowADC = 0;
 unsigned long highADC = 0;
@@ -49,7 +51,7 @@ int angleToADCLow(int angle)
 // Takes in angle and returns adc value for higher link 0-180
 int angleToADCHigh(int angle)
 {
-	//double offsetadclow = angle + offSetlow ;
+	//double oSffsetadclow = angle + offSetlow ;
 	double adchigh =  ( angle * adctoanglehigh)+ offSethigh;
 
 	return adchigh;
@@ -146,15 +148,31 @@ int main(void)
 	  //Also runs PID once per 100 ms
 	  initTimer(0, 0, 0);
 	  //Set PID constants
-	  setConst('H',20.0,0.01,0.1);
-	  setConst('L',20.0,0.01,0.1);
+	  //setConst('H',20.0,0.01,0.1);
+	  //setConst('L',20.0,0.01,0.1);
 
 	  DDRC = 0x00;
 	  //PORTC = 0xFF;
-	  testPID();
+	  //testPID();
+	  testSPI();
 
 }
+int testSPI() {
 
+
+	int i = 0;
+	//First byte: command byte
+	//input is 4 for 4 bytes of data
+	while(1){
+		ENCODER_SS_0 = 0;
+		i = spiTransceive(0b01001000);
+		ENCODER_SS_0 = 1;
+
+		printf("%d \n\r", i);
+	}
+
+	return 0;
+}
 int testPID() {
 
   while(1)
@@ -208,6 +226,7 @@ int testPID() {
 		  // _delay_ms(2000);
 	  }
   }
+  return 0;
 }
 
 

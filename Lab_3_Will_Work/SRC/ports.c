@@ -32,7 +32,7 @@ void setPinsDir(char port, int dir, char numPins, ...)
 
 unsigned char getPinsVal(char port, int numPins, ...)
 {
-char X;
+	char X = 0;
 
 	return X;
 }
