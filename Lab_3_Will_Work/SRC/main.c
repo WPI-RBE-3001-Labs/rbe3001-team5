@@ -151,40 +151,45 @@ int main(void)
 
 	  DDRC = 0x00;
 	  //PORTC = 0xFF;
+	  testPID();
 
-	  while(1)
-	  {
+}
 
-		  if (PINCbits._P0 == 1)
-			  button_state = 7;
-		  else if (PINCbits._P6 == 1)
-			  button_state = 6;
-		  else if (PINCbits._P4 == 1)
-			  button_state = 5;
-		  else if (PINCbits._P2 == 1)
-			  button_state = 4;
-		  else
-			  button_state = 8;
+int testPID() {
 
-switch(button_state){
+  while(1)
+  {
 
-	case 4:
-		lowSetP=angleToADCLow(45);
-		highSetP=angleToADCHigh(45);
-		break;
-	case 5:
-		lowSetP=angleToADCLow(30);
-		highSetP=angleToADCHigh(60);
-		break;
-	case 6:
-		lowSetP=angleToADCLow(60);
-		highSetP=angleToADCHigh(30);
-		break;
-	case 7:
-		lowSetP=angleToADCLow(90);
-		highSetP=angleToADCHigh(0);
-		break;
-	case 8:
+	  if (PINCbits._P0 == 1)
+		  button_state = 7;
+	  else if (PINCbits._P6 == 1)
+		  button_state = 6;
+	  else if (PINCbits._P4 == 1)
+		  button_state = 5;
+	  else if (PINCbits._P2 == 1)
+		  button_state = 4;
+	  else
+		  button_state = 8;
+
+	  switch(button_state){
+
+	  	  case 4:
+	  		  lowSetP=angleToADCLow(45);
+			highSetP=angleToADCHigh(45);
+			break;
+	  	  case 5:
+			lowSetP=angleToADCLow(30);
+			highSetP=angleToADCHigh(60);
+			break;
+	  	  case 6:
+			lowSetP=angleToADCLow(60);
+			highSetP=angleToADCHigh(30);
+			break;
+	  	  case 7:
+			lowSetP=angleToADCLow(90);
+			highSetP=angleToADCHigh(0);
+			break;
+	  	  case 8:
 
 		  //PID run in interupt
 		  lowSetP=angleToADCLow(90);
@@ -200,10 +205,10 @@ switch(button_state){
 		  printf("adcL: %d\n\r",lowSetP);
 		  printf("adcH: %d\n\r",highSetP);
 
-		 // _delay_ms(2000);
-		}
+		  // _delay_ms(2000);
 	  }
-
+  }
 }
+
 
 
