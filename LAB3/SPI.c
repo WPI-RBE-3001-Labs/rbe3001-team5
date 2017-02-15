@@ -16,21 +16,50 @@
  * of your SS lines!
  */
 void initSPI(){
-	//SPI Control Register 0
+	SPI_MOSI_DDR = 1;
+	SPI_MISO_DDR = 1;
+	SPI_SCK_DDR = 1;
+	SPI_MASTER_SS = 1;
+	DAC_SS_ddr = 1;
+	AUX_DAC_SS_ddr = 1;
+	ENCODER_SS_0_ddr = 1;
+	ENCODER_SS_1_ddr = 1;
+	ENCODER_SS_2_ddr = 1;
+	ENCODER_SS_3_ddr = 1;
+	SPARE_SS_ddr = 1;
+	DDRDbits._P7 = 1;
+
+//	// Pull all slave selects low
+//	DAC_SS = HIGH;
+//	AUX_DAC_SS = HIGH;
+//	ENCODER_SS_0 = HIGH;
+//	ENCODER_SS_1 = HIGH;
+//	ENCODER_SS_2 = HIGH;
+//	ENCODER_SS_3 = HIGH;
+//	PORTCbits._P0 = HIGH; //spare ss
+//	PORTDbits._P7 = HIGH;
+//
+//	// Enable SPI, Master, set clock rate fck/16
+//	//SPSR = (1 << SPI2X);
+//	SPCR = (1 << SPE) | (1 << MSTR) | (1 << SPR0) | (1 << SPR1);
+
+
+
+	//	//SPI Control Register 0
 	SPCR = (0 << SPIE)| // Enable SPI interrupt
 			(1 << SPE)| //enable SPI 0
 			(0 << DORD)| //MSB is transmitted first
 			(1 << MSTR)| //This is the Master device
 			(0 << CPOL)| //set SCK idle to low
 			(0 << CPHA)| //sample at rising edge
-			(0 << SPR1)| //set frequency to fosc/4
-			(0 << SPR0); //set frequency to fosc/4
+			(1 << SPR1)|
+			(1 << SPR0);
 			//Note, the DAC can take up to 50MHz so this is OK
 
 	//SPI Status Register 0
 	SPSR = (0 << SPIF)| //Don't want to set interrupts
-			(0 << WCOL)|	//don't need write collision flag
-			(0 << SPI2X); //don't need double speed
+		   (0 << WCOL)|	//don't need write collision flag
+		   (0 << SPI2X); //don't need double speed
 }
 
 /**

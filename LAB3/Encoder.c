@@ -10,26 +10,43 @@
 int EncoderCounts( int __chan ) {
 
 	long i = 0;
-	//_delay_ms(20);
 
-	//
-	ENCODER_SS_0 = 1;
-	ENCODER_SS_0 = 0;
-
-	//First byte: command byte
-	//input is 4 for 4 bytes of data
-	spiTransceive(0b01001000);
-
-	//byte 2 -5 data bytes
-	i = (24 << spiTransceive(0)) |
-			(16 << spiTransceive(0))|
-			(8 << spiTransceive(0))|
-			spiTransceive(0);
 
 	ENCODER_SS_0 = 0;
+
+
+	spiTransceive(0x60);
+
+
+	i = (spiTransceive(0) << 24) |
+		(spiTransceive(0) << 16)|
+		(spiTransceive(0) << 8 )|
+	    spiTransceive(0);
+
+
 	ENCODER_SS_0 = 1;
 
-	return ((int) i);
+	return i;
+
+
+
+
+
+}
+
+void initEncoder() {
+
+	ENCODER_SS_0 = 0;
+	spiTransceive(0x88); // Write to MDR0
+	//spiTransceive(0x03);
+	ENCODER_SS_0 = 1;
+}
+
+void resetEncoder() {
+
+	ENCODER_SS_0 = 0;
+	spiTransceive(0x20); //index_rest_CNTR
+	ENCODER_SS_0 = 1;
 }
 
 int GetAccelerationH48C ( int __axis ) {
