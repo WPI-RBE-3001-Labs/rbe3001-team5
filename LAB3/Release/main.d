@@ -14,7 +14,7 @@ main.d main.o: ../main.c ../main.h \
   C:\Users\Matias\Documents\Worcester\ Polytechnic\ Institute\3Junior\ Year\C-Term\RBE3001\rbe3001-team5\RBELib\include/RBELib/SPI.h \
   C:\Users\Matias\Documents\Worcester\ Polytechnic\ Institute\3Junior\ Year\C-Term\RBE3001\rbe3001-team5\RBELib\include/RBELib/SetServo.h \
   C:\Users\Matias\Documents\Worcester\ Polytechnic\ Institute\3Junior\ Year\C-Term\RBE3001\rbe3001-team5\RBELib\include/RBELib/SlaveSelects.h \
-  ../function_prototypes.h ../Encoder.h
+  ../function_prototypes.h ../Encoder.h ../Accel.h
 
 ../main.h:
 
@@ -51,3 +51,5 @@ C:\Users\Matias\Documents\Worcester\ Polytechnic\ Institute\3Junior\ Year\C-Term
 ../function_prototypes.h:
 
 ../Encoder.h:
+
+../Accel.h:

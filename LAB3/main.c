@@ -6,9 +6,17 @@
 
 #include "main.h"//File containing all the includes
 #include "RBELib/RBELib.h"
+#include "Accel.h"
+//For use of abs()
+#include <stdlib.h>
+#include <avr/io.h>
 
 struct Potentiometer upperJoint = {0,0,0};
 struct Potentiometer lowerJoint = {0,0,0};
+
+volatile int count = 0;
+volatile int sample_flag = 0;
+int maxCount = 1000;
 
 int main(){
 	//Common setup here:
@@ -29,14 +37,20 @@ int main(){
 	//disable SS for doing potentiometer stuff
 
 	initSPI();
+	initTimer(0,0,0);
 	//TODO Interchange the correct part of the lab
-
-	int cnt = 0;
-	while(1) {
-		_delay_ms(20);
-		cnt = EncoderCounts(0);
-		printf("A %d \n\r", cnt);
+	while(1){
+		test_accel(sample_flag);
+//_delay_ms(500);
+//		printf("accel");
 	}
+
+//	int cnt = 0;
+//	while(1) {
+//		_delay_ms(20);
+//		cnt = EncoderCounts(0);
+//		printf("A %d \n\r", cnt);
+//	}
 
 	return 1;
 } /* End main */
@@ -154,25 +168,36 @@ void sawtoothWave(){
 	}
 }
 //ISR for timer
-ISR(TIMER0_OVF_vect){
-	//Counter 0
-	if (counter0 > 4095 || counter0 < 0 ){ //If it is out of bounds
-		counter0Dir *= -1; //change direction
-	}
-	counter0 += counter0Dir;
+//ISR(TIMER0_OVF_vect){
+//	//Counter 0
+//	if (counter0 > 4095 || counter0 < 0 ){ //If it is out of bounds
+//		counter0Dir *= -1; //change direction
+//	}
+//	counter0 += counter0Dir;
+//
+//	//Counter 1
+//	if (counter1 > 4095 || counter1 < 0 ){ //If it is out of bounds
+//		counter1Dir *= -1; //change direction
+//	}
+//	counter1 += counter1Dir;
+//	//printf("DAC Val: %d \n\r", flag);
+//	flag = 1;
+//	LEDON = 1 - LEDON;
+//	TIFR0 = (1 << TOV0);
+//	//sei();
+//}
 
-	//Counter 1
-	if (counter1 > 4095 || counter1 < 0 ){ //If it is out of bounds
-		counter1Dir *= -1; //change direction
+
+ISR(TIMER0_OVF_vect) {
+	count++;
+
+	if (count >= maxCount) {
+		//printf("in");
+		sample_flag = 1;
+		count = 0;
 	}
-	counter1 += counter1Dir;
-	//printf("DAC Val: %d \n\r", flag);
-	flag = 1;
-	LEDON = 1 - LEDON;
-	TIFR0 = (1 << TOV0);
-	//sei();
+
 }
-
 
 
 void driveMotors(){

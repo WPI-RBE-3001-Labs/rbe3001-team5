@@ -5,26 +5,40 @@
  *      Author: Matias
  */
 #include "RBELib/RBELib.h"
+#include <avr/io.h>
+#include <math.h>
+#include "Accel.h"
+#include "main.h"
 
-int getAcceleration(int axxis){
+float vref = 5;
+float GfCnv = 0.22;
+float Cnt2Mv = 0.80586;
+
+unsigned int getAcceleration(int channel){
 // x axxis = 0
 // y axxis = 1
 // z axxis = 2
 
 //Reads 12bit data from the H48C Accelerometer
 unsigned int ret = 0;
-int temp_1 = 0;
-int temp_2 = 0;
+unsigned int temp_1;
+unsigned int temp_2;
+char axxis = (channel << 6);
+
+
+PORTD &= ~(1 << PIN7);
 
 spiTransceive(0b00000110);
-
-temp_1 = spiTransceive(axxis << 6);
-temp_1 = ((temp_1 & 0x0F)<<8);
+temp_1 = spiTransceive(axxis);
+temp_1 = (temp_1 <<8);
 temp_2 = spiTransceive(0x00);
 
-ret = temp_1 + temp_2;
+ret = temp_1 | temp_2;
+
+PORTD |= (1 << PIN7);
 
 return ret;
+
 //if (axxis = 0){//x axxis
 //
 //}
@@ -36,24 +50,64 @@ return ret;
 //}
 //else{
 
+}
+
+void test_accel(int sample_flag){
+float xval = 0;
+float yval = 0;
+float zval = 0;
+
+float xgs = 0;
+float ygs = 0;
+float zgs = 0;
+
+float xvolt = 0;
+float yvolt = 0;
+float zvolt = 0;
+
+xval = getAcceleration(0);
+yval = getAcceleration(1);
+zval = getAcceleration(2);
+
+xvolt = Val2Volt(xval);
+yvolt = Val2Volt(yval);
+zvolt = Val2Volt(zval);
+
+xgs = Volt2Gforce(xvolt);
+ygs = Volt2Gforce(yvolt);
+zgs = Volt2Gforce(zvolt);
 
 
-void test_accel(){
-int xgs = 0;
-int ygs = 0;
-int zgs = 0;
 
-xgs = getAcceleration(0);
-ygs = getAcceleration(1);
-zgs = getAcceleration(2);
+if (sample_flag){
+printf("X Gs: %f",(double)xgs); printf(";"); printf("\n\r");
+printf("Y Gs: %f",(double) ygs); printf(";"); printf("\n\r");
+printf("Z Gs: %f", (double)zgs); printf(";"); printf("\n\r");
 
-printf("X Gs: %d", xgs); printf(";"); printf("\n\r");
-printf("Y Gs: %d", ygs); printf(";"); printf("\n\r");
-printf("Z Gs: %d", zgs); printf(";"); printf("\n\r");
-
-
+sample_flag = 0;
 }
 
 }
+
+float Val2Volt( float accelValue) {
+	float mv = 0;
+	mv = pow(accelValue, Cnt2Mv);
+	//printf("milliVolts: %f \n\r", (double)mv);
+	return mv;
+}
+
+float Volt2Gforce(float accelValue) {
+	float gForce = 0;
+
+	if (accelValue >= vref) {
+		gForce = pow(accelValue - vref, GfCnv);
+	} else {
+		gForce = -pow(vref - accelValue, GfCnv);
+
+	}
+	//printf("GForce: %f\n\r",(double)gForce);
+	return gForce;
+}
+
 
 
