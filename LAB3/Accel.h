@@ -9,7 +9,7 @@
 #define ACCEL_H_
 
 unsigned int getAcceleration(int axxis);
-void test_accel(int sample_flag);
+void test_accel();
 float Val2Volt(float accelValue);
 float Volt2Gforce(float accelValue);
 

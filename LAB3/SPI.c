@@ -30,14 +30,14 @@ void initSPI(){
 			(1 << MSTR)| //This is the Master device
 			(0 << CPOL)| //set SCK idle to low
 			(0 << CPHA)| //sample at rising edge
-			(1 << SPR1)| //set frequency to fosc/4
-			(1 << SPR0); //set frequency to fosc/4
+			(0 << SPR1)| //set frequency to fosc/4
+			(0 << SPR0); //set frequency to fosc/4
 			//Note, the DAC can take up to 50MHz so this is OK
 
 	//SPI Status Register 0
 	SPSR = (0 << SPIF)| //Don't want to set interrupts
 			(0 << WCOL)|	//don't need write collision flag
-			(0 << SPI2X); //don't need double speed
+			(1 << SPI2X); //don't need double speed
 }
 
 /**

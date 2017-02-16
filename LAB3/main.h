@@ -13,8 +13,9 @@
 #include "avr/io.h"
 #include <math.h>
 #include "Encoder.h"
-//#include "globals.h"
-//#include "timers.h"
+#include "Accel.h"
+#include "Kinematics.h"
+
 
 void logPot();
 void logPot2();
@@ -23,6 +24,7 @@ void driveMotors();
 void readCurrentSense();
 void PIDarmControl();
 void ENCODER();
+void button_move();
 
 extern struct Potentiometer{
 	int ADCVal; //the value from 0-1023

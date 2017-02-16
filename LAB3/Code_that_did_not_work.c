@@ -225,3 +225,7 @@
 //		highSetP=angleToADCHigh(0);
 //		break;
 //	case 8:
+
+//
+//struct Potentiometer upperJoint = {0,0,0};
+//struct Potentiometer lowerJoint = {0,0,0};

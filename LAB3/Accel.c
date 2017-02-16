@@ -79,15 +79,13 @@ zgs = Volt2Gforce(zvolt);
 
 
 
-if (sample_flag){
-printf("X Gs: %f",(double)xgs); printf(";"); printf("\n\r");
-printf("Y Gs: %f",(double) ygs); printf(";"); printf("\n\r");
-printf("Z Gs: %f", (double)zgs); printf(";"); printf("\n\r");
 
-sample_flag = 0;
-}
+printf("X Gs: %f ; \n\r",(double)xgs);
+printf("Y Gs: %f ; \n\r",(double) ygs);
+printf("Z Gs: %f ; \n\r", (double)zgs);
 
 }
+
 
 float Val2Volt( float accelValue) {
 	float mv = 0;

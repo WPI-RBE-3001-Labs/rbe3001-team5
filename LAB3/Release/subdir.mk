@@ -9,6 +9,7 @@ C_SRCS += \
 ../Code_that_did_not_work.c \
 ../DAC.c \
 ../Encoder.c \
+../Kinematics.c \
 ../PID.c \
 ../SPI.c \
 ../USARTDebug.c \
@@ -24,6 +25,7 @@ OBJS += \
 ./Code_that_did_not_work.o \
 ./DAC.o \
 ./Encoder.o \
+./Kinematics.o \
 ./PID.o \
 ./SPI.o \
 ./USARTDebug.o \
@@ -39,6 +41,7 @@ C_DEPS += \
 ./Code_that_did_not_work.d \
 ./DAC.d \
 ./Encoder.d \
+./Kinematics.d \
 ./PID.d \
 ./SPI.d \
 ./USARTDebug.d \

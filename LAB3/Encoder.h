@@ -9,6 +9,10 @@
 #define ENCODER_H_
 
 
+int EncoderCounts( int __chan );
+void initEncoder();
+void resetEncoder(int __chan);
+
 
 #endif /* ENCODER_H_ */
 int EncoderCounts( int __chan );

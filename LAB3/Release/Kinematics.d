@@ -1,4 +1,4 @@
-pot.d pot.o: ../pot.c \
+Kinematics.d Kinematics.o: ../Kinematics.c \
   C:\Users\Matias\Documents\Worcester\ Polytechnic\ Institute\3Junior\ Year\C-Term\RBE3001\rbe3001-team5\RBELib\include/RBELib/RBELib.h \
   C:\Users\Matias\Documents\Worcester\ Polytechnic\ Institute\3Junior\ Year\C-Term\RBE3001\rbe3001-team5\RBELib\include/RBELib/ADC.h \
   C:\Users\Matias\Documents\Worcester\ Polytechnic\ Institute\3Junior\ Year\C-Term\RBE3001\rbe3001-team5\RBELib\include/RBELib/DAC.h \
