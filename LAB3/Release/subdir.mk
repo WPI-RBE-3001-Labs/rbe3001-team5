@@ -6,6 +6,7 @@
 C_SRCS += \
 ../ADC.c \
 ../Accel.c \
+../Code_that_did_not_work.c \
 ../DAC.c \
 ../Encoder.c \
 ../PID.c \
@@ -20,6 +21,7 @@ C_SRCS += \
 OBJS += \
 ./ADC.o \
 ./Accel.o \
+./Code_that_did_not_work.o \
 ./DAC.o \
 ./Encoder.o \
 ./PID.o \
@@ -34,6 +36,7 @@ OBJS += \
 C_DEPS += \
 ./ADC.d \
 ./Accel.d \
+./Code_that_did_not_work.d \
 ./DAC.d \
 ./Encoder.d \
 ./PID.d \

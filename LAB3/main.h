@@ -22,6 +22,7 @@ void sawtoothWave();
 void driveMotors();
 void readCurrentSense();
 void PIDarmControl();
+void ENCODER();
 
 extern struct Potentiometer{
 	int ADCVal; //the value from 0-1023
