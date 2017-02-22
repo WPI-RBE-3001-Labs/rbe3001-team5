@@ -53,8 +53,8 @@ void setConst(char link, float Kp, float Ki, float Kd){
  *
  * @todo Make a function to calculate the PID value for a link.
  */
+struct pid l;
 signed int calcPID(char link, int setPoint, int actPos){
-	struct pid l;
 	if(link == 0){
 		l = link0;
 	}else if (link == 1){
