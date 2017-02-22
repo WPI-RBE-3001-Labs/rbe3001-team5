@@ -55,6 +55,7 @@ void gotoXY(int x, int y){
 	beta = atan2(x,y);
 	gamma = acos((square(x)+square(y-L0)+square(L1)+square(L2))/(2*L1*sqrt(square(x)+square(y-L0))));
 	theta0 = beta + gamma;
+	//TODO write the motors to these positions
 }
 
 /**
