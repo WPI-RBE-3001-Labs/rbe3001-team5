@@ -31,6 +31,9 @@
 //TODO calculate this
 #define IR_TIMER 50
 
+#define IR_PORT1 3 //IR port for the first sensor
+#define IR_PORT2 4 //IR port for the second sensor
+
 void readEncoders();
 void readAccelerometer();
 
@@ -69,6 +72,6 @@ extern struct IR{
 	char port;
 	int adcVal;
 	int millimeters;
-}ir1, ir2;
+};
 
 #endif /* MAIN_H_ */
