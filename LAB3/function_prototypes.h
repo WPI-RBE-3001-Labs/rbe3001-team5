@@ -13,7 +13,6 @@
 void initPB();
 void initPA();
 void blinkAll(double timeDelay);
-int button_state();
 void part1();
 void part2();
 void part3();
