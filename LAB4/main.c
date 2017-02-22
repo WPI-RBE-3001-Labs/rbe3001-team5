@@ -39,7 +39,7 @@ int main(){
 
 //TODO finish 100 Hz Timer ISR
 unsigned int beltTimer = 0; //timing of picking up block
-ISR(TIMER0_OVF_VECTOR){
+ISR(TIMER0_OVF_vect){
 	if (beltTimer == IR_TIMER){
 		//pick up block
 	}
