@@ -10,6 +10,9 @@
  * @date July 9, 2014
  */
 
+#include "RBELib/RBELib.h"
+#include "main.h"
+
 #ifndef SETSERVO_H_
 #define SETSERVO_H_
 
