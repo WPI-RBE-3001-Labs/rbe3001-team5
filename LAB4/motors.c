@@ -47,7 +47,14 @@ void gotoAngles(int lowerTheta, int upperTheta){
  * @todo Use kinematic equations to move the end effector to the desired position.
  */
 void gotoXY(int x, int y){
-
+	double theta0;
+	double theta1;
+	theta1 = (-1) * acos((square(x) + square(y - L0) - square(L1) + square(L2))/(2 * L1 * L2));
+	double beta;
+	double gamma;
+	beta = atan2(x,y);
+	gamma = acos((square(x)+square(y-L0)+square(L1)+square(L2))/(2*L1*sqrt(square(x)+square(y-L0))));
+	theta0 = beta + gamma;
 }
 
 /**
