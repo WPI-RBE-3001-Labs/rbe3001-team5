@@ -59,6 +59,6 @@ extern struct acceleration{
 extern struct IR{
 	int adcVal;
 	int millimeters;
-};
+}ir1, ir2;
 
 #endif /* MAIN_H_ */
