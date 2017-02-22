@@ -16,6 +16,7 @@
 //#include "timers.h"
 
 //Macros for arm dimensions:
+//TODO make sure to get actual values
 #define D_BELT 8 //distance to the belt in inches
 #define W_BELT 5 //width of belt in inches
 
@@ -55,5 +56,9 @@ extern struct acceleration{
 	float zAcc;
 }acc;
 
+extern struct IR{
+	int adcVal;
+	int millimeters;
+};
 
 #endif /* MAIN_H_ */
