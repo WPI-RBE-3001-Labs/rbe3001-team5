@@ -7,11 +7,6 @@
 #include "main.h"//File containing all the includes
 #include "RBELib/RBELib.h"
 
-struct Potentiometer upperJoint = {0,0,0};
-struct Potentiometer lowerJoint = {0,0,0};
-struct IR ir1 = {IR_PORT1,0,0};
-struct IR ir2 = {IR_PORT2,0,0};
-
 unsigned char interruptToggle = 0;
 
 int main(){

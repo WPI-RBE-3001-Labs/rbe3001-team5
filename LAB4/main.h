@@ -36,6 +36,9 @@
 
 void readEncoders();
 void readAccelerometer();
+void setupIR(char port);
+int getIRValue(char port);
+int adcToMillimeters(int adc);
 
 extern struct Potentiometer{
 	int ADCVal; //the value from 0-1023
@@ -64,14 +67,27 @@ extern struct acceleration{
 	float zAcc;
 }acc;
 
-void setupIR(char port);
-int getIRValue(char port);
-int adcToMillimeters(int adc);
-
 extern struct IR{
 	char port;
 	int adcVal;
 	int millimeters;
 };
+
+extern struct pid{
+	int LAST_PROCESS_VALUE;
+	int SUM_ERROR;
+	float P_FACTOR;
+	float I_FACTOR;
+	float D_FACTOR;
+	int MAX_ERROR;
+	int MAX_SUM_ERROR;
+};
+
+struct Potentiometer upperJoint = {0,0,0};
+struct Potentiometer lowerJoint = {0,0,0};
+struct IR ir1 = {IR_PORT1,0,0};
+struct IR ir2 = {IR_PORT2,0,0};
+struct pid link1 = {0,0,0.0,0.0,0,0,0};
+struct pid link0 = {0,0,0.0,0.0,0,0,0};
 
 #endif /* MAIN_H_ */
