@@ -25,9 +25,6 @@ void stopMotors(){
  *
  * @todo Make a way to drive the links to a desired angle.
  */
-#define l0 6
-#define l1 6
-#define l2 6
 
 void gotoAngles(int lowerTheta, int upperTheta){
 //	struct coord ret = {0,0};

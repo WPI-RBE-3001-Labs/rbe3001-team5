@@ -21,9 +21,9 @@
 
 //Y distance from the optimal position to pick up the block
 //to the Y position of the first joint
-#define l0 3
-#define l1 6 //length of first moving link joint-joint
-#define l2 6 //length of second link joint to end of arm tooling origin
+#define L0 3
+#define L1 6 //length of first moving link joint-joint
+#define L2 6 //length of second link joint to end of arm tooling origin
 
 void readEncoders();
 void readAccelerometer();
