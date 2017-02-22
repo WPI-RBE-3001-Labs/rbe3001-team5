@@ -15,6 +15,16 @@
 //#include "globals.h"
 //#include "timers.h"
 
+//Macros for arm dimensions:
+#define D_BELT 8 //distance to the belt in inches
+#define W_BELT 5 //width of belt in inches
+
+//Y distance from the optimal position to pick up the block
+//to the Y position of the first joint
+#define l0 3
+#define l1 6 //length of first moving link joint-joint
+#define l2 6 //length of second link joint to end of arm tooling origin
+
 void readEncoders();
 void readAccelerometer();
 
