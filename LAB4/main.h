@@ -26,6 +26,11 @@
 #define L1 6 //length of first moving link joint-joint
 #define L2 6 //length of second link joint to end of arm tooling origin
 
+//The number of 100th's of a second it takes the block to reach the arm
+//from the time the first IR sensor sees the block
+//TODO calculate this
+#define IR_TIMER 50
+
 void readEncoders();
 void readAccelerometer();
 

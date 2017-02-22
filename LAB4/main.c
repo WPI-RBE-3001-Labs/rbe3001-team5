@@ -7,8 +7,6 @@
 #include "main.h"//File containing all the includes
 #include "RBELib/RBELib.h"
 
-float ticksToG(int ticks);
-
 struct Potentiometer upperJoint = {0,0,0};
 struct Potentiometer lowerJoint = {0,0,0};
 
@@ -23,7 +21,7 @@ int main(){
 	//initialize USART 1 for transmission to Putty
 	debugUSARTInit(115200);
 
-	//initTimer(0,0,0);
+	initTimer(0,0,0); //TODO ensure correct configuration
 
 	initSPI(); //start up the SPI
 
@@ -32,15 +30,17 @@ int main(){
 	DAC_SS = 1;
 
 	//TODO Interchange the correct part of the lab
-	readAccelerometer();
+	while(1){
+
+	} // end while(1)
 
 	return 1;
 } /* End main */
 
-void readEncoders(){
-
-	while(1){
-
-	}//end while(1)
-
-}//end readEncoders()
+//TODO finish 100 Hz Timer ISR
+unsigned int beltTimer = 0; //timing of picking up block
+ISR(TIMER0_OVF_VECTOR){
+	if (beltTimer == IR_TIMER){
+		//pick up block
+	}
+}
