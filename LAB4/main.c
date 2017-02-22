@@ -10,6 +10,8 @@
 struct Potentiometer upperJoint = {0,0,0};
 struct Potentiometer lowerJoint = {0,0,0};
 
+unsigned char interruptToggle = 0;
+
 int main(){
 	//Common setup here:
 //	nukeWDT(); //Disable Watchdog Timer
@@ -21,17 +23,26 @@ int main(){
 	//initialize USART 1 for transmission to Putty
 	debugUSARTInit(115200);
 
-	initTimer(0,0,0); //TODO ensure correct configuration
+	//TODO ensure correct timer configuration
+	initTimer(0,0,0);
 
-	initSPI(); //start up the SPI
+	//start up the SPI
+	initSPI();
 
 	//TODO Make sure that the DAC is ON/OFF properly
 	//disable DAC for doing potentiometer stuff
 	DAC_SS = 1;
 
-	//TODO Interchange the correct part of the lab
-	while(1){
+	//TODO make sure that the IR's are setup correctly
+	setupIR(3);
+	setupIR(4);
 
+	while(1){
+		if(interruptToggle){
+			//This is move the arm in real time
+
+			interruptToggle = 0;
+		}
 	} // end while(1)
 
 	return 1;
@@ -40,6 +51,7 @@ int main(){
 //TODO finish 100 Hz Timer ISR
 unsigned int beltTimer = 0; //timing of picking up block
 ISR(TIMER0_OVF_vect){
+	interruptToggle = 1;
 	if (beltTimer == IR_TIMER){
 		//pick up block
 	}

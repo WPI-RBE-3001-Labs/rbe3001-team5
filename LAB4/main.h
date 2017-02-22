@@ -61,6 +61,10 @@ extern struct acceleration{
 	float zAcc;
 }acc;
 
+void setupIR(char port);
+int getIRValue(char port);
+int adcToMillimeters(int adc);
+
 extern struct IR{
 	char port;
 	int adcVal;
