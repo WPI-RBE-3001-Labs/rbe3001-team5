@@ -57,6 +57,7 @@ extern struct acceleration{
 }acc;
 
 extern struct IR{
+	char port;
 	int adcVal;
 	int millimeters;
 }ir1, ir2;
