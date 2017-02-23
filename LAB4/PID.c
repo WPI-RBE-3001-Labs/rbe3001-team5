@@ -8,6 +8,9 @@
 #include "main.h"//File containing all the includes
 #include "RBELib/RBELib.h"
 
+struct pid link1 = {0,0,0.0,0.0,0,0,0};
+struct pid link0 = {0,0,0.0,0.0,0,0,0};
+
 /**
  * @brief Sets the Kp, Ki, and Kd values for 1 link.
  * @details to set the values, use the following style

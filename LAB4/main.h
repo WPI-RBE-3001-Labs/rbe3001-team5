@@ -83,11 +83,4 @@ extern struct pid{
 	int MAX_SUM_ERROR;
 };
 
-struct Potentiometer upperJoint = {0,0,0};
-struct Potentiometer lowerJoint = {0,0,0};
-struct IR ir1 = {IR_PORT1,0,0};
-struct IR ir2 = {IR_PORT2,0,0};
-struct pid link1 = {0,0,0.0,0.0,0,0,0};
-struct pid link0 = {0,0,0.0,0.0,0,0,0};
-
 #endif /* MAIN_H_ */
