@@ -10,20 +10,20 @@
 
 //setup IR function
 //setups up the analog IR values
-//TODO implement this - just analog read and sset the port parameter in the struct
 void setupIR(struct IR ir, char port){
 	initADC(port);
 	ir.port = port;
 }
 
 //read IR sensor, return ADC value
-//TODO implement this
 int getIRValue(char port){
 	return getADC(port);
 }
 
 //converts and IR ADC value to a distance in millimeters
-//TODO
+//TODO determine the value of these #defines
+#define IR_SCALAR 5 // the scale from IR ticks to millimeters
+#define IR_TICKS_OFFEST 300 //the offset for the number of IR ticks
 int adcToMillimeters(int adc){
-	return 0;
+	return IR_SCALAR * (adc - IR_TICKS_OFFEST);
 }
