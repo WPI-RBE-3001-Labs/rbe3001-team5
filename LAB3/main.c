@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * main.c
  *	Group 5 LAB 2

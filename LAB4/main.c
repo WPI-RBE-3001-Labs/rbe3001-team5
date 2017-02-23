@@ -48,8 +48,18 @@ int main(){
 		if(interruptToggle){
 			//This is to do stuff
 
-			//TODO sample IR's
+			//sample IR's
+			ir1.adcVal = getIRValue(ir1.port);
+			ir2.adcVal = getIRValue(ir2.port);
 
+			//Convert IR's
+			ir1.millimeters = adcToMillimeters(ir1.adcVal);
+			ir2.millimeters = adcToMillimeters(ir2.adcVal);
+
+			// Print IR Data
+			printf(" IR Distance:  ");
+			printf(" IR1: %d  \n\r", (int) ir1.millimeters);
+			printf(" IR2: %d  \n\r", (int) ir2.millimeters);
 
 			//TODO sample potentiometers
 
