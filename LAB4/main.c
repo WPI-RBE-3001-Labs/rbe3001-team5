@@ -7,7 +7,17 @@
 #include "main.h"//File containing all the includes
 #include "RBELib/RBELib.h"
 
+//macros arm switch statements
+#define HOME 0
+#define WAIT 1
+#define GRASP 2
+#define TORQUE_SENSE 3
+#define DROP_LIGHT 4
+#define DROP_HEAVY 5
+
+
 unsigned char interruptToggle = 0;
+unsigned char armPos = HOME;
 
 int main(){
 	//Common setup here:
@@ -36,7 +46,44 @@ int main(){
 
 	while(1){
 		if(interruptToggle){
-			//This is move the arm in real time
+			//This is to do stuff
+
+			//TODO sample IR's
+
+
+			//TODO sample potentiometers
+
+			//State machine for arm positions
+			switch(armPos){
+			case HOME:
+				//move arm to home
+
+				break;
+			case WAIT:
+				//move arm to wait
+
+				break;
+			case GRASP:
+				//grasp block
+
+				break;
+			case TORQUE_SENSE:
+				//torque sense
+
+				break;
+			case DROP_LIGHT:
+				//move arm to position to drop light block
+
+				break;
+			case DROP_HEAVY:
+				//move arm to position to drop heavy block
+
+				break;
+			default:
+				//This is bad
+				return 1;
+				break;
+			} //end switch(armPos)
 
 			interruptToggle = 0;
 		}
