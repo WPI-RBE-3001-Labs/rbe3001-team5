@@ -19,7 +19,7 @@ void setupIR(struct IR ir, char port){
 //read IR sensor, return ADC value
 //TODO implement this
 int getIRValue(char port){
-	return 0;
+	return getADC(port);
 }
 
 //converts and IR ADC value to a distance in millimeters
