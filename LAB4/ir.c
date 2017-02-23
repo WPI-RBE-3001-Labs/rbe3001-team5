@@ -11,8 +11,9 @@
 //setup IR function
 //setups up the analog IR values
 //TODO implement this - just analog read and sset the port parameter in the struct
-void setupIR(char port){
-
+void setupIR(struct IR ir, char port){
+	initADC(port);
+	ir.port = port;
 }
 
 //read IR sensor, return ADC value

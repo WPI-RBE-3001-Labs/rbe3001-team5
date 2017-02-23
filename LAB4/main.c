@@ -32,14 +32,13 @@ int main(){
 	DAC_SS = 1;
 
 	//TODO make sure that the IR's are setup correctly
-	setupIR(3);
-	setupIR(4);
 	struct IR ir1 = {IR_PORT1,0,0};
 	struct IR ir2 = {IR_PORT2,0,0};
+	setupIR(ir1, 3);
+	setupIR(ir2, 4);
 
 	while(1){
 		if(interruptToggle){
-			//This is to do stuff
 
 			//sample IR's
 			ir1.adcVal = getIRValue(ir1.port);
@@ -89,7 +88,10 @@ int main(){
 			} //end switch(armPos)
 
 			interruptToggle = 0;
-		}
+		}// end if
+
+		//do nothing between interrupts
+
 	} // end while(1)
 
 	return 1;

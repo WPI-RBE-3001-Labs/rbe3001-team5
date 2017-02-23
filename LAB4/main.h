@@ -42,12 +42,6 @@
 #define DROP_LIGHT 4
 #define DROP_HEAVY 5
 
-void readEncoders();
-void readAccelerometer();
-void setupIR(char port);
-int getIRValue(char port);
-int adcToMillimeters(int adc);
-
 extern struct Potentiometer{
 	int ADCVal; //the value from 0-1023
 	int voltage; //the analog voltage from 0 to 5V
@@ -90,5 +84,11 @@ extern struct pid{
 	int MAX_ERROR;
 	int MAX_SUM_ERROR;
 };
+
+void readEncoders();
+void readAccelerometer();
+void setupIR(struct IR ir, char port);
+int getIRValue(char port);
+int adcToMillimeters(int adc);
 
 #endif /* MAIN_H_ */
