@@ -7,21 +7,12 @@
 #include "main.h"//File containing all the includes
 #include "RBELib/RBELib.h"
 
-//macros arm switch statements
-#define HOME 0
-#define WAIT 1
-#define GRASP 2
-#define TORQUE_SENSE 3
-#define DROP_LIGHT 4
-#define DROP_HEAVY 5
-
-
 unsigned char interruptToggle = 0;
 unsigned char armPos = HOME;
 
 int main(){
 	//Common setup here:
-//	nukeWDT(); //Disable Watchdog Timer
+	//	nukeWDT(); //Disable Watchdog Timer
 
 	sei(); // Enable Global Interrupts
 
@@ -43,6 +34,8 @@ int main(){
 	//TODO make sure that the IR's are setup correctly
 	setupIR(3);
 	setupIR(4);
+	struct IR ir1 = {IR_PORT1,0,0};
+	struct IR ir2 = {IR_PORT2,0,0};
 
 	while(1){
 		if(interruptToggle){

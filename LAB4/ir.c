@@ -8,10 +8,6 @@
 #include "RBELib/RBELib.h"
 #include "main.h"
 
-struct IR ir1 = {IR_PORT1,0,0};
-struct IR ir2 = {IR_PORT2,0,0};
-
-
 //setup IR function
 //setups up the analog IR values
 //TODO implement this - just analog read and sset the port parameter in the struct

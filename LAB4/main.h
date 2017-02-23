@@ -34,6 +34,14 @@
 #define IR_PORT1 3 //IR port for the first sensor
 #define IR_PORT2 4 //IR port for the second sensor
 
+//macros arm switch statements
+#define HOME 0
+#define WAIT 1
+#define GRASP 2
+#define TORQUE_SENSE 3
+#define DROP_LIGHT 4
+#define DROP_HEAVY 5
+
 void readEncoders();
 void readAccelerometer();
 void setupIR(char port);
