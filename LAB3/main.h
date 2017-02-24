@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /*
  * main.h
  *
@@ -48,7 +48,7 @@ extern struct acceleration{
 
 
 #endif /* MAIN_H_ */
-=======
+
 /*
  * main.h
  *
@@ -95,4 +95,4 @@ extern struct coord{
 };
 
 #endif /* MAIN_H_ */
->>>>>>> 15dff2f92fe738ae57b2acaf38f964bd09b63238
+
