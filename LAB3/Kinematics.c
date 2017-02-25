@@ -26,7 +26,7 @@ int angleToADCLow(int angle){
 int angleToADCHigh(int angle){
 	// Takes in angle and returns adc value for higher link 0-180
 	//double offsetadclow = angle + offSetlow ;
-	double adchigh =  ( angle * adctoanglehigh)+ offSethigh;
+	double adchigh =  (angle * adctoanglehigh)+ offSethigh;
 
 	return adchigh;
 }
@@ -45,7 +45,7 @@ case 'H':
 		long pidNum = calcPID('H', setPoint, getADC(3));
 		//printf("H \n\r");
 		//printf(" ADC: %d,Set: %d",getADC(3),setPoint);
-		//printf(" PId: %ld, \n\r",pidNum);
+		//printf(" MotorPower: %ld, \n\r",pidNum);
 		if (pidNum >= 0){
 			setDAC(2, pidNum);
 			setDAC(3, 0);
@@ -66,7 +66,7 @@ case 'L':
 		long pidNum = calcPID('L', setPoint, getADC(2));
 		//printf("L \n\r");
 		//printf(" ADC: %d,Set: %d",getADC(2),setPoint);
-		//printf(" PId: %ld, \n\r",pidNum);
+		//printf(" MotorPower: %ld, \n\r",pidNum);
 		if (pidNum >= 0)		{
 			setDAC(0, 0);
 			setDAC(1, pidNum);

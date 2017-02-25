@@ -76,6 +76,9 @@ void readCurrentSense();
 void PIDarmControl();
 void ENCODER();
 void button_move();
+int angleToPot(char link, double angle);
+
+int angleToPot(char link, int angle);
 
 extern struct Potentiometer{
 	int ADCVal; //the value from 0-1023

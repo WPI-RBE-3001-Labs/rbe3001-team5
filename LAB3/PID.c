@@ -31,11 +31,12 @@ typedef struct pid{
  * @todo Create a function to the the PID constants for a given link.
  */
 void setConst(char link, float Kp, float Ki, float Kd){
-	if (link == 0){
+	if (link == 'H'){
 		link0.P_FACTOR = Kp;
 		link0.I_FACTOR = Ki;
 		link0.D_FACTOR = Kd;
-	}else if(link == 1){
+
+	}else if(link == 'L'){
 		link1.P_FACTOR = Kp;
 		link1.I_FACTOR = Ki;
 		link1.D_FACTOR = Kd;
@@ -55,9 +56,9 @@ void setConst(char link, float Kp, float Ki, float Kd){
  */
 signed int calcPID(char link, int setPoint, int actPos){
 	struct pid l;
-	if(link == 0){
+	if(link == 'H'){
 		l = link0;
-	}else if (link == 1){
+	}else if (link == 'L'){
 		l = link1;
 	}
 	int velocity = actPos - l.LAST_PROCESS_VALUE;
@@ -66,6 +67,10 @@ signed int calcPID(char link, int setPoint, int actPos){
 	int proportion = setPoint - actPos;
 	if(proportion < l.MAX_ERROR && (proportion + l.SUM_ERROR) < l.MAX_SUM_ERROR)
 		l.SUM_ERROR += proportion;
+
+	printf(" link: %c, \n\r",link);
+	printf(" setpoint: %d, \n\r",setPoint);
+	printf(" actpos: %d, \n\r", actPos);
 
 	return (proportion * l.P_FACTOR) + (velocity * l.D_FACTOR) + (l.SUM_ERROR * l.I_FACTOR);
 

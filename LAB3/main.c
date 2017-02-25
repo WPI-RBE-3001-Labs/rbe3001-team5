@@ -130,28 +130,63 @@ volatile int lowSetP;
 volatile int count = 0;
 volatile int sample_flag = 0;
 int maxCount = 1000;
+int potHZero = 645;
+int potLZero = 645;
+int hAngle = 30;
+int lAngle = 30;
+
+int angleToPot(char link, double angle) {
+	int pot;
+	// 240: 90, 645: 0
+	if(link == 'H') {
+		pot = (int)((((90 - angle) * 405)/90) + (potHZero-405));
+		return pot;
+	}
+	// 190: 90, 580: 0
+	if(link == 'L'){
+		pot = (int)((((90 - angle) * 390)/90) + (potLZero-390));
+		return pot;
+	}
+	return 645;
+}
 
 int main(){
 	//Common setup here:
-	//nukeWDT(); //Disable Watchdog Timer
-	sei(); // Enable Global Interrupts
+
+
 	initRBELib();//Enable printf() and setServo()
 	debugUSARTInit(115200);//initialize USART 1 for transmission to Putty
 	initTimer(0,0,0);
 	initADC(0);
 
-	printf("TEST \n\r");
+
 	initSPI();
 	initEncoder();
 
-	setConst('H',20.0,0.01,0.1);
-	setConst('L',20.0,0.01,0.1);
+	setConst('H',25.0,0.1, -0.1);
+	setConst('L',25.0,0.1, -0.1);
 
 
+	potHZero = getADC(Arm1ADCPort);
+	potLZero = getADC(Arm0ADCPort);
+
+	sei(); // Enable Global Interrupts
 	//TODO Interchange the correct part of the lab
+
 	while(1){
 
+		hAngle = 30;
+		lAngle = 30;
+
+		_delay_ms(10);
+
+		hAngle = 0;
+		lAngle = 0;
+
+		_delay_ms(10);
 	}
+
+
 
 	//	int cnt = 0;
 	//	while(1) {
@@ -187,8 +222,8 @@ ISR(TIMER0_OVF_vect) {//Sets sampling Rate and Updates PID
 		{
 			// updatePIDLink('H',calcPID('H',90,getADC(2)));
 			// updatePIDLink('L',calcPID('L',90,getADC(3)));
-			updatePIDLink('H',highSetP);
-			updatePIDLink('L',lowSetP);
+			updatePIDLink('H', angleToPot('H', hAngle));
+			updatePIDLink('L', angleToPot('L', lAngle));
 			test_accel();
 			logPot2();
 			ENCODER();
@@ -198,8 +233,6 @@ ISR(TIMER0_OVF_vect) {//Sets sampling Rate and Updates PID
 
 		}
 	}
-
-
 }
 
 //Code Written by Calum to read the Encoders
@@ -249,12 +282,8 @@ void button_move(){
 		switch(buttonState){
 
 		case 4:
-			lowSetP=angleToADCLow(90);
-			highSetP=angleToADCHigh(0);
-			resetEncoder(0);
-			resetEncoder(1);
-			cnt1 = 0;
-			cnt1 = 0;
+			potHZero = getADC(Arm1ADCPort);
+			potLZero = getADC(Arm0ADCPort);
 			break;
 		case 5:
 			lowSetP=angleToADCLow(-60);
@@ -293,4 +322,6 @@ void logPot2(){
 			printf(" Lower Joint Angle: %d \n\r", (int) lowerJoint.angle);
 
 }
+
+
 
