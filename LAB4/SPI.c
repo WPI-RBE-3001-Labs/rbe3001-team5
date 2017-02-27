@@ -16,6 +16,13 @@
  * of your SS lines!
  */
 void initSPI(){
+	DDRDbits._P7 = OUTPUT;
+	PORTDbits._P7 = HIGH;
+	SPI_MOSI_DDR = OUTPUT;
+	SPI_MISO_DDR = INPUT;
+	SPI_SCK_DDR = OUTPUT;
+	SPI_MASTER_SS = HIGH;
+	DAC_SS_ddr = OUTPUT;
 	//SPI Control Register 0
 	SPCR = (0 << SPIE)| //Disable SPI interrupt
 			(1 << SPE)| //enable SPI 0

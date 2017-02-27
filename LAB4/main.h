@@ -9,16 +9,19 @@
 #define MAIN_H_
 
 #include "RBELib/RBELib.h" //RBELib
-#include "function_prototypes.h"
 #include "avr/io.h"
 #include <math.h>
-//#include "globals.h"
-//#include "timers.h"
+#include "Encoder.h"
+#include "Accel.h"
+#include "Kinematics.h"
+#include "IR.h"
+#include "potfunc.h"
 
 //Macros for arm dimensions:
 //TODO make sure to get actual values
 #define D_BELT 8 //distance to the belt in inches
 #define W_BELT 5 //width of belt in inches
+#define PORT_OUTPUT 0xFF
 
 //Y distance from the optimal position to pick up the block
 //to the Y position of the first joint
@@ -42,12 +45,6 @@
 #define DROP_LIGHT 4
 #define DROP_HEAVY 5
 
-extern struct Potentiometer{
-	int ADCVal; //the value from 0-1023
-	int voltage; //the analog voltage from 0 to 5V
-	int angle; //the angle of the potentiometer form 0-270 degrees
-};
-
 extern struct Current{
 	int ADCVal;
 	float voltage;
@@ -69,12 +66,6 @@ extern struct acceleration{
 	float zAcc;
 }acc;
 
-extern struct IR{
-	char port;
-	int adcVal;
-	int millimeters;
-};
-
 extern struct pid{
 	int LAST_PROCESS_VALUE;
 	int SUM_ERROR;
@@ -87,8 +78,6 @@ extern struct pid{
 
 void readEncoders();
 void readAccelerometer();
-void setupIR(struct IR ir, char port);
-int getIRValue(char port);
-int adcToMillimeters(int adc);
+void nukeWDT();
 
 #endif /* MAIN_H_ */

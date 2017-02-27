@@ -11,9 +11,6 @@
 #define TICKS_TO_MILLIVOLTS 2.169 //
 #define TICKS_TO_DEGREE 4.411 //
 
-struct Potentiometer upperJoint = {0,0,0};
-struct Potentiometer lowerJoint = {0,0,0};
-
 /**
  * @brief Find the angle of the given potentiometer.
  * @param  pot The pot to check.
@@ -38,3 +35,4 @@ int potAngle(int pot){
 int potVolts(int pot){
 	return (int)(pot * TICKS_TO_MILLIVOLTS + MILLIVOLT_OFFSET);
 }
+

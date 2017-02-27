@@ -15,6 +15,24 @@ void setupIR(struct IR ir, char port){
 	ir.port = port;
 }
 
+
+void sampleIR(struct IR ir1, struct IR ir2){
+
+	//sample IR's
+		ir1.adcVal = getIRValue(ir1.port);
+		ir2.adcVal = getIRValue(ir2.port);
+
+		//Convert IR's
+		ir1.millimeters = adcToMillimeters(ir1.adcVal);
+		ir2.millimeters = adcToMillimeters(ir2.adcVal);
+
+		// Print IR Data
+		printf(" IR Distance:  ");
+		printf(" IR1: %d  \n\r", (int) ir1.millimeters);
+		printf(" IR2: %d  \n\r", (int) ir2.millimeters);
+
+}
+
 //read IR sensor, return ADC value
 int getIRValue(char port){
 	return getADC(port);
