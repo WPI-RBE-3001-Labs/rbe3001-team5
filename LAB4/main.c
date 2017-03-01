@@ -20,6 +20,7 @@ volatile double grasptime2 = 0;
 volatile double graspval = 460;
 volatile double graspval2 = 550;
 volatile double graspval3 = 575;
+volatile double massval = 850;
 volatile int count = 0;
 volatile int sample_flag = 0;
 volatile int WAIT_timer = 0;
@@ -27,6 +28,8 @@ volatile int grasp_time = 0;
 volatile int GOGETIT = 0;
 volatile int GOGETIT2 = 0;
 volatile int GOGETIT3 = 0;
+volatile int MASSIT = 0;
+
 long int count2 = 0;
 int maxCount = 1000;
 int hAngle = 0;
@@ -74,7 +77,7 @@ int treshold_distance = 200;
 int distance = 0;
 
 int grasp_flag = 0;
-
+volatile int distance2block;
 
 int main(){
 	//Common setup here:
@@ -110,6 +113,9 @@ int main(){
 	printf("InitComplete");
 	setServo(5,10);
 
+	double xyangleh = 0;
+	double xyanglel = 0;
+
 	while(1){
 		if(sample_flag){
 			//State machine for arm positions
@@ -133,7 +139,6 @@ int main(){
 
 			case WAIT://Waits for the block to get to Griping position
 				printf("State: WAIT \n\r");
-				int distance2block;
 				distance2block = getIRValue(4);
 				printf("%d", distance2block);
 				if(distance2block <= treshold_distance){
@@ -149,14 +154,20 @@ int main(){
 			case GRASP: //grasp block
 				printf("GRASP \n\r");
 				grasp_flag = 1;
+				int xDist = D_BELT + (W_BELT / 2) + distance2block;
+				xyangleh = getLowerAngle(xDist, 20);
+				xyanglel = getUpperAngle(xDist, 20);
+				printf("X distance: %d  ", xDist);
+				printf("H Angle: %f  ", (double)xyangleh);
+				printf("L Angle: %f  ", (double)xyanglel);
 				if(!GOGETIT){
 				lowSetP=angleToADCLow(45);
 				highSetP=angleToADCHigh(45);
 
 				}
 				else if(!GOGETIT2){
-				lowSetP=angleToADCLow(15);
-				highSetP=angleToADCHigh(15);
+				lowSetP=angleToADCLow(xyangleh);
+				highSetP=angleToADCHigh(xyanglel);
 
 				}
 				else if (!GOGETIT3)
@@ -171,6 +182,7 @@ int main(){
 				printf("WHICH_MASS \n\r");
 				lowSetP=angleToADCLow(45);
 				highSetP=angleToADCHigh(45);
+				if(!MASSIT){
 				current = getCurrent('L');
 				if (current >= low_treshold && current<= high_treshold){
 					armPos = DROP_LIGHT;
@@ -183,6 +195,7 @@ int main(){
 				else{
 					printf("NONE \n\r");
 					}
+				}
 
 				break;
 
@@ -242,6 +255,11 @@ ISR(TIMER0_OVF_vect)
 	}
 	if(grasptime >= graspval3){
 		GOGETIT3 = 1;
+		grasp_flag = 0;
+		grasptime = 0;
+	}
+	if(grasptime >= massval){
+		MASSIT = 1;
 		grasp_flag = 0;
 		grasptime = 0;
 	}
@@ -376,4 +394,38 @@ case 'L':
 	}
 	break;
 	}
+}
+
+double getUpperAngle(int x, int y){
+//	double theta1 = 0.0;
+//	theta1 = -1.0 * acos((double)(square(x) + square(((double)y - L0)) - square(L1) + square(L2))/(((double)2 * L1 * L2)));
+//	theta1 = theta1 / 3.141596 * 180.0;
+	double theta1;
+	double c2 = ((double)((y + L0) * (y + L0) + x * x - L1 * L1 - L2 * L2))/((double)(2 * L1 * L2));
+	double s2 = sqrt(1 - (c2*c2));
+	theta1 = atan2(s2,c2);
+	theta1 *= (180/M_PI);
+	return 0 - theta1;
+}
+
+double getLowerAngle(int x, int y){
+//	double theta0 = 0.0;
+//	double beta = 0.0;
+//	double gamma = 0.0;
+//	beta = atan2(x,y);
+//	gamma = acos((square(x)+square(y-L0)+square(L1)+square(L2))/(2*L1*sqrt(square(x)+square(y-L0))));
+//	theta0 = beta + gamma;
+//	theta0 = theta0 / 3.141596 * 180.0;
+	double theta0;
+	double c2 = ((y + L0) * (y + L0) + x * x - L1 * L1 - L2 * L2)/((double)(2 * L1 * L2));
+	double s2 = sqrt(1 - (c2*c2));
+	double k1 = L1 + (L2 * c2);
+	double k2 = L2*s2;
+
+	double atanPart1 = atan2(y + L0,x);
+	double atanPart2 = atan2(k1,k2);
+
+	theta0 = -1*(atanPart1-atanPart2);
+	theta0 *= (180/M_PI);
+	return 0 - theta0;
 }

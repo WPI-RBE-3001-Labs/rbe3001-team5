@@ -21,15 +21,15 @@
 
 //Macros for arm dimensions:
 //TODO make sure to get actual values
-#define D_BELT 8 //distance to the belt in inches
-#define W_BELT 5 //width of belt in inches
+#define D_BELT 178 //distance to the belt in millimeters
+#define W_BELT 89 //width of belt in inches
 #define PORT_OUTPUT 0xFF
 
 //Y distance from the optimal position to pick up the block
 //to the Y position of the first joint
-#define L0 3
-#define L1 6 //length of first moving link joint-joint
-#define L2 6 //length of second link joint to end of arm tooling origin
+#define L0 20
+#define L1 150 //length of first moving link joint-joint
+#define L2 150 //length of second link joint to end of arm tooling origin
 
 //The number of 100th's of a second it takes the block to reach the arm
 //from the time the first IR sensor sees the block
@@ -82,6 +82,7 @@ void readEncoders();
 void readAccelerometer();
 void nukeWDT();
 void button_move();
-
+double getUpperAngle(int x, int y);
+double getLowerAngle(int x, int y);
 
 #endif /* MAIN_H_ */
