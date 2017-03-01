@@ -28,20 +28,22 @@ void sampleIR(struct IR ir1, struct IR ir2){
 
 		// Print IR Data
 		printf(" IR Distance:  ");
-		printf(" IR1: %d  \n\r", (int) ir1.millimeters);
+    	//printf(" IR1: %d  \n\r", (int) ir1.millimeters);
 		printf(" IR2: %d  \n\r", (int) ir2.millimeters);
+
 
 }
 
 //read IR sensor, return ADC value
 int getIRValue(char port){
-	return getADC(port);
+	int irADCval = getADC(port);
+	int irmm = adcToMillimeters(irADCval);
+	return irmm;
 }
 
 //converts and IR ADC value to a distance in millimeters
-//TODO determine the value of these #defines
-#define IR_SCALAR 5 // the scale from IR ticks to millimeters
-#define IR_TICKS_OFFEST 300 //the offset for the number of IR ticks
+#define IR_SCALAR 0.3546 // the scale from IR ticks to millimeters
+#define IR_TICKS_OFFEST 289 //the offset for the number of IR ticks
 int adcToMillimeters(int adc){
-	return IR_SCALAR * (adc - IR_TICKS_OFFEST);
+	return  ((int)IR_TICKS_OFFEST - ((float)(IR_SCALAR * adc)));
 }

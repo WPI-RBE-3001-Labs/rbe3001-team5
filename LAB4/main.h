@@ -16,6 +16,8 @@
 #include "Kinematics.h"
 #include "IR.h"
 #include "potfunc.h"
+#include "currentsense.h"
+
 
 //Macros for arm dimensions:
 //TODO make sure to get actual values
@@ -41,7 +43,7 @@
 #define HOME 0
 #define WAIT 1
 #define GRASP 2
-#define TORQUE_SENSE 3
+#define WHICH_MASS 3
 #define DROP_LIGHT 4
 #define DROP_HEAVY 5
 
@@ -79,5 +81,7 @@ extern struct pid{
 void readEncoders();
 void readAccelerometer();
 void nukeWDT();
+void button_move();
+
 
 #endif /* MAIN_H_ */

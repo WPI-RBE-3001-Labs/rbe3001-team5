@@ -14,25 +14,6 @@
 struct Potentiometer upperJoint = {0,0,0};
 struct Potentiometer lowerJoint = {0,0,0};
 
-int potHZero = 645;
-int potLZero = 645;
-
-
-int angleToPot(char link, double angle) {
-	int pot;
-	// 240: 90, 645: 0
-	if(link == 'H') {
-		pot = (int)((((90 - angle) * 405)/90) + (potHZero-405));
-		return pot;
-	}
-	// 190: 90, 580: 0
-	if(link == 'L'){
-		pot = (int)((((90 - angle) * 390)/90) + (potLZero-390));
-		return pot;
-	}
-	return 645;
-}
-
 
 void samplePot(struct Potentiometer upperJoint, struct Potentiometer lowerjoint){
 			//read pot value for upper and lower joints

@@ -1,16 +1,12 @@
 /*
  * PID.c
  *
- *  Created on: Jan 30, 2017
- *      Author: Matt
+ *  Created on: Aug 24, 2016
+ *      Author: joest
  */
 
-#include "main.h"//File containing all the includes
-#include "RBELib/RBELib.h"
 
-struct pid link1 = {0,0,0.0,0.0,0,0,0};
-struct pid link0 = {0,0,0.0,0.0,0,0,0};
-
+#include "RBELib\RBELib.h"
 /**
  * @brief Sets the Kp, Ki, and Kd values for 1 link.
  * @details to set the values, use the following style
@@ -22,44 +18,70 @@ struct pid link0 = {0,0,0.0,0.0,0,0,0};
  *
  * @todo Create a function to the the PID constants for a given link.
  */
-void setConst(char link, float Kp, float Ki, float Kd){
-	if (link == 0){
-		link0.P_FACTOR = Kp;
-		link0.I_FACTOR = Ki;
-		link0.D_FACTOR = Kd;
-	}else if(link == 1){
-		link1.P_FACTOR = Kp;
-		link1.I_FACTOR = Ki;
-		link1.D_FACTOR = Kd;
-	}else{
-		//eh
+//long pidErrorSum = 0;
+long pidLastError_L = 0;
+long pidPrevLastError_L = 0;
+long pidLastError_H = 0;
+long pidPrevLastError_H = 0;
+long pidPrev_L = 0;
+long pidPrev_H = 0;
+float pidTd_H = 0;
+float pidTi_inv_H = 0;
+float pidTd_L = 0;
+float pidTi_inv_L = 0;
+pidConst pidConsts;
+void setConst(char link, float Kp, float Ki, float Kd)
+{
+	switch(link)
+	{
+	case 'H':
+		pidConsts.Kp_H = Kp;
+		pidConsts.Ki_H = Ki;
+		pidConsts.Kd_H = Kp;
+		pidTd_H = Kd / Kp;
+		pidTi_inv_H = (Ki / Kp);
+		break;
+	case 'L':
+		pidConsts.Kp_L = Kp;
+		pidConsts.Ki_L = Ki;
+		pidConsts.Kd_L = Kd;
+		pidTd_L = Kd / Kp;
+		pidTi_inv_L = (Ki / Kp);
+		break;
 	}
 
 }
 
 /**
  * @brief Calculate the PID value.
- * @param  link Which link to calculate the error for (Use 'U' and 'L').
+ * @param  link Which link to calculate the error for (Use 'H' and 'L').
  * @param setPoint The desired position of the link.
  * @param actPos The current position of the link.
  *
  * @todo Make a function to calculate the PID value for a link.
  */
-struct pid l;
-signed int calcPID(char link, int setPoint, int actPos){
-	if(link == 0){
-		l = link0;
-	}else if (link == 1){
-		l = link1;
+signed int calcPID(char link, int setPoint, int actPos)
+{
+	long error = actPos - setPoint;
+	long pidValue = 0;
+	if (link == 'L')
+	{
+		pidValue = pidPrev_L + pidConsts.Kp_L * ((1 + pidTi_inv_L + pidTd_L) * error  + (-1 - 2 * pidTd_L) * pidLastError_L + pidTd_L * pidPrevLastError_L);
+		pidPrev_L = pidValue;
+		pidPrevLastError_L = pidLastError_L;
+		pidLastError_L = error;
+
+
 	}
-	int velocity = actPos - l.LAST_PROCESS_VALUE;
-	l.LAST_PROCESS_VALUE = actPos;
-
-	int proportion = setPoint - actPos;
-	if(proportion < l.MAX_ERROR && (proportion + l.SUM_ERROR) < l.MAX_SUM_ERROR)
-		l.SUM_ERROR += proportion;
-
-	return (proportion * l.P_FACTOR) + (velocity * l.D_FACTOR) + (l.SUM_ERROR * l.I_FACTOR);
-
+	else
+	{
+		pidValue = pidPrev_H + pidConsts.Kp_H * ((1 + pidTi_inv_H + pidTd_H) * error  + (-1 - 2 * pidTd_H) * pidLastError_H + pidTd_H * pidPrevLastError_H);
+		pidPrev_H = pidValue;
+		pidPrevLastError_H = pidLastError_H;
+		pidLastError_H = error;
+	}
+	if(pidValue>4000) pidValue=4000;
+	if(pidValue<-4000) pidValue=-4000;
+	return pidValue;
 }
 
