@@ -7,6 +7,7 @@
 
 #include "main.h"//File containing all the includes
 #include "RBELib/RBELib.h"
+#include "stdlib.h"
 
 unsigned char interruptToggle = 0;
 unsigned char armPos = HOME;
@@ -20,7 +21,7 @@ volatile double grasptime2 = 0;
 volatile double graspval = 460;
 volatile double graspval2 = 550;
 volatile double graspval3 = 575;
-volatile double massval = 850;
+volatile double massval = 700;
 volatile int count = 0;
 volatile int sample_flag = 0;
 volatile int WAIT_timer = 0;
@@ -73,7 +74,7 @@ float low_treshold = 250;
 float treshold = 350;
 float current = 0;
 
-int treshold_distance = 200;
+int treshold_distance = 150;
 int distance = 0;
 
 int grasp_flag = 0;
@@ -154,20 +155,20 @@ int main(){
 			case GRASP: //grasp block
 				printf("GRASP \n\r");
 				grasp_flag = 1;
-				int xDist = D_BELT + (W_BELT / 2) + distance2block;
+				int xDist = D_BELT  - distance2block + 170;
 				xyangleh = getLowerAngle(xDist, 20);
 				xyanglel = getUpperAngle(xDist, 20);
-				printf("X distance: %d  ", xDist);
-				printf("H Angle: %f  ", (double)xyangleh);
-				printf("L Angle: %f  ", (double)xyanglel);
+//				printf("X distance: %d  ", xDist);
+//				printf("H Angle: %f  ", (double)xyangleh);
+//				printf("L Angle: %f  ", (double)xyanglel);
 				if(!GOGETIT){
-				lowSetP=angleToADCLow(45);
-				highSetP=angleToADCHigh(45);
+				lowSetP=angleToADCLow(35);
+				highSetP=angleToADCHigh(35);
 
 				}
 				else if(!GOGETIT2){
-				lowSetP=angleToADCLow(xyangleh);
-				highSetP=angleToADCHigh(xyanglel);
+				lowSetP=angleToADCLow(12);
+				highSetP=angleToADCHigh(15);
 
 				}
 				else if (!GOGETIT3)
@@ -182,31 +183,35 @@ int main(){
 				printf("WHICH_MASS \n\r");
 				lowSetP=angleToADCLow(45);
 				highSetP=angleToADCHigh(45);
-				if(!MASSIT){
-				current = getCurrent('L');
-				if (current >= low_treshold && current<= high_treshold){
+				current = getCurrent('H');
+				printf("Current: %f \n\r", (double)current);
+				if(MASSIT){
+				if (abs(current)<= 220){
 					armPos = DROP_LIGHT;
+
 					printf("Light Weight \n\r");
 					}
-				else if(current >= treshold){
-					armPos = DROP_HEAVY;
-				    printf("Heavy Weight \n\r");
-				}
 				else{
-					printf("NONE \n\r");
-					}
+					armPos = DROP_HEAVY;
+
+				    printf("Heavy Weight \n\r");
 				}
 
 				break;
+				}
 
 			case DROP_LIGHT:
 				//move arm to position to drop light block
 				 printf("DROP_LIGHT \n\r");
+					lowSetP=angleToADCLow(90);
+					highSetP=angleToADCHigh(0);
 				break;
 
 			case DROP_HEAVY:
 				//move arm to position to drop heavy block
 				 printf("DROP_HEAVY \n\r");
+					lowSetP=angleToADCLow(0);
+							highSetP=angleToADCHigh(90);
 				break;
 
 			default:
@@ -255,8 +260,6 @@ ISR(TIMER0_OVF_vect)
 	}
 	if(grasptime >= graspval3){
 		GOGETIT3 = 1;
-		grasp_flag = 0;
-		grasptime = 0;
 	}
 	if(grasptime >= massval){
 		MASSIT = 1;
@@ -405,7 +408,8 @@ double getUpperAngle(int x, int y){
 	double s2 = sqrt(1 - (c2*c2));
 	theta1 = atan2(s2,c2);
 	theta1 *= (180/M_PI);
-	return 0 - theta1;
+	theta1 += 10; //offset to try to get it to work
+	return theta1;
 }
 
 double getLowerAngle(int x, int y){
@@ -416,7 +420,7 @@ double getLowerAngle(int x, int y){
 //	gamma = acos((square(x)+square(y-L0)+square(L1)+square(L2))/(2*L1*sqrt(square(x)+square(y-L0))));
 //	theta0 = beta + gamma;
 //	theta0 = theta0 / 3.141596 * 180.0;
-	double theta0;
+	//double theta0;
 	double c2 = ((y + L0) * (y + L0) + x * x - L1 * L1 - L2 * L2)/((double)(2 * L1 * L2));
 	double s2 = sqrt(1 - (c2*c2));
 	double k1 = L1 + (L2 * c2);
@@ -425,7 +429,8 @@ double getLowerAngle(int x, int y){
 	double atanPart1 = atan2(y + L0,x);
 	double atanPart2 = atan2(k1,k2);
 
-	theta0 = -1*(atanPart1-atanPart2);
+	double theta0 = -1*(atanPart1-atanPart2);
 	theta0 *= (180/M_PI);
+	//theta0 += 10; //manual offset
 	return 0 - theta0;
 }
